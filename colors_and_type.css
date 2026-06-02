@@ -1,0 +1,96 @@
+/* =====================================================================
+   동아대학교 홈페이지 리뉴얼 — Color & Type Foundations
+   Point color: #006ee9
+   Display: Paperlogy (대담한 제목)  /  Body·UI: Pretendard
+   ===================================================================== */
+
+/* ---- Pretendard (body / UI) ---- */
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.css");
+
+/* ---- Oswald (English display — D 시안) ---- */
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&display=swap");
+
+/* ---- Paperlogy (display / headings) ---- */
+@font-face { font-family:'Paperlogy'; font-weight:300; font-style:normal; font-display:swap;
+  src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-3Light.woff2') format('woff2'); }
+@font-face { font-family:'Paperlogy'; font-weight:400; font-style:normal; font-display:swap;
+  src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-4Regular.woff2') format('woff2'); }
+@font-face { font-family:'Paperlogy'; font-weight:500; font-style:normal; font-display:swap;
+  src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-5Medium.woff2') format('woff2'); }
+@font-face { font-family:'Paperlogy'; font-weight:600; font-style:normal; font-display:swap;
+  src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-6SemiBold.woff2') format('woff2'); }
+@font-face { font-family:'Paperlogy'; font-weight:700; font-style:normal; font-display:swap;
+  src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-7Bold.woff2') format('woff2'); }
+@font-face { font-family:'Paperlogy'; font-weight:800; font-style:normal; font-display:swap;
+  src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-8ExtraBold.woff2') format('woff2'); }
+@font-face { font-family:'Paperlogy'; font-weight:900; font-style:normal; font-display:swap;
+  src:url('https://fastly.jsdelivr.net/gh/projectnoonnu/2408-3@1.0/Paperlogy-9Black.woff2') format('woff2'); }
+
+:root{
+  /* ---------- POINT (brand blue) ---------- */
+  --blue-50:#eaf3ff;
+  --blue-100:#cfe2ff;
+  --blue-200:#a6caff;
+  --blue-300:#6ba8ff;
+  --blue-400:#2f88f7;
+  --blue-500:#006ee9;   /* ← POINT COLOR */
+  --blue-600:#0057c2;
+  --blue-700:#004399;
+  --blue-800:#003275;
+  --blue-900:#001f4d;
+  --point:#006ee9;
+  --point-strong:#0057c2;
+
+  /* ---------- INK / NEUTRALS ---------- */
+  --ink:#0b1530;        /* near-black navy, primary text */
+  --ink-2:#1d2944;
+  --fg-1:#0b1530;       /* primary foreground */
+  --fg-2:#48526a;       /* secondary text */
+  --fg-3:#7b8499;       /* tertiary / captions */
+  --fg-inv:#ffffff;
+  --line:#e6e9f0;       /* hairline border */
+  --line-2:#d3d8e3;
+  --bg:#ffffff;
+  --bg-soft:#f5f7fb;    /* page tint */
+  --bg-navy:#071029;    /* dark section */
+
+  /* ---------- ACCENT (energy) ---------- */
+  --cyan:#00c2ff;       /* electric edge, used sparingly in motion */
+  --gold:#ffc24b;       /* warm highlight for badges */
+
+  /* ---------- TYPE FAMILIES ---------- */
+  --font-display:'Paperlogy','Pretendard Variable',sans-serif;
+  --font-body:'Pretendard Variable','Pretendard',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --font-en:'Oswald','Paperlogy',sans-serif;
+
+  /* ---------- TYPE SCALE (semantic) ---------- */
+  --t-mega:clamp(46px,7.4vw,120px);   /* hero display */
+  --t-h1:clamp(34px,5vw,72px);
+  --t-h2:clamp(28px,3.4vw,48px);
+  --t-h3:clamp(20px,2vw,28px);
+  --t-h4:18px;
+  --t-body:16px;
+  --t-sm:14px;
+  --t-xs:12px;
+
+  /* ---------- RADIUS / SHADOW / SPACE ---------- */
+  --r-sm:8px;
+  --r-md:14px;
+  --r-lg:22px;
+  --r-xl:32px;
+  --r-pill:999px;
+  --sh-1:0 1px 2px rgba(11,21,48,.06), 0 2px 8px rgba(11,21,48,.05);
+  --sh-2:0 6px 20px rgba(11,21,48,.08), 0 1px 4px rgba(11,21,48,.05);
+  --sh-3:0 18px 48px rgba(11,21,48,.14);
+  --sh-blue:0 16px 40px rgba(0,110,233,.30);
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-spring:cubic-bezier(.34,1.56,.64,1);
+}
+
+/* ---------- semantic element defaults (optional helpers) ---------- */
+.h1{font-family:var(--font-display);font-weight:800;font-size:var(--t-h1);line-height:1.04;letter-spacing:-.02em;color:var(--fg-1);}
+.h2{font-family:var(--font-display);font-weight:800;font-size:var(--t-h2);line-height:1.08;letter-spacing:-.02em;color:var(--fg-1);}
+.h3{font-family:var(--font-display);font-weight:700;font-size:var(--t-h3);line-height:1.2;letter-spacing:-.01em;color:var(--fg-1);}
+.eyebrow{font-family:var(--font-body);font-weight:700;font-size:var(--t-xs);letter-spacing:.18em;text-transform:uppercase;color:var(--point);}
+.body{font-family:var(--font-body);font-weight:400;font-size:var(--t-body);line-height:1.7;color:var(--fg-2);}
+.cap{font-family:var(--font-body);font-weight:500;font-size:var(--t-sm);color:var(--fg-3);}
