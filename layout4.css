@@ -416,6 +416,7 @@ html.d-snap{scroll-snap-type:y proximity;}
 .cl-track{position:relative;z-index:1;}
 .cl-sticky{position:sticky;top:0;height:100vh;overflow:hidden;display:flex;align-items:center;}
 .cl-track{display:flex;align-items:center;gap:34px;padding:0 clamp(40px,7vw,110px);will-change:transform;}
+.cl-track::after{content:"";flex:0 0 1px;height:1px;}
 .cl-intro{flex:0 0 auto;display:flex;align-items:center;gap:18px;height:100vh;padding:0 30px 0 0;position:relative;}
 .cl-intro .cl-dot{position:absolute;top:13%;left:0;width:16px;height:16px;border-radius:50%;background:#ffd325;z-index:2;display:block;}
 .cl-intro .cl-bigtitle,.cl-intro .cl-vtag{opacity:0;transition:opacity 1.5s var(--ease);}
