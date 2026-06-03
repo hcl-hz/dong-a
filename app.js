@@ -14,6 +14,7 @@
     var els = $$("[data-reveal],[data-stagger]");
     if (!("IntersectionObserver" in window)) {
       els.forEach(function (el) { el.setAttribute("data-rv", ""); });
+      $$(".nl-row-anim").forEach(function (el) { el.classList.add("show"); });
       return;
     }
     var io = new IntersectionObserver(function (entries) {
@@ -22,6 +23,13 @@
       });
     }, { threshold: 0.06, rootMargin: "0px 0px -4% 0px" });
     els.forEach(function (el) { io.observe(el); });
+    // 리스트 row 개별 등장
+    var io2 = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (e.isIntersecting) { e.target.classList.add("show"); io2.unobserve(e.target); }
+      });
+    }, { threshold: 0.1 });
+    $$(".nl-row-anim").forEach(function (el) { io2.observe(el); });
   }
 
   /* ---------- 2. 숫자 카운트업 (동문 136,000+) ---------- */
@@ -609,7 +617,7 @@
 
   /* ---------- 10. 우측 도크 TOP ---------- */
   function initDock() {
-    var top = $(".d-dock-top");
+    var top = $(".dq-top") || $(".d-dock-top");
     if (top) top.addEventListener("click", function () { scrollTo({ top: 0, behavior: "smooth" }); });
   }
 
@@ -704,11 +712,197 @@
     initHeroNotices();
     initKinetic();
     initCampusLife();
+    initCampusStack();
     initNews();
     initDock();
     initNoticeTabs();
+    initNlTabs();
+    initCalendar();
+    initNewsSlider();
     initAnchors();
   }
+
+  /* ---------- Scroll Stack — 3 Campuses ---------- */
+  function initCampusStack() {
+    var section = $(".cs-scroll-area");
+    if (!section) return;
+    var cards = $$(".cs-card", section);
+    var n = cards.length;
+    if (!n) return;
+
+    // Card 0: full → shrinks & moves up. Card 1 rises ON TOP → full → shrinks & moves up. etc.
+    // Later cards = higher z-index. Shrunk cards peek out above as strips.
+    var SCALE_STEP = 0.08;   // each layer shrinks 8% more
+    var PEEK_GAP = 32;       // px between each strip at the top
+
+    cards.forEach(function (card, i) {
+      card.style.zIndex = i + 1;
+    });
+
+    // Pre-compute each card's riseT (0→1) for reuse
+    function getRiseT(i, progress, segments) {
+      if (i === 0) return 1;
+      var s = (i - 1) / segments, e = i / segments;
+      return Math.max(0, Math.min(1, (progress - s) / (e - s)));
+    }
+
+    function update() {
+      var rect = section.getBoundingClientRect();
+      var total = section.offsetHeight - window.innerHeight;
+      var scroll = -rect.top;
+      var progress = Math.max(0, Math.min(1, scroll / total));
+      var segments = n - 1;
+      if (segments < 1) return;
+
+      // Collect all riseT values first
+      var riseTs = [];
+      for (var k = 0; k < n; k++) riseTs.push(getRiseT(k, progress, segments));
+
+      cards.forEach(function (card, i) {
+        var riseT = riseTs[i];
+
+        // "weight above" = sum of riseT of all cards above this one (j > i)
+        // This is continuous: as card j rises (0→1), it smoothly pushes card i up
+        var weightAbove = 0;
+        for (var j = i + 1; j < n; j++) weightAbove += riseTs[j];
+
+        // Peek Y: each card above pushes this one up by PEEK_GAP, smoothly
+        var peekY = -weightAbove * PEEK_GAP;
+
+        // Scale: each card above shrinks this one by SCALE_STEP, smoothly
+        var sc = 1 - weightAbove * SCALE_STEP;
+
+        // Rise: card enters from 100% below → 0
+        var yRise = (1 - riseT) * 100;
+
+        if (i > 0 && riseT < 1) {
+          card.style.transform = "translateY(calc(" + yRise.toFixed(2) + "% + " + peekY + "px)) scale(" + sc.toFixed(4) + ")";
+        } else {
+          card.style.transform = "translateY(" + peekY + "px) scale(" + sc.toFixed(4) + ")";
+        }
+
+        card.style.opacity = (i === 0 || riseT > 0) ? 1 : 0;
+      });
+    }
+
+    var ticking = false;
+    window.addEventListener("scroll", function () {
+      if (!ticking) {
+        requestAnimationFrame(function () { update(); ticking = false; });
+        ticking = true;
+      }
+    }, { passive: true });
+    update();
+  }
+
+  /* ---------- 메인 탭 전환 (공지사항 / 일정 / 뉴스) ---------- */
+  function initNlTabs() {
+    var btns = $$(".nmt");
+    var slots = $$(".nl-slot");
+    var box = $(".nl-box");
+    if (!btns.length || !box) return;
+    // 공지사항 탭 기준 높이 고정
+    requestAnimationFrame(function () {
+      box.style.height = box.offsetHeight + "px";
+    });
+    btns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var key = btn.getAttribute("data-nmt");
+        btns.forEach(function (b) { b.classList.toggle("on", b === btn); });
+        slots.forEach(function (s) {
+          s.style.display = s.getAttribute("data-slot") === key ? "" : "none";
+        });
+      });
+    });
+    // 카테고리 필터 + 뉴스 전환
+    var allCats = $$(".nl-cat, .nl-cat-full");
+    var rightViews = $$("[data-right-view]");
+    allCats.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        allCats.forEach(function (b) { b.classList.toggle("on", b === btn); });
+        var isNews = btn.getAttribute("data-nlcat") === "news";
+        rightViews.forEach(function (v) {
+          v.style.display = v.getAttribute("data-right-view") === (isNews ? "news" : "list") ? "" : "none";
+        });
+      });
+    });
+  }
+
+  /* ---------- 캘린더 ---------- */
+  function initCalendar() {
+    var grid = $("[data-cal-grid]");
+    var monthEl = $(".nl-cal-month");
+    if (!grid) return;
+    var now = new Date();
+    var year = now.getFullYear(), month = now.getMonth();
+    var events = [3, 5, 10, 14, 18, 23, 27]; // 더미 이벤트 날짜
+
+    function render() {
+      monthEl.textContent = year + "." + String(month + 1).padStart(2, "0");
+      var first = new Date(year, month, 1);
+      var last = new Date(year, month + 1, 0);
+      var startDay = first.getDay();
+      var html = "";
+      // 이전 달 빈칸
+      var prevLast = new Date(year, month, 0).getDate();
+      for (var i = startDay - 1; i >= 0; i--) {
+        html += '<span class="nl-cal-day other">' + (prevLast - i) + "</span>";
+      }
+      // 이번 달
+      for (var d = 1; d <= last.getDate(); d++) {
+        var cls = "nl-cal-day";
+        var dow = new Date(year, month, d).getDay();
+        if (dow === 0) cls += " sun";
+        if (dow === 6) cls += " sat";
+        if (d === now.getDate() && month === now.getMonth() && year === now.getFullYear()) cls += " today";
+        if (events.indexOf(d) >= 0) cls += " has-event";
+        html += '<span class="' + cls + '">' + d + "</span>";
+      }
+      // 다음 달 채움
+      var remaining = 7 - ((startDay + last.getDate()) % 7);
+      if (remaining < 7) {
+        for (var j = 1; j <= remaining; j++) {
+          html += '<span class="nl-cal-day other">' + j + "</span>";
+        }
+      }
+      grid.innerHTML = html;
+    }
+    render();
+    $$("[data-cal-dir]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        month += btn.getAttribute("data-cal-dir") === "next" ? 1 : -1;
+        if (month > 11) { month = 0; year++; }
+        if (month < 0) { month = 11; year--; }
+        render();
+      });
+    });
+  }
+
+  /* ---------- 뉴스 가로 스크롤 ---------- */
+  function initNewsSlider() {
+    var wrap = $("[data-news2]");
+    if (!wrap) return;
+    var track = $(".nn2-track", wrap);
+    var card = $(".nn2-card", track);
+    if (!track || !card) return;
+    function scrollOne(dir) {
+      var step = card.getBoundingClientRect().width + 16;
+      track.scrollBy({ left: dir * step, behavior: "smooth" });
+    }
+    $$("[data-nn2-dir]", wrap).forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        scrollOne(btn.getAttribute("data-nn2-dir") === "next" ? 1 : -1);
+      });
+    });
+    setInterval(function () {
+      if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+        track.scrollTo({ left: 0, behavior: "smooth" });
+      } else {
+        scrollOne(1);
+      }
+    }, 5000);
+  }
+
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
   else boot();
 })();

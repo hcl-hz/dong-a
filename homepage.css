@@ -15,27 +15,38 @@ img{display:block;max-width:100%;}
 ::-webkit-scrollbar-thumb:hover{background:var(--point);}
 
 /* ---------- MOTION UTILITIES (data-reveal → data-rv when shown) ---------- */
-[data-reveal]{transition:opacity 1.5s var(--ease),transform 1.55s var(--ease),clip-path 1.6s var(--ease);will-change:opacity,transform;}
-[data-reveal="up"]{opacity:0;transform:translateY(46px);}
-[data-reveal="left"]{opacity:0;transform:translateX(-54px);}
-[data-reveal="right"]{opacity:0;transform:translateX(54px);}
-[data-reveal="scale"]{opacity:0;transform:scale(.9);}
-[data-reveal="clip"]{clip-path:inset(0 0 100% 0);transform:translateY(20px);}
+[data-reveal]{transition:opacity .9s var(--ease),transform 1s var(--ease),clip-path 1s var(--ease);will-change:opacity,transform;}
+[data-reveal="up"]{opacity:0;transform:translateY(80px);}
+[data-reveal="left"]{opacity:0;transform:translateX(-100px);}
+[data-reveal="right"]{opacity:0;transform:translateX(100px);}
+[data-reveal="scale"]{opacity:0;transform:scale(.7);}
+[data-reveal="clip"]{clip-path:inset(0 0 100% 0);transform:translateY(40px);}
 [data-reveal="wipeL"]{clip-path:inset(0 100% 0 0);}
 [data-reveal="wipeR"]{clip-path:inset(0 0 0 100%);}
+[data-reveal="wipeUp"]{clip-path:inset(100% 0 0 0);opacity:1;}
+[data-reveal="scaleUp"]{opacity:0;transform:scale(.82) translateY(60px);}
 [data-reveal][data-rv]{opacity:1;transform:none;clip-path:inset(0 0 0 0);}
+/* 순차 등장 딜레이 */
+[data-reveal-delay="1"]{transition-delay:.1s;}
+[data-reveal-delay="2"]{transition-delay:.2s;}
+[data-reveal-delay="3"]{transition-delay:.3s;}
+[data-reveal-delay="4"]{transition-delay:.4s;}
+[data-reveal-delay="5"]{transition-delay:.5s;}
 /* stagger children — supports direction via data-stagger value */
-[data-stagger] > *{opacity:0;transition:opacity 1.25s var(--ease),transform 1.25s var(--ease);}
-[data-stagger][data-rv] > *:nth-child(1){transition-delay:.08s;}
-[data-stagger][data-rv] > *:nth-child(2){transition-delay:.20s;}
-[data-stagger][data-rv] > *:nth-child(3){transition-delay:.32s;}
-[data-stagger][data-rv] > *:nth-child(4){transition-delay:.44s;}
-[data-stagger][data-rv] > *:nth-child(5){transition-delay:.56s;}
-[data-stagger="up"] > *{transform:translateY(40px);}
-[data-stagger="right"] > *{transform:translateX(52px);}
-[data-stagger="left"] > *{transform:translateX(-52px);}
-[data-stagger="scale"] > *{transform:scale(.88);}
+[data-stagger] > *{opacity:0;transition:opacity .8s var(--ease),transform .8s var(--ease);}
+[data-stagger="up"] > *{transform:translateY(60px);}
+[data-stagger="right"] > *{transform:translateX(80px);}
+[data-stagger="left"] > *{transform:translateX(-80px);}
+[data-stagger="scale"] > *{transform:scale(.8);}
 [data-stagger][data-rv] > *{opacity:1;transform:none;}
+[data-stagger][data-rv] > *:nth-child(1){transition-delay:.05s;}
+[data-stagger][data-rv] > *:nth-child(2){transition-delay:.12s;}
+[data-stagger][data-rv] > *:nth-child(3){transition-delay:.19s;}
+[data-stagger][data-rv] > *:nth-child(4){transition-delay:.26s;}
+[data-stagger][data-rv] > *:nth-child(5){transition-delay:.33s;}
+[data-stagger][data-rv] > *:nth-child(6){transition-delay:.40s;}
+[data-stagger][data-rv] > *:nth-child(7){transition-delay:.47s;}
+[data-stagger][data-rv] > *:nth-child(8){transition-delay:.54s;}
 [data-stagger][data-rv] > *:nth-child(1){transition-delay:.05s;}
 [data-stagger][data-rv] > *:nth-child(2){transition-delay:.13s;}
 [data-stagger][data-rv] > *:nth-child(3){transition-delay:.21s;}
