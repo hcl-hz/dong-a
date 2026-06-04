@@ -9,6 +9,21 @@
   var $ = function (s, c) { return (c || document).querySelector(s); };
   var $$ = function (s, c) { return Array.prototype.slice.call((c || document).querySelectorAll(s)); };
 
+  /* ---------- 공통: 섹션이 뷰포트 근처일 때만 스크럽 실행 (스크롤 버벅임 방지) ----------
+     화면 밖 섹션의 핸들러가 매 스크롤마다 레이아웃을 읽고 쓰면서 생기는
+     강제 리플로우를 차단한다. 반환된 state.active로 게이트. */
+  function visGate(el, wake) {
+    var state = { active: true };
+    if ("IntersectionObserver" in window && el) {
+      state.active = false;
+      new IntersectionObserver(function (es) {
+        state.active = es[0].isIntersecting;
+        if (state.active && wake) wake(); // 다시 보이면 즉시 한 번 갱신
+      }, { rootMargin: "150px 0px" }).observe(el);
+    }
+    return state;
+  }
+
   /* ---------- 1. 스크롤 등장 (data-reveal → data-rv) ---------- */
   function initReveal() {
     var els = $$("[data-reveal],[data-stagger]");
@@ -285,7 +300,8 @@
         finCap.style.pointerEvents = capA > 0.6 ? "auto" : "none";
       }
     }
-    var onScroll = function () { if (!raf) raf = requestAnimationFrame(update); };
+    var onScroll = function () { if (gate.active && !raf) raf = requestAnimationFrame(update); };
+    var gate = visGate(sec, onScroll);
     update();
     addEventListener("scroll", onScroll, { passive: true });
     addEventListener("resize", onScroll);
@@ -293,7 +309,7 @@
       addEventListener("mousemove", function (e) {
         mx = e.clientX / innerWidth - 0.5;
         my = e.clientY / innerHeight - 0.5;
-        if (!raf) raf = requestAnimationFrame(update);
+        if (gate.active && !raf) raf = requestAnimationFrame(update);
       });
     }
   }
@@ -316,7 +332,8 @@
         row.style.transform = "translate3d(" + (shift * dir * amt).toFixed(1) + "px,0,0)";
       });
     }
-    var onScroll = function () { if (!raf) raf = requestAnimationFrame(update); };
+    var onScroll = function () { if (gate.active && !raf) raf = requestAnimationFrame(update); };
+    var gate = visGate(sec, onScroll);
     update();
     addEventListener("scroll", onScroll, { passive: true });
     addEventListener("resize", onScroll);
@@ -599,9 +616,9 @@
     // 스크롤에 따라 텍스트 색 채움
     if (fillEl) {
       var raf = null;
+      var sec = fillEl.closest(".gpn");
       var update = function () {
         raf = null;
-        var sec = fillEl.closest(".gpn");
         var rect = sec.getBoundingClientRect();
         // 섹션 스크롤 진행도: 섹션 top이 뷰포트 하단 → 0, 섹션 bottom이 뷰포트 하단 → 1
         var total = rect.height + window.innerHeight;
@@ -614,7 +631,8 @@
         var pos = 100 - p * 100;
         fillEl.style.backgroundPosition = pos + "% 0";
       };
-      var onScroll = function () { if (!raf) raf = requestAnimationFrame(update); };
+      var onScroll = function () { if (gate.active && !raf) raf = requestAnimationFrame(update); };
+      var gate = visGate(sec, onScroll);
       update();
       addEventListener("scroll", onScroll, { passive: true });
       addEventListener("resize", onScroll);
@@ -635,7 +653,8 @@
       var maxX = Math.max(0, track.scrollWidth - innerWidth);
       track.style.transform = "translateX(" + (-p * maxX).toFixed(1) + "px)";
     }
-    var onScroll = function () { if (!raf) raf = requestAnimationFrame(update); };
+    var onScroll = function () { if (gate.active && !raf) raf = requestAnimationFrame(update); };
+    var gate = visGate(sec, onScroll);
     update();
     addEventListener("scroll", onScroll, { passive: true });
     addEventListener("resize", onScroll);
@@ -747,6 +766,25 @@
     });
   }
 
+  /* ---------- 히어로 비디오: 섹션에 덮여 안 보일 때 일시정지 (디코딩 비용 절약) ----------
+     히어로가 fixed 배경이라 IntersectionObserver로는 감지 불가 → 스크롤 위치로 판단 */
+  function initVideoPause() {
+    var vid = $(".hd-video");
+    if (!vid) return;
+    var paused = false;
+    var check = function () {
+      var hidden = window.scrollY > innerHeight * 1.2; // 히어로가 완전히 덮인 지점
+      if (hidden && !paused) { paused = true; vid.pause(); }
+      else if (!hidden && paused) {
+        paused = false;
+        var p = vid.play();
+        if (p && p.catch) p.catch(function () {});
+      }
+    };
+    check();
+    addEventListener("scroll", check, { passive: true });
+  }
+
   /* ---------- 부트 ---------- */
   function boot() {
     // 캡처/디버그 모드(?cap): 등장 효과·스냅·스티키 비활성화하여 정적 캡처
@@ -782,6 +820,7 @@
     initCalendar();
     initNewsSlider();
     initAnchors();
+    initVideoPause();
   }
 
   /* ---------- Scroll Stack — 3 Campuses ---------- */
@@ -848,12 +887,13 @@
     }
 
     var ticking = false;
-    window.addEventListener("scroll", function () {
-      if (!ticking) {
-        requestAnimationFrame(function () { update(); ticking = false; });
-        ticking = true;
-      }
-    }, { passive: true });
+    var onScroll = function () {
+      if (!gate.active || ticking) return;
+      requestAnimationFrame(function () { update(); ticking = false; });
+      ticking = true;
+    };
+    var gate = visGate(section, onScroll);
+    window.addEventListener("scroll", onScroll, { passive: true });
     update();
   }
 

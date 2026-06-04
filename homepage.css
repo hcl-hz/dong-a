@@ -15,7 +15,8 @@ img{display:block;max-width:100%;}
 ::-webkit-scrollbar-thumb:hover{background:var(--point);}
 
 /* ---------- MOTION UTILITIES (data-reveal → data-rv when shown) ---------- */
-[data-reveal]{transition:opacity .9s var(--ease),transform 1s var(--ease),clip-path 1s var(--ease);will-change:opacity,transform;}
+/* will-change 제거: 수십 개 요소의 영구 레이어 승격이 스크롤 합성 비용을 키움 (전환 중엔 브라우저가 자동 승격) */
+[data-reveal]{transition:opacity .9s var(--ease),transform 1s var(--ease),clip-path 1s var(--ease);}
 [data-reveal="up"]{opacity:0;transform:translateY(80px);}
 [data-reveal="left"]{opacity:0;transform:translateX(-100px);}
 [data-reveal="right"]{opacity:0;transform:translateX(100px);}
