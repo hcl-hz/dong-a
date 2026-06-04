@@ -24,6 +24,34 @@
     return state;
   }
 
+  /* ---------- 가상 스크롤 값 (Lerp 스크럽) ----------
+     네이티브 스크롤은 그대로 두고, 스크럽 애니메이션이 읽는 스크롤 값만
+     실제 위치를 부드럽게 쫓아가게 한다(선형 보간). 휠을 휙 돌려 0→1000으로
+     점프해도 애니메이션은 0→150→400→700→1000 곡선으로 따라간다.
+     scrubDrift() = 실제 스크롤 - 가상 스크롤 → rect.top에 더하면 가상 좌표가 됨. */
+  var scrubScroll = (function () {
+    var EASE = 0.2; // 쫓아가는 속도 — 낮을수록 더 부드럽고 잔향이 김
+    var cur = window.scrollY, raf = null, subs = [];
+    var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function tick() {
+      var t = window.scrollY;
+      cur += (t - cur) * EASE;
+      if (Math.abs(t - cur) < 0.5) { cur = t; raf = null; }
+      else raf = requestAnimationFrame(tick);
+      for (var i = 0; i < subs.length; i++) subs[i]();
+    }
+    function wake() {
+      if (reduced) { cur = window.scrollY; for (var i = 0; i < subs.length; i++) subs[i](); return; }
+      if (!raf) raf = requestAnimationFrame(tick);
+    }
+    addEventListener("scroll", wake, { passive: true });
+    return {
+      sub: function (fn) { subs.push(fn); },           // 가상 값이 움직이는 동안 매 프레임 호출됨
+      drift: function () { return window.scrollY - cur; }
+    };
+  })();
+  function scrubDrift() { return scrubScroll.drift(); }
+
   /* ---------- 1. 스크롤 등장 (data-reveal → data-rv) ---------- */
   function initReveal() {
     var els = $$("[data-reveal],[data-stagger]");
@@ -252,7 +280,7 @@
     function update() {
       raf = null;
       var total = sec.offsetHeight - innerHeight;
-      var scrolled = Math.min(Math.max(-sec.getBoundingClientRect().top, 0), total);
+      var scrolled = Math.min(Math.max(-(sec.getBoundingClientRect().top + scrubDrift()), 0), total);
       var p = total > 0 ? scrolled / total : 0;
       // 슬라이드는 앞 구간(0~SLIDE_END), 피날레는 뒤 구간
       var ps = clamp01(p / SLIDE_END);
@@ -303,7 +331,7 @@
     var onScroll = function () { if (gate.active && !raf) raf = requestAnimationFrame(update); };
     var gate = visGate(sec, onScroll);
     update();
-    addEventListener("scroll", onScroll, { passive: true });
+    scrubScroll.sub(onScroll); // 가상 스크롤이 수렴하는 동안 매 프레임 갱신
     addEventListener("resize", onScroll);
     if (!coarse) {
       addEventListener("mousemove", function (e) {
@@ -323,7 +351,7 @@
     function update() {
       raf = null;
       var r = sec.getBoundingClientRect();
-      var prog = (innerHeight - r.top) / (innerHeight + r.height);
+      var prog = (innerHeight - (r.top + scrubDrift())) / (innerHeight + r.height);
       prog = Math.max(0, Math.min(1, prog));
       var shift = (prog - 0.5) * 2; // -1 ~ 1
       rows.forEach(function (row, i) {
@@ -335,7 +363,7 @@
     var onScroll = function () { if (gate.active && !raf) raf = requestAnimationFrame(update); };
     var gate = visGate(sec, onScroll);
     update();
-    addEventListener("scroll", onScroll, { passive: true });
+    scrubScroll.sub(onScroll); // 가상 스크롤이 수렴하는 동안 매 프레임 갱신
     addEventListener("resize", onScroll);
   }
 
@@ -613,29 +641,28 @@
       } else { yearEl.textContent = TO; }
     }
 
-    // 스크롤에 따라 텍스트 색 채움
+    // 텍스트 색 채움 — 트리거형: 화면에 충분히 들어오면 정해진 속도(1.1s)로 차오름
+    // (스크롤 속도와 무관하게 항상 같은 품질, 어중간한 중간 상태에 멈추지 않음)
     if (fillEl) {
-      var raf = null;
-      var sec = fillEl.closest(".gpn");
-      var update = function () {
-        raf = null;
-        var rect = sec.getBoundingClientRect();
-        // 섹션 스크롤 진행도: 섹션 top이 뷰포트 하단 → 0, 섹션 bottom이 뷰포트 하단 → 1
-        var total = rect.height + window.innerHeight;
-        var scrolled = window.innerHeight - rect.top;
-        var raw = scrolled / total;
-        // 진행 40%~70% 구간에서 채움 완료 (섹션 끝나기 전 완료)
-        var p = (raw - 0.35) / 0.35;
-        p = p < 0 ? 0 : p > 1 ? 1 : p;
-        // background-position: 100% = 전부 회색, 0% = 전부 진한색
-        var pos = 100 - p * 100;
-        fillEl.style.backgroundPosition = pos + "% 0";
+      var fillStarted = false;
+      var fillRun = function () {
+        var dur = 1100, t0 = performance.now();
+        var tick = function (t) {
+          var p = Math.min(1, (t - t0) / dur);
+          var eased = 1 - Math.pow(1 - p, 3);
+          fillEl.style.backgroundPosition = (100 - eased * 100).toFixed(2) + "% 0";
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
       };
-      var onScroll = function () { if (gate.active && !raf) raf = requestAnimationFrame(update); };
-      var gate = visGate(sec, onScroll);
-      update();
-      addEventListener("scroll", onScroll, { passive: true });
-      addEventListener("resize", onScroll);
+      if ("IntersectionObserver" in window) {
+        var fio = new IntersectionObserver(function (es) {
+          es.forEach(function (e) {
+            if (e.isIntersecting && !fillStarted) { fillStarted = true; fillRun(); fio.disconnect(); }
+          });
+        }, { threshold: 0.45 });
+        fio.observe(fillEl);
+      } else { fillEl.style.backgroundPosition = "0% 0"; }
     }
   }
 
@@ -648,7 +675,7 @@
     function update() {
       raf = null;
       var total = sec.offsetHeight - innerHeight;
-      var scrolled = Math.min(Math.max(-sec.getBoundingClientRect().top, 0), total);
+      var scrolled = Math.min(Math.max(-(sec.getBoundingClientRect().top + scrubDrift()), 0), total);
       var p = total > 0 ? scrolled / total : 0;
       var maxX = Math.max(0, track.scrollWidth - innerWidth);
       track.style.transform = "translateX(" + (-p * maxX).toFixed(1) + "px)";
@@ -656,7 +683,7 @@
     var onScroll = function () { if (gate.active && !raf) raf = requestAnimationFrame(update); };
     var gate = visGate(sec, onScroll);
     update();
-    addEventListener("scroll", onScroll, { passive: true });
+    scrubScroll.sub(onScroll); // 가상 스크롤이 수렴하는 동안 매 프레임 갱신
     addEventListener("resize", onScroll);
     if ("IntersectionObserver" in window) {
       var io = new IntersectionObserver(function (es) {
@@ -840,50 +867,38 @@
       card.style.zIndex = i + 1;
     });
 
-    // Pre-compute each card's riseT (0→1) for reuse
-    function getRiseT(i, progress, segments) {
-      if (i === 0) return 1;
-      var s = (i - 1) / segments, e = i / segments;
-      return Math.max(0, Math.min(1, (progress - s) / (e - s)));
+    // 트리거형: 스크롤이 지점을 넘으면 카드가 정해진 이징(0.65s)으로 올라옴.
+    // 스크롤 속도와 무관하게 항상 같은 품질의 모션. 역방향도 동일하게 내려감.
+    var step = -1; // 현재 올라와 있는 카드 수 - 1 (0 = 첫 카드만)
+    function applyStep(s) {
+      step = s;
+      cards.forEach(function (card, i) {
+        if (i > 0 && i > s) {
+          // 아직 안 올라온 카드: 아래 대기
+          card.style.transform = "translateY(100%) scale(1)";
+          card.style.opacity = 0;
+          return;
+        }
+        var above = Math.max(0, s - i);            // 위에 쌓인 카드 수
+        var peekY = -above * PEEK_GAP;             // 위로 살짝 밀림
+        var sc = 1 - above * SCALE_STEP;           // 뒤로 갈수록 축소
+        card.style.transform = "translateY(" + peekY + "px) scale(" + sc.toFixed(4) + ")";
+        card.style.opacity = 1;
+      });
     }
 
     function update() {
       var rect = section.getBoundingClientRect();
       var total = section.offsetHeight - window.innerHeight;
-      var scroll = -rect.top;
-      var progress = Math.max(0, Math.min(1, scroll / total));
+      var progress = Math.max(0, Math.min(1, -rect.top / total));
       var segments = n - 1;
       if (segments < 1) return;
-
-      // Collect all riseT values first
-      var riseTs = [];
-      for (var k = 0; k < n; k++) riseTs.push(getRiseT(k, progress, segments));
-
-      cards.forEach(function (card, i) {
-        var riseT = riseTs[i];
-
-        // "weight above" = sum of riseT of all cards above this one (j > i)
-        // This is continuous: as card j rises (0→1), it smoothly pushes card i up
-        var weightAbove = 0;
-        for (var j = i + 1; j < n; j++) weightAbove += riseTs[j];
-
-        // Peek Y: each card above pushes this one up by PEEK_GAP, smoothly
-        var peekY = -weightAbove * PEEK_GAP;
-
-        // Scale: each card above shrinks this one by SCALE_STEP, smoothly
-        var sc = 1 - weightAbove * SCALE_STEP;
-
-        // Rise: card enters from 100% below → 0
-        var yRise = (1 - riseT) * 100;
-
-        if (i > 0 && riseT < 1) {
-          card.style.transform = "translateY(calc(" + yRise.toFixed(2) + "% + " + peekY + "px)) scale(" + sc.toFixed(4) + ")";
-        } else {
-          card.style.transform = "translateY(" + peekY + "px) scale(" + sc.toFixed(4) + ")";
-        }
-
-        card.style.opacity = (i === 0 || riseT > 0) ? 1 : 0;
-      });
+      // 카드 i는 자기 구간의 중간 지점을 넘는 순간 발화
+      var desired = 0;
+      for (var i = 1; i < n; i++) {
+        if (progress >= (i - 0.5) / segments) desired = i;
+      }
+      if (desired !== step) applyStep(desired);
     }
 
     var ticking = false;
@@ -894,7 +909,12 @@
     };
     var gate = visGate(section, onScroll);
     window.addEventListener("scroll", onScroll, { passive: true });
-    update();
+    update(); // 초기 상태는 전환 없이 즉시 반영
+    requestAnimationFrame(function () {
+      cards.forEach(function (card) {
+        card.style.transition = "transform .65s " + EASE + ", opacity .45s ease";
+      });
+    });
   }
 
   /* ---------- 메인 탭 전환 (공지사항 / 일정 / 뉴스) ---------- */
