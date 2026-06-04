@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>동아대학교</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/reset.css" />
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+
+  <div id="scroll-progress"></div>
+
+  <!-- NAV -->
+  <header class="nav-header" id="nav-header">
+    <div class="container nav-inner">
+      <a href="#" class="nav-logo">
+        <img src="assets/images/logo.png" alt="동아대학교" />
+      </a>
+      <nav class="nav-menu" id="nav-menu">
+        <ul>
+          <li class="nav-item has-sub">
+            <a href="#about" class="nav-link">학교소개</a>
+            <ul class="nav-sub">
+              <li><a href="#">대학소개</a></li>
+              <li><a href="#">학교상징물</a></li>
+              <li><a href="#">대학기구</a></li>
+              <li><a href="#">학교법인</a></li>
+              <li><a href="#">글로컬대학</a></li>
+            </ul>
+          </li>
+          <li class="nav-item has-sub">
+            <a href="#stats" class="nav-link">입학안내</a>
+            <ul class="nav-sub">
+              <li><a href="#">대학입학</a></li>
+              <li><a href="#">대학원입학</a></li>
+              <li><a href="#">학·석사 연계과정</a></li>
+              <li><a href="#">외국인입학</a></li>
+              <li><a href="#">학과소개포털</a></li>
+            </ul>
+          </li>
+          <li class="nav-item has-sub">
+            <a href="#interviews" class="nav-link">대학원</a>
+            <ul class="nav-sub">
+              <li><a href="#">대학원</a></li>
+              <li><a href="#">국제전문대학원</a></li>
+              <li><a href="#">법학전문대학원</a></li>
+              <li><a href="#">경영대학원</a></li>
+              <li><a href="#">교육대학원</a></li>
+              <li><a href="#">사회복지대학원</a></li>
+              <li><a href="#">법무대학원</a></li>
+              <li><a href="#">부동산대학원</a></li>
+            </ul>
+          </li>
+          <li class="nav-item has-sub">
+            <a href="#campus-life" class="nav-link">학사안내</a>
+            <ul class="nav-sub">
+              <li><a href="#">수업</a></li>
+              <li><a href="#">교과과정</a></li>
+              <li><a href="#">학적</a></li>
+              <li><a href="#">성적</a></li>
+              <li><a href="#">졸업</a></li>
+              <li><a href="#">비교과과정</a></li>
+              <li><a href="#">다전공안내</a></li>
+              <li><a href="#">학점인정신청</a></li>
+              <li><a href="#">등록</a></li>
+              <li><a href="#">장학</a></li>
+            </ul>
+          </li>
+          <li><a href="#" class="nav-link">대학생활</a></li>
+          <li><a href="#" class="nav-link">동아광장</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <!-- TODO: 새 버튼 자리 -->
+      </div>
+      <button class="nav-hamburger" id="nav-hamburger" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-media">
+        <div class="hero-slideshow" id="hero-slideshow">
+          <div class="hero-slide is-active" style="background-image:url('assets/images/img2.jpg')"></div>
+          <div class="hero-slide" style="background-image:url('assets/images/img3.jpg')"></div>
+          <div class="hero-slide" style="background-image:url('assets/images/img4.jpg')"></div>
+          <div class="hero-slide" style="background-image:url('assets/images/img5.jpg')"></div>
+          <div class="hero-slide" style="background-image:url('assets/images/img.jpg')"></div>
+        </div>
+        <div class="hero-overlay"></div>
+      </div>
+      <div class="hero-content">
+        <p class="hero-eyebrow">DONG-A UNIVERSITY</p>
+        <h1 class="hero-title">
+          세상을 바꾸는 힘,<br />
+          <span class="hero-typewriter" id="typewriter"></span><span class="cursor">|</span>
+        </h1>
+        <p class="hero-sub">1946년 창학 이래, 동아대학교는 미래를 이끌 인재를 키워왔습니다.<br />당신의 가능성을 동아대와 함께 펼쳐보세요.</p>
+      </div>
+      <div class="hero-scroll-hint">
+        <div class="scroll-mouse"><div class="scroll-wheel"></div></div>
+        <span>SCROLL</span>
+      </div>
+      <div class="hero-glare" aria-hidden="true"></div>
+    </section>
+
+    <!-- 학교 소개 -->
+    <section id="about" class="about">
+      <div class="about-bg-text" aria-hidden="true">DONG-A<br />UNIVERSITY</div>
+      <div class="about-lights" aria-hidden="true">
+        <span class="about-light about-light-1"></span>
+      </div>
+      <div class="collage-cards">
+        <a href="#" class="collage-card collage-square">
+          <span class="collage-frame"><img src="assets/images/img3.jpg" alt="" /><span class="collage-hover">총장메시지</span></span>
+          <span class="collage-label">GREETINGS</span>
+        </a>
+        <a href="#" class="collage-card collage-vert-arc">
+          <span class="collage-frame"><img src="assets/images/img2.jpg" alt="" /><span class="collage-hover">캠퍼스맵</span></span>
+          <span class="collage-label-vertical-right">CAMPUS MAP</span>
+        </a>
+        <div class="collage-card collage-circle">
+          <span class="collage-frame"><img src="assets/images/img5.jpg" alt="" /></span>
+        </div>
+        <a href="#" class="collage-card collage-pill">
+          <span class="collage-frame"><img src="assets/images/img.jpg" alt="" /><span class="collage-hover">발전계획</span></span>
+          <span class="collage-label">VISION &amp; MISSION</span>
+        </a>
+        <a href="#" class="collage-card collage-rect-h">
+          <span class="collage-frame"><img src="assets/images/img4.jpg" alt="" /><span class="collage-hover">입학안내</span></span>
+          <span class="collage-label-vertical">ADMISSIONS</span>
+        </a>
+      </div>
+      <div class="container">
+        <div class="section-header reveal">
+          <div class="about-intro">
+            <div class="section-number">
+              <span class="section-number-line"></span>
+              <span class="section-number-text">01</span>
+            </div>
+            <span class="section-eyebrow"><span class="eyebrow-thin">about</span> <span class="eyebrow-bold">DONG-A</span></span>
+            <h2 class="section-title">80년의 역사, 미래를 향한 새로운 도전</h2>
+            <p class="section-desc">동아대학교는 부산·경남을 대표하는 종합대학으로,<br />학생 중심의 교육과 혁신적 연구를 통해 세계와 경쟁합니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 캠퍼스 라이프 -->
+    <section id="campus-life" class="campus-life">
+      <div class="side-rays-container" id="side-rays" aria-hidden="true"></div>
+      <div class="section-header light reveal">
+        <div class="eyebrow-row">
+          <div class="section-number">
+            <span class="section-number-line"></span>
+            <span class="section-number-text">02</span>
+          </div>
+          <span class="section-eyebrow">CAMPUS LIFE</span>
+        </div>
+        <h2 class="section-title" data-split>캠퍼스에서 피어나는 특별한 이야기</h2>
+      </div>
+      <div class="circular-gallery" id="circular-gallery"></div>
+    </section>
+
+    <!-- 숫자로 보는 대학 + 연구/성과 -->
+    <section id="stats" class="stats">
+      <div class="stats-bg-text" aria-hidden="true">DONG-A<br />UNIVERSITY</div>
+      <div class="stats-lights" aria-hidden="true">
+        <span class="stats-light stats-light-1"></span>
+      </div>
+      <div class="section-header">
+        <div class="eyebrow-row">
+          <div class="section-number">
+            <span class="section-number-line"></span>
+            <span class="section-number-text">03</span>
+          </div>
+          <span class="section-eyebrow">BY THE NUMBERS</span>
+        </div>
+      </div>
+      <div class="container">
+        <!-- 가로 구분선 리스트. 수치(data-target)는 추후 정확한 값으로 교체.
+             설립연도는 콤마가 안 들어가도록 data-plain 사용. 카운트업만 적용. -->
+        <div class="stats-list">
+          <div class="stat-row">
+            <img class="stat-row-thumb" src="assets/images/img3.jpg" alt="" aria-hidden="true" loading="lazy" />
+            <span class="stat-row-label">설립연도</span>
+            <span class="stat-row-value"><span class="stat-num" data-target="1946" data-plain>0</span><span class="stat-unit">년</span></span>
+          </div>
+          <div class="stat-row">
+            <img class="stat-row-thumb" src="assets/images/img2.jpg" alt="" aria-hidden="true" loading="lazy" />
+            <span class="stat-row-label">재학생 수</span>
+            <span class="stat-row-value"><span class="stat-num" data-target="22000">0</span><span class="stat-unit">명+</span></span>
+          </div>
+          <div class="stat-row">
+            <img class="stat-row-thumb" src="assets/images/img5.jpg" alt="" aria-hidden="true" loading="lazy" />
+            <span class="stat-row-label">취업률</span>
+            <span class="stat-row-value"><span class="stat-num" data-target="93">0</span><span class="stat-unit">%</span></span>
+          </div>
+          <div class="stat-row">
+            <img class="stat-row-thumb" src="assets/images/img.jpg" alt="" aria-hidden="true" loading="lazy" />
+            <span class="stat-row-label">장학금 수혜율</span>
+            <span class="stat-row-value"><span class="stat-num" data-target="70">0</span><span class="stat-unit">%</span></span>
+          </div>
+          <div class="stat-row">
+            <img class="stat-row-thumb" src="assets/images/img4.jpg" alt="" aria-hidden="true" loading="lazy" />
+            <span class="stat-row-label">교환학생 협정 대학</span>
+            <span class="stat-row-value"><span class="stat-num" data-target="200">0</span><span class="stat-unit">개+</span></span>
+          </div>
+          <div class="stat-row">
+            <img class="stat-row-thumb" src="assets/images/img3.jpg" alt="" aria-hidden="true" loading="lazy" />
+            <span class="stat-row-label">단과대학 수</span>
+            <span class="stat-row-value"><span class="stat-num" data-target="14">0</span><span class="stat-unit">개</span></span>
+          </div>
+          <div class="stat-row">
+            <img class="stat-row-thumb" src="assets/images/img2.jpg" alt="" aria-hidden="true" loading="lazy" />
+            <span class="stat-row-label">기숙사 수용 인원</span>
+            <span class="stat-row-value"><span class="stat-num" data-target="5000">0</span><span class="stat-unit">명</span></span>
+          </div>
+        </div>
+      </div>
+      <div class="circular-badge" aria-hidden="true">
+        <div class="circular-text" id="stats-circular-text" data-text="DONG-A UNIVERSITY · SINCE 1946 · "></div>
+        <img src="assets/images/logo-mark-blue.png" alt="" class="circular-badge-mark" />
+      </div>
+    </section>
+
+    <!-- 재학생 인터뷰 -->
+    <section id="interviews" class="interviews">
+      <div class="interviews-grid" id="interviews-grid" aria-hidden="true"></div>
+      <div class="section-header reveal">
+        <div class="eyebrow-row">
+          <div class="section-number">
+            <span class="section-number-line"></span>
+            <span class="section-number-text">04</span>
+          </div>
+          <span class="section-eyebrow">STUDENT VOICES</span>
+        </div>
+        <h2 class="section-title" data-split>재학생이 직접 전하는 동아대학교 이야기</h2>
+      </div>
+      <div class="container">
+        <div class="interview-body">
+          <div class="interview-left">
+            <div class="quote-slider" id="quote-slider">
+              <span class="quote-mark" aria-hidden="true">“</span>
+              <div class="quote-slides">
+                <blockquote class="quote-slide is-active">
+                  <p class="quote-line">교수님들의 적극적인 지도 덕분에 꿈에 그리던 대기업 인턴에 합격했어요.</p>
+                  <cite class="quote-author">— 김지수 · 컴퓨터공학과 3학년</cite>
+                </blockquote>
+                <blockquote class="quote-slide">
+                  <p class="quote-line">동아대의 글로벌 네트워크로 일본 명문대에서 교환학생을 경험했습니다.</p>
+                  <cite class="quote-author">— 이민준 · 국제학부 4학년</cite>
+                </blockquote>
+                <blockquote class="quote-slide">
+                  <p class="quote-line">선배들과의 멘토링 시스템이 잘 갖춰져 있어 학업에만 집중할 수 있어요.</p>
+                  <cite class="quote-author">— 박서연 · 의예과 2학년</cite>
+                </blockquote>
+              </div>
+              <div class="quote-nav">
+                <div class="quote-arrows">
+                  <button class="quote-prev" aria-label="이전">‹</button>
+                  <button class="quote-next" aria-label="다음">›</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="video-column">
+            <div class="video-card" data-yt="https://www.youtube.com/watch?v=BCle26GfOf8">
+              <img class="video-thumb" src="https://img.youtube.com/vi/BCle26GfOf8/hqdefault.jpg" alt="동아대학교 영상" loading="lazy" />
+              <span class="video-play" aria-hidden="true"></span>
+            </div>
+            <div class="video-card" data-yt="https://www.youtube.com/watch?v=NKmWtsBAhek">
+              <img class="video-thumb" src="https://img.youtube.com/vi/NKmWtsBAhek/hqdefault.jpg" alt="동아대학교 영상" loading="lazy" />
+              <span class="video-play" aria-hidden="true"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="circular-badge circular-badge--light" aria-hidden="true">
+        <div class="circular-text" data-text="DONG-A UNIVERSITY · SINCE 1946 · "></div>
+        <img src="assets/images/logo-mark.png" alt="" class="circular-badge-mark" />
+      </div>
+    </section>
+
+    <!-- 공지사항 / 뉴스 -->
+    <section id="news" class="news">
+      <div class="stats-bg-text" aria-hidden="true">DONG-A<br />UNIVERSITY</div>
+      <div class="stats-lights" aria-hidden="true">
+        <span class="stats-light stats-light-1"></span>
+      </div>
+      <div class="section-header reveal">
+        <div class="eyebrow-row">
+          <div class="section-number">
+            <span class="section-number-line"></span>
+            <span class="section-number-text">05</span>
+          </div>
+          <span class="section-eyebrow">NEWS &amp; NOTICE</span>
+        </div>
+        <h2 class="section-title" data-split>동아대학교 소식</h2>
+      </div>
+      <div class="container">
+        <div class="reflect-cards">
+          <!-- 공지사항 (왼쪽 세로 카드) — 탭 전환 -->
+          <article class="reflect-card">
+            <div class="reflect-content">
+              <div class="notice-tabs">
+                <button type="button" class="notice-tab is-active" data-tab="notice">공지사항</button>
+                <button type="button" class="notice-tab" data-tab="academic">학사공지</button>
+                <button type="button" class="notice-tab" data-tab="scholarship">장학공지</button>
+                <button type="button" class="notice-tab" data-tab="event">행사모집</button>
+                <button type="button" class="notice-tab" data-tab="job">채용</button>
+              </div>
+              <ul class="reflect-list notice-panel is-active" data-panel="notice">
+                <li><span class="reflect-date">2025.01.15</span><span class="reflect-li-title">2025학년도 1학기 수강신청 안내</span></li>
+                <li><span class="reflect-date">2025.01.10</span><span class="reflect-li-title">2025학년도 신입생 장학금 신청 안내</span></li>
+                <li><span class="reflect-date">2025.01.08</span><span class="reflect-li-title">기숙사 입사 신청 안내 (2025-1학기)</span></li>
+                <li><span class="reflect-date">2025.01.05</span><span class="reflect-li-title">글로벌 교환학생 프로그램 모집 공고</span></li>
+                <li><span class="reflect-date">2024.12.30</span><span class="reflect-li-title">2025 동아대 입학식 일정 안내</span></li>
+              </ul>
+              <ul class="reflect-list notice-panel" data-panel="academic">
+                <li><span class="reflect-date">2025.01.16</span><span class="reflect-li-title">2025-1학기 수강정정 기간 안내</span></li>
+                <li><span class="reflect-date">2025.01.11</span><span class="reflect-li-title">졸업사정 대상자 확인 안내</span></li>
+                <li><span class="reflect-date">2025.01.09</span><span class="reflect-li-title">계절학기 성적 입력 안내</span></li>
+                <li><span class="reflect-date">2025.01.06</span><span class="reflect-li-title">학사일정 일부 변경 공지</span></li>
+                <li><span class="reflect-date">2024.12.28</span><span class="reflect-li-title">전과·복수전공 신청 안내</span></li>
+              </ul>
+              <ul class="reflect-list notice-panel" data-panel="scholarship">
+                <li><span class="reflect-date">2025.01.17</span><span class="reflect-li-title">국가장학금 2차 신청 안내</span></li>
+                <li><span class="reflect-date">2025.01.13</span><span class="reflect-li-title">교내 성적우수 장학금 선발 공고</span></li>
+                <li><span class="reflect-date">2025.01.09</span><span class="reflect-li-title">근로장학생 모집 공고</span></li>
+                <li><span class="reflect-date">2025.01.04</span><span class="reflect-li-title">외부 장학재단 추천 안내</span></li>
+                <li><span class="reflect-date">2024.12.27</span><span class="reflect-li-title">생활관 장학 신청 안내</span></li>
+              </ul>
+              <ul class="reflect-list notice-panel" data-panel="event">
+                <li><span class="reflect-date">2025.01.19</span><span class="reflect-li-title">2025 신입생 오리엔테이션 참가 모집</span></li>
+                <li><span class="reflect-date">2025.01.15</span><span class="reflect-li-title">글로벌 어학연수 캠프 참가자 모집</span></li>
+                <li><span class="reflect-date">2025.01.10</span><span class="reflect-li-title">창업 아이디어 경진대회 모집</span></li>
+                <li><span class="reflect-date">2025.01.06</span><span class="reflect-li-title">동아리 신규 회원 모집 안내</span></li>
+                <li><span class="reflect-date">2024.12.30</span><span class="reflect-li-title">대학생 봉사단 단원 모집</span></li>
+              </ul>
+              <ul class="reflect-list notice-panel" data-panel="job">
+                <li><span class="reflect-date">2025.01.18</span><span class="reflect-li-title">교내 행정조교 채용 공고</span></li>
+                <li><span class="reflect-date">2025.01.14</span><span class="reflect-li-title">산학협력단 연구원 채용</span></li>
+                <li><span class="reflect-date">2025.01.09</span><span class="reflect-li-title">교직원 채용 공고 (계약직)</span></li>
+                <li><span class="reflect-date">2025.01.05</span><span class="reflect-li-title">학생 홍보대사 채용 안내</span></li>
+                <li><span class="reflect-date">2024.12.29</span><span class="reflect-li-title">도서관 근로학생 채용</span></li>
+              </ul>
+            </div>
+          </article>
+          <!-- 뉴스 (오른쪽 가로 카드) -->
+          <article class="reflect-card">
+            <div class="reflect-content">
+              <div class="notice-tabs">
+                <span class="notice-tab is-active">뉴스</span>
+              </div>
+              <ul class="reflect-list">
+                <li><span class="reflect-date">2025.01.20</span><span class="reflect-li-title">동아대, QS 아시아 대학 평가 4년 연속 선정</span></li>
+                <li><span class="reflect-date">2025.01.18</span><span class="reflect-li-title">컴퓨터공학과 AI 연구팀, SCI급 국제 저널 게재</span></li>
+                <li><span class="reflect-date">2025.01.14</span><span class="reflect-li-title">동아대-부산시, 스마트시티 연구 협약 체결</span></li>
+                <li><span class="reflect-date">2025.01.12</span><span class="reflect-li-title">동아대 창업 동아리, 전국 창업 경진대회 대상</span></li>
+                <li><span class="reflect-date">2025.01.07</span><span class="reflect-li-title">2024 대학 사회공헌 우수기관 선정</span></li>
+              </ul>
+            </div>
+          </article>
+        </div>
+        <!-- 게시글 키워드 해시태그 — 떨어지는 효과 (FallingText) -->
+        <div class="falling-text" id="news-falling" data-trigger="scroll" data-gravity="0.56" data-stiffness="0.9"
+             data-text="#수강신청 #신입생장학금 #기숙사입사 #교환학생 #입학식 #국가장학금 #근로장학생 #창업경진대회 #어학연수캠프 #스마트시티협약 #SCI국제저널 #사회공헌 #QS아시아평가 #수강정정 #졸업사정 #성적우수장학금 #신입생OT #동아리모집 #봉사단모집 #연구원채용 #홍보대사 #행정조교">
+          <div class="falling-text-target"></div>
+          <div class="falling-text-canvas"></div>
+        </div>
+      </div>
+      <div class="circular-badge" aria-hidden="true">
+        <div class="circular-text" data-text="DONG-A UNIVERSITY · SINCE 1946 · "></div>
+        <img src="assets/images/logo-mark-blue.png" alt="" class="circular-badge-mark" />
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <img src="assets/images/logo.png" alt="동아대학교" class="footer-logo" />
+        <p>대학의 가치를 넘어, 세상을 바꾸는 동아대학교</p>
+        <div class="footer-social">
+          <a href="#" aria-label="YouTube">YT</a>
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="Blog">BL</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>대학소개</h4>
+          <ul>
+            <li><a href="#">총장 인사말</a></li>
+            <li><a href="#">역사 및 연혁</a></li>
+            <li><a href="#">비전 및 목표</a></li>
+            <li><a href="#">캠퍼스 안내</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>입학안내</h4>
+          <ul>
+            <li><a href="#">수시모집</a></li>
+            <li><a href="#">정시모집</a></li>
+            <li><a href="#">편입학</a></li>
+            <li><a href="#">입시 FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>학생지원</h4>
+          <ul>
+            <li><a href="#">장학금 안내</a></li>
+            <li><a href="#">기숙사</a></li>
+            <li><a href="#">진로·취업센터</a></li>
+            <li><a href="#">학생상담센터</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>부산광역시 사하구 낙동대로550번길 37 동아대학교 | 대표전화 051-200-6114</p>
+        <p>© 2025 Dong-A University. All Rights Reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="assets/js/click-spark.js"></script>
+  <script src="assets/js/circular-text.js"></script>
+  <script src="assets/js/grid-cells.js"></script>
+  <script src="assets/js/youtube.js"></script>
+  <script src="assets/js/quote-slider.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script type="module" src="assets/js/circular-gallery.js"></script>
+  <script type="module" src="assets/js/lightfall.js"></script>
+  <script type="module" src="assets/js/falling-text.js"></script>
+</body>
+</html>
