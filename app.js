@@ -835,7 +835,16 @@
     if (!grid) return;
     var now = new Date();
     var year = now.getFullYear(), month = now.getMonth();
-    var events = [3, 5, 10, 14, 18, 23, 27]; // 더미 이벤트 날짜
+    // 일정 리스트("MM.DD ~ MM.DD")의 시작일을 파싱해 이벤트 날짜로 사용
+    var eventStarts = [];
+    $$('[data-slot="schedule"] .nl-row-cat').forEach(function (el) {
+      var m = el.textContent.match(/(\d{2})\.(\d{2})\s*~/);
+      if (!m) return;
+      eventStarts.push({ month: +m[1] - 1, day: +m[2] });
+    });
+    function hasEvent(m, d) {
+      return eventStarts.some(function (e) { return e.month === m && e.day === d; });
+    }
 
     function render() {
       monthEl.textContent = year + "." + String(month + 1).padStart(2, "0");
@@ -855,7 +864,7 @@
         if (dow === 0) cls += " sun";
         if (dow === 6) cls += " sat";
         if (d === now.getDate() && month === now.getMonth() && year === now.getFullYear()) cls += " today";
-        if (events.indexOf(d) >= 0) cls += " has-event";
+        if (hasEvent(month, d)) cls += " has-event";
         html += '<span class="' + cls + '">' + d + "</span>";
       }
       // 다음 달 채움
