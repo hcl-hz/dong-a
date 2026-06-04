@@ -33,22 +33,30 @@
   }
 
   /* ---------- 2. 숫자 카운트업 (동문 136,000+) ---------- */
-  function countUp(el, target, comma) {
+  function animateNumber(el, target, comma, dec) {
+    var fmt = function (v) {
+      if (dec) return v.toFixed(dec);
+      var n = Math.round(v);
+      return comma ? n.toLocaleString("en-US") : String(n);
+    };
+    var token = (el._cu = (el._cu || 0) + 1); // 같은 요소에 중복 실행 시 이전 카운트 중단
+    el.textContent = fmt(0);
+    var dur = 1700, t0 = performance.now();
+    var tick = function (t) {
+      if (el._cu !== token) return;
+      var p = Math.min(1, (t - t0) / dur);
+      var eased = 1 - Math.pow(1 - p, 4);
+      el.textContent = fmt(target * eased);
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+  function countUp(el, target, comma, dec) {
     if (!el) return;
     var started = false;
-    var fmt = function (v) { return comma ? v.toLocaleString("en-US") : String(v); };
-    el.textContent = fmt(0);
-    var run = function () {
-      var dur = 1700, t0 = performance.now();
-      var tick = function (t) {
-        var p = Math.min(1, (t - t0) / dur);
-        var eased = 1 - Math.pow(1 - p, 4);
-        el.textContent = fmt(Math.round(target * eased));
-        if (p < 1) requestAnimationFrame(tick);
-      };
-      requestAnimationFrame(tick);
-    };
-    if (!("IntersectionObserver" in window)) { el.textContent = fmt(target); return; }
+    el.textContent = dec ? (0).toFixed(dec) : "0";
+    var run = function () { animateNumber(el, target, comma, dec); };
+    if (!("IntersectionObserver" in window)) { el.textContent = dec ? target.toFixed(dec) : (comma ? target.toLocaleString("en-US") : String(target)); return; }
     var io = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
         if (e.isIntersecting && !started) { started = true; run(); io.disconnect(); }
@@ -59,9 +67,10 @@
   function initCounts() {
     // [data-count] 요소의 선행 텍스트(숫자)만 카운트, 접미(<b>개/+</b>)는 보존
     $$("[data-count]").forEach(function (el) {
-      var target = parseInt(el.getAttribute("data-count"), 10);
+      var target = parseFloat(el.getAttribute("data-count"));
       if (isNaN(target)) return;
       var comma = el.getAttribute("data-comma") === "1";
+      var dec = parseInt(el.getAttribute("data-dec"), 10) || 0;
       var span = document.createElement("span");
       var first = el.firstChild;
       if (first && first.nodeType === 3) {
@@ -70,7 +79,7 @@
       } else {
         el.insertBefore(span, el.firstChild);
       }
-      countUp(span, target, comma);
+      countUp(span, target, comma, dec);
     });
   }
 
@@ -313,47 +322,100 @@
     addEventListener("resize", onScroll);
   }
 
-  /* ---------- 7d. 히어로 성과 슬라이드 ---------- */
+  /* ---------- 7d. 히어로 성과 롤링 티커 (한 줄씩 위로) ---------- */
   function initHeroStats() {
     var wrap = $("[data-hs-slide]");
     if (!wrap) return;
-    var slides = $$(".hs-slide", wrap);
-    var n = slides.length;
-    if (n < 2) return;
-    var idx = 0, busy = false, auto;
-    function go(next, dir) {
+    var roll = $("[data-hs-roll]", wrap);
+    if (!roll) return;
+    var STATS = [
+      { label: "재학생", target: 23000, comma: 1, suffix: "명 +" },
+      { label: "졸업 동문", target: 136000, comma: 1, suffix: "명 +" },
+      { label: "해외 협력 대학", target: 30, suffix: "개국 +" },
+      { label: "단과대학", target: 13, suffix: "개" },
+      { label: "개교", target: 80, suffix: "주년" },
+      { label: "캠퍼스", target: 3, suffix: "개 캠퍼스" },
+      { label: "장학금 수혜율", target: 72, suffix: "%" },
+      { label: "취업률", target: 68.5, dec: 1, suffix: "%" },
+      { label: "산학협력 기업", target: 500, suffix: "개 +" }
+    ];
+    var n = STATS.length;
+    var idx = 1, busy = false, auto; // 초기 가운데: 졸업 동문
+    function stat(i) { return STATS[((i % n) + n) % n]; }
+    function fmtVal(s) {
+      return s.dec ? s.target.toFixed(s.dec) : (s.comma ? s.target.toLocaleString("en-US") : String(s.target));
+    }
+    function rowHTML(i, cls) {
+      var s = stat(i);
+      return '<div class="hs-row ' + cls + '"><span class="hs-label">' + s.label +
+        '</span><span class="hs-val"><span class="hs-num">' + fmtVal(s) + "</span>" + s.suffix + "</span></div>";
+    }
+    function render(extra) {
+      var html = "";
+      if (extra === "prev") html += rowHTML(idx - 2, "hs-sm");
+      html += rowHTML(idx - 1, "hs-sm") + rowHTML(idx, "hs-main") + rowHTML(idx + 1, "hs-sm");
+      if (extra === "next") html += rowHTML(idx + 2, "hs-sm");
+      roll.innerHTML = html;
+    }
+    function playCenter() {
+      var s = stat(idx);
+      var numEl = $(".hs-main .hs-num", roll);
+      if (numEl) animateNumber(numEl, s.target, s.comma === 1, s.dec || 0);
+    }
+    function go(dir) {
       if (busy) return;
       busy = true;
-      var nextIdx = ((next % n) + n) % n;
-      if (nextIdx === idx) { busy = false; return; }
-      var old = slides[idx];
-      var cur = slides[nextIdx];
-      var leaveDir = dir > 0 ? "up" : "down";
-      var enterDir = dir > 0 ? "up" : "down";
-      // show new slide with enter animation
-      cur.style.display = "";
-      cur.removeAttribute("data-leaving");
-      cur.setAttribute("data-entering", enterDir);
-      // hide old slide
-      old.setAttribute("data-leaving", leaveDir);
-      old.removeAttribute("data-entering");
+      render(dir > 0 ? "next" : "prev");
+      var rows = $$(".hs-row", roll);
+      var rowH = rows[0].offsetHeight;
+      if (dir < 0) {
+        // 위에 한 줄 미리 붙이고 한 줄 올라간 상태에서 시작 → 아래로 내려옴
+        roll.style.transition = "none";
+        roll.style.transform = "translateY(-" + rowH + "px)";
+        void roll.offsetHeight;
+      }
+      idx = ((idx + dir) % n + n) % n;
+      // 새 가운데 행 강조 (font-size/color 트랜지션으로 자연스럽게)
+      rows.forEach(function (r) { r.classList.remove("hs-main"); r.classList.add("hs-sm"); });
+      var center = dir > 0 ? rows[2] : rows[1];
+      center.classList.remove("hs-sm");
+      center.classList.add("hs-main");
+      // 가운데로 올라오기 시작하는 순간부터 0 → 목표값 카운트 (슬라이드와 동시 진행)
+      var s = stat(idx);
+      var numEl = $(".hs-num", center);
+      if (numEl) animateNumber(numEl, s.target, s.comma === 1, s.dec || 0);
+      roll.style.transition = "transform .45s var(--ease)";
+      roll.style.transform = dir > 0 ? "translateY(-" + rowH + "px)" : "translateY(0)";
       setTimeout(function () {
-        old.style.display = "none";
-        old.removeAttribute("data-leaving");
-        cur.removeAttribute("data-entering");
-        idx = nextIdx;
+        roll.style.transition = "none";
+        // 다시 그리지 않고 화면 밖 행만 제거 → 카운트 중인 요소 보존
+        if (dir > 0) roll.removeChild(roll.firstElementChild);
+        else roll.removeChild(roll.lastElementChild);
+        roll.style.transform = "";
         busy = false;
-      }, 400);
+      }, 470);
     }
+    render();
+    // 히어로 등장 애니메이션(2.85s 딜레이)이 끝나 바가 보이는 순간 첫 카운트 + 자동 롤링 시작
+    var statsBar = wrap.closest(".hero-stats");
+    var started = false;
+    function start() {
+      if (started) return;
+      started = true;
+      playCenter();
+      auto = setInterval(function () { go(1); }, 4000);
+    }
+    if (statsBar) {
+      statsBar.addEventListener("animationstart", function (e) { if (e.target === statsBar) start(); });
+      setTimeout(start, 3200); // 애니메이션 미지원/미발동 폴백
+    } else start();
     $$("[data-hs-dir]", wrap).forEach(function (btn) {
       btn.addEventListener("click", function () {
-        var dir = btn.getAttribute("data-hs-dir") === "prev" ? -1 : 1;
-        go(idx + dir, dir);
+        go(btn.getAttribute("data-hs-dir") === "prev" ? -1 : 1);
         clearInterval(auto);
-        auto = setInterval(function () { go(idx + 1, 1); }, 4000);
+        auto = setInterval(function () { go(1); }, 4000);
       });
     });
-    auto = setInterval(function () { go(idx + 1, 1); }, 4000);
   }
 
   /* ---------- 7e. WHY 타이핑 애니메이션 ---------- */

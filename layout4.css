@@ -126,14 +126,12 @@
   animation:hdnHeadIn .8s var(--ease) 2.85s backwards;}
 .hs-inner{display:flex;align-items:center;gap:clamp(16px,2vw,28px);
   width:100%;max-width:620px;padding:0 clamp(20px,3vw,36px);}
-.hs-track{flex:1;min-width:0;overflow:hidden;position:relative;height:auto;}
-.hs-slide{transition:opacity .4s var(--ease),transform .4s var(--ease);}
-.hs-slide[data-leaving="up"]{position:absolute;inset:0;opacity:0;transform:translateY(-100%);}
-.hs-slide[data-leaving="down"]{position:absolute;inset:0;opacity:0;transform:translateY(100%);}
-.hs-slide[data-entering="up"]{animation:hsSlideUp .4s var(--ease);}
-.hs-slide[data-entering="down"]{animation:hsSlideDown .4s var(--ease);}
-@keyframes hsSlideUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:none;}}
-@keyframes hsSlideDown{from{opacity:0;transform:translateY(-40px);}to{opacity:1;transform:none;}}
+.hs-track{flex:1;min-width:0;overflow:hidden;position:relative;
+  --hs-row:clamp(30px,3vw,50px);height:calc(var(--hs-row) * 3);}
+.hs-roll{will-change:transform;}
+.hs-roll .hs-row{height:var(--hs-row);padding:0;}
+/* 행이 가운데로 올라올 때 크기·색 부드럽게 전환 */
+.hs-roll .hs-label,.hs-roll .hs-val{transition:font-size .45s var(--ease),color .45s var(--ease);}
 .hs-row{display:flex;align-items:center;color:#fff;}
 .hs-label{font-weight:600;letter-spacing:.02em;}
 .hs-val{margin-left:auto;font-family:var(--font-display);font-weight:900;
