@@ -203,11 +203,178 @@
         clearInterval(t);
         setTimeout(function () {
           var eb = $(".hd-eyebrow"); if (eb) eb.classList.add("on");
+          var btn = $(".hd-btn"); if (btn) btn.classList.add("on");
         }, 260);
         return;
       }
       chs[idxs[k]].classList.add("on"); k++;
     }, 130);
+  }
+
+  /* ---------- 6b. 히어로 배경 슬라이더 (영상 + 이미지 페이드, 일정 시간 자동) ---------- */
+  function initHeroSlider() {
+    var box = $("[data-hd-slider]");
+    if (!box) return;
+    var slides = $$(".hd-slide", box);
+    var n = slides.length;
+    if (n < 2) return;                 // 슬라이드 1개면 굳이 돌리지 않음
+    var DUR = 7000;                    // 각 슬라이드 노출 시간
+    var idx = 0, timer = null, paused = false;
+    // 인디케이터: 진행 라인(fill) + 슬라이드 점들 + 재생/일시정지 토글
+    var fillEl = $("[data-hd-fill]");
+    var dotsWrap = $("[data-hd-dots]"), dots = [];
+    if (dotsWrap) {
+      slides.forEach(function (_, i) {
+        var d = document.createElement("button");
+        d.className = "hd-pdot" + (i === 0 ? " is-active" : "");
+        d.setAttribute("aria-label", (i + 1) + "번째 화면 보기");
+        d.setAttribute("data-cursor", "true");
+        d.addEventListener("click", function () { go(i); restart(); });
+        dotsWrap.appendChild(d);
+        dots.push(d);
+      });
+    }
+    // 진행 라인: 현재 슬라이드 동안 0→100% 채워짐 (일시정지면 멈춤)
+    function setFill() {
+      if (!fillEl) return;
+      fillEl.style.transition = "none";
+      fillEl.style.width = "0%";
+      void fillEl.offsetWidth; // reflow로 리셋 확정
+      if (!paused) {
+        fillEl.style.transition = "width " + DUR + "ms linear";
+        fillEl.style.width = "100%";
+      }
+    }
+    // 활성 슬라이드의 영상만 재생, 나머지는 일시정지
+    function syncVideo() {
+      slides.forEach(function (s, i) {
+        var v = s.querySelector("video");
+        if (!v) return;
+        if (i === idx) { try { v.currentTime = 0; v.play(); } catch (e) {} }
+        else v.pause();
+      });
+    }
+    var center = $(".hd-center"), moreBtn = $(".hd-more");
+    function go(i) {
+      idx = (i % n + n) % n;
+      slides.forEach(function (s, k) { s.classList.toggle("is-active", k === idx); });
+      dots.forEach(function (d, k) { d.classList.toggle("is-active", k === idx); });
+      setFill();
+      var isVideo = slides[idx].getAttribute("data-hd-type") === "video";
+      // 영상 슬라이드: 중앙 타이틀 노출 / 이미지 슬라이드: MORE VIEW 버튼 노출
+      if (center) center.classList.toggle("hd-hide", !isVideo);
+      if (moreBtn) moreBtn.classList.toggle("hd-hide", isVideo);
+      syncVideo();
+    }
+    function restart() { clearInterval(timer); if (!paused) timer = setInterval(function () { go(idx + 1); }, DUR); }
+
+    // 재생 / 일시정지 토글
+    var PAUSE = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>';
+    var PLAY = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>';
+    var toggleBtn = $("[data-hd-toggle]");
+    if (toggleBtn) {
+      toggleBtn.innerHTML = PAUSE;
+      toggleBtn.addEventListener("click", function () {
+        paused = !paused;
+        toggleBtn.innerHTML = paused ? PLAY : PAUSE;
+        if (paused) {
+          clearInterval(timer);
+          if (fillEl) { var w = getComputedStyle(fillEl).width; fillEl.style.transition = "none"; fillEl.style.width = w; } // 현재 너비에서 정지
+        } else {
+          setFill();
+          restart();
+        }
+      });
+    }
+    // 탭 전환/포커스 아웃이면 자동 전환 일시 정지 (배터리·리소스 절약)
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) clearInterval(timer); else if (!paused) restart();
+    });
+    setFill();   // 첫 슬라이드(영상) 진행 라인 채움 시작
+    restart();
+  }
+
+  /* ---------- 6b-2. 히어로 영상: 지정 구간만 반복 재생 ---------- */
+  function initHeroClip() {
+    var v = $("[data-hero-clip]");
+    if (!v) return;
+    var start = parseFloat(v.getAttribute("data-clip-start")) || 0;
+    var end = parseFloat(v.getAttribute("data-clip-end")) || 0; // 0이면 끝까지(전체)
+    if (end <= start) return; // 구간 미지정 → 그냥 둠
+    v.removeAttribute("loop");
+    var seek = function () { try { v.currentTime = start; } catch (e) {} };
+    v.addEventListener("loadedmetadata", seek);
+    if (v.readyState >= 1) seek();
+    v.addEventListener("timeupdate", function () {
+      if (v.currentTime >= end) { v.currentTime = start; var p = v.play(); if (p && p.catch) p.catch(function(){}); }
+    });
+  }
+
+  /* ---------- 6c. 로고 무한 루프 띠 (React Bits LogoLoop의 바닐라 재구현) ----------
+     한 시퀀스(ul)를 컨테이너 폭만큼 복제 → translateX를 seqWidth 주기로 순환.
+     이미지 로드 후 폭 측정, resize 대응, 호버 시 일시정지. 페이드/스케일 없음. */
+  function initLogoLoop() {
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return; // 모션 최소화 시 정지
+    $$("[data-logoloop]").forEach(setupLogoLoop);
+  }
+  function setupLogoLoop(box) {
+    var track = $(".logoloop__track", box);
+    var firstSeq = track && $(".logoloop__list", track);
+    if (!firstSeq) return;
+    var SPEED = parseFloat(box.getAttribute("data-logoloop-speed")) || 55; // 양수 왼쪽, 음수 오른쪽
+    var seqW = 0, offset = 0, last = null, paused = false, raf = null;
+
+    function rebuild() {
+      var lists = $$(".logoloop__list", track);
+      for (var i = 1; i < lists.length; i++) track.removeChild(lists[i]); // 복제본만 제거
+      seqW = firstSeq.getBoundingClientRect().width;
+      if (seqW <= 0) return;
+      var need = Math.ceil(box.clientWidth / seqW) + 1; // 화면을 덮고 한 벌 여유
+      for (var j = 0; j < need; j++) track.appendChild(firstSeq.cloneNode(true));
+      offset = offset % seqW;
+    }
+    function start() {
+      if (raf) return;
+      raf = requestAnimationFrame(function frame(t) {
+        if (last === null) last = t;
+        var dt = (t - last) / 1000; last = t;
+        if (!paused && seqW > 0) {
+          offset = (((offset + SPEED * dt) % seqW) + seqW) % seqW; // 음수 속도(역방향)도 안전
+          track.style.transform = "translate3d(" + (-offset).toFixed(2) + "px,0,0)";
+        }
+        raf = requestAnimationFrame(frame);
+      });
+    }
+    // 이미지가 로드돼야 폭을 정확히 잴 수 있음
+    var imgs = $$("img", firstSeq), remain = imgs.length;
+    var ready = function () { rebuild(); };
+    if (remain === 0) ready();
+    else imgs.forEach(function (im) {
+      if (im.complete) { if (--remain === 0) ready(); }
+      else {
+        im.addEventListener("load", function () { if (--remain === 0) ready(); }, { once: true });
+        im.addEventListener("error", function () { if (--remain === 0) ready(); }, { once: true });
+      }
+    });
+    addEventListener("resize", rebuild);
+    box.addEventListener("mouseenter", function () { paused = true; });
+    box.addEventListener("mouseleave", function () { paused = false; });
+    start();
+  }
+
+  /* ---------- 6d. 주요 서비스 탭 (공통/예비동아인/재학생) ---------- */
+  function initServices() {
+    var sec = $(".svc-block") || $(".svc");
+    if (!sec) return;
+    var tabs = $$("[data-svc-tab]", sec);
+    var panels = $$("[data-svc-panel]", sec);
+    tabs.forEach(function (t) {
+      t.addEventListener("click", function () {
+        var key = t.getAttribute("data-svc-tab");
+        tabs.forEach(function (x) { x.classList.toggle("on", x === t); });
+        panels.forEach(function (p) { p.classList.toggle("on", p.getAttribute("data-svc-panel") === key); });
+      });
+    });
   }
 
   /* ---------- 공통: 드래그 가로 스크롤 ---------- */
@@ -836,6 +1003,10 @@
     initProgress();
     initSidebar();
     initHero();
+    initHeroSlider();
+    initHeroClip();
+    initLogoLoop();
+    initServices();
     initHeroNotices();
     initKinetic();
     initCampusLife();

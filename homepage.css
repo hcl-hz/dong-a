@@ -11,8 +11,8 @@ img{display:block;max-width:100%;}
 
 /* custom scrollbar */
 ::-webkit-scrollbar{width:11px;height:11px;}
-::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:99px;border:3px solid #fff;}
-::-webkit-scrollbar-thumb:hover{background:var(--point);}
+::-webkit-scrollbar-thumb{background:#ffd325;border-radius:99px;border:3px solid #fff;}
+::-webkit-scrollbar-thumb:hover{background:#f0c000;}
 
 /* ---------- MOTION UTILITIES (data-reveal → data-rv when shown) ---------- */
 /* will-change 제거: 수십 개 요소의 영구 레이어 승격이 스크롤 합성 비용을 키움 (전환 중엔 브라우저가 자동 승격) */
@@ -86,8 +86,8 @@ a[data-cursor]:active,button[data-cursor]:active{ transform:scale(.97); }
    CURSOR FX  +  SCROLL PROGRESS
    =================================================================== */
 .cur-ring,.cur-dot{position:fixed;top:0;left:0;z-index:200;pointer-events:none;border-radius:50%;mix-blend-mode:difference;}
-.cur-ring{width:38px;height:38px;border:1.5px solid #fff;transition:width .25s var(--ease),height .25s var(--ease),background .25s,border-color .25s;}
-.cur-ring.hover{width:62px;height:62px;background:rgba(255,255,255,.12);}
+.cur-ring{width:28px;height:28px;border:1.5px solid #fff;transition:width .25s var(--ease),height .25s var(--ease),background .25s,border-color .25s;}
+/* .cur-ring.hover{width:62px;height:62px;background:rgba(255,255,255,.12);}  호버 시 커지는 효과 비활성 */
 .cur-dot{width:7px;height:7px;background:#fff;}
 .has-cursor-fx,.has-cursor-fx a,.has-cursor-fx button,.has-cursor-fx [data-cursor]{cursor:none;}
 @media(pointer:coarse){.cur-ring,.cur-dot{display:none;}}
@@ -114,7 +114,7 @@ a[data-cursor]:active,button[data-cursor]:active{ transform:scale(.97); }
 /* ===================================================================
    HEADER — VARIANT A : wide left sidebar
    =================================================================== */
-.sb{position:fixed;top:0;left:0;height:100vh;width:264px;z-index:60;
+.sb{position:fixed;top:0;left:0;height:100vh;width:240px;z-index:60;
   background:#fff;border-right:1px solid var(--line);transition:width .5s var(--ease);overflow:hidden;}
 .sb.mini{width:92px;}
 /* full panel */
@@ -125,9 +125,9 @@ a[data-cursor]:active,button[data-cursor]:active{ transform:scale(.97); }
 .sb-logo-img{width:182px;height:auto;display:block;}
 .sb-logo .kr{font-family:var(--font-display);font-weight:800;font-size:25px;letter-spacing:-.02em;color:var(--ink);}
 .sb-logo .en{font-size:10.5px;font-weight:700;letter-spacing:.26em;color:var(--point);}
-.sb-nav{display:flex;flex-direction:column;gap:2px;flex:1;}
+.sb-nav{display:flex;flex-direction:column;gap:8px;flex:1;}
 .sb-nav a{position:relative;font-family:var(--font-display);font-weight:600;font-size:18px;color:var(--fg-1);
-  padding:11px 12px;border-radius:10px;transition:.3s var(--ease);display:flex;align-items:center;justify-content:space-between;white-space:nowrap;}
+  padding:13px 12px;border-radius:10px;transition:.3s var(--ease);display:flex;align-items:center;justify-content:space-between;white-space:nowrap;}
 .sb-nav a .ar{opacity:0;transform:translateX(-6px);transition:.3s var(--ease);color:var(--point);}
 .sb-nav a:hover{background:var(--blue-50);color:var(--point);padding-left:18px;}
 .sb-nav a:hover .ar{opacity:1;transform:none;}
@@ -142,6 +142,27 @@ a[data-cursor]:active,button[data-cursor]:active{ transform:scale(.97); }
 .sb-acc:first-child:hover{background:var(--point-strong);}
 .sb-acc:not(:first-child):hover{border-color:var(--point);color:var(--point);}
 .sb-acc.icon{flex:0 0 auto;padding:11px;width:42px;height:42px;}
+
+/* ---- 사이드바 블루 테마 (포인트 컬러 배경 + 내부 요소 반전) ---- */
+.sb{background:var(--point);border-right-color:rgba(255,255,255,.14);}
+.sb-logo-img{filter:brightness(0) invert(1);}            /* 짙은 로고 → 흰색 */
+.sb-logo .kr{color:#fff;}
+.sb-logo .en{color:rgba(255,255,255,.85);}
+.sb-nav a{color:#fff;}
+.sb-nav a .ar{color:#fff;}
+.sb-nav a:hover{background:rgba(255,255,255,.16);color:#fff;}
+.sb-foot{border-top-color:rgba(255,255,255,.18);}
+/* 기본(부가) 버튼: 흰 테두리 + 흰 글씨 */
+.sb-acc{color:#fff;border-color:rgba(255,255,255,.4);}
+.sb-acc:not(:first-child):hover{background:rgba(255,255,255,.16);border-color:#fff;color:#fff;}
+/* 로그인 / 검색(첫 버튼): 흰 채움 + 블루 글씨로 반전 */
+.sb-acc:first-child,
+.sb-account.icons .sb-acc.icon:first-child{background:#fff;color:var(--point);border-color:#fff;}
+.sb-acc:first-child:hover,
+.sb-account.icons .sb-acc.icon:first-child:hover{background:rgba(255,255,255,.88);color:var(--point-strong);}
+/* 미니바 메뉴 아이콘도 흰색으로 */
+.sb-mini .sb-burger-img{filter:brightness(0) invert(1);}
+
 /* mini rail */
 .sb-mini{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;
   padding:30px 0;opacity:0;transform:translateX(20px);transition:opacity .4s var(--ease) .1s,transform .45s var(--ease) .1s;pointer-events:none;}
