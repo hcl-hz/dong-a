@@ -211,6 +211,54 @@
     }, 130);
   }
 
+  /* ---------- 큰 영문 타이틀 글자별 등장 (React Bits SplitText의 바닐라 포팅) ----------
+     GSAP/ScrollTrigger 없이, 글자를 .split-char span으로 쪼갠 뒤 IntersectionObserver(visGate)로
+     화면 진입 시 stagger 등장시킵니다. data-split 속성으로 구동 — 프로젝트 reveal 철학과 동일. */
+  function initSplitText() {
+    var els = $$("[data-split]");
+    if (!els.length) return;
+
+    function splitNodes(nodes, frag, idx) {
+      Array.prototype.slice.call(nodes).forEach(function (node) {
+        if (node.nodeType === 3) { // 텍스트 노드 → 글자별 span
+          node.textContent.split("").forEach(function (ch) {
+            if (ch === " ") { frag.appendChild(document.createTextNode(" ")); return; } // 공백은 줄바꿈 가능하게 그대로
+            var s = document.createElement("span");
+            s.className = "split-char";
+            s.textContent = ch;
+            s.style.setProperty("--i", idx.n++);
+            frag.appendChild(s);
+          });
+        } else if (node.nodeName === "BR") {
+          frag.appendChild(document.createElement("br"));
+        } else {
+          frag.appendChild(node.cloneNode(true)); // 기타 인라인 요소는 그대로
+        }
+      });
+    }
+
+    els.forEach(function (el) {
+      if (el.hasAttribute("data-split-done")) return;
+      var stagger = parseFloat(el.getAttribute("data-split-stagger")) || 45;
+      el.style.setProperty("--split-stagger", stagger + "ms");
+
+      var idx = { n: 0 };
+      var frag = document.createDocumentFragment();
+      splitNodes(el.childNodes, frag, idx);
+      while (el.firstChild) el.removeChild(el.firstChild);
+      el.appendChild(frag);
+      el.setAttribute("data-split-done", "");
+
+      if (!("IntersectionObserver" in window)) { el.setAttribute("data-split-in", ""); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { el.setAttribute("data-split-in", ""); io.unobserve(el); }
+        });
+      }, { threshold: 0.25, rootMargin: "0px 0px -8% 0px" });
+      io.observe(el);
+    });
+  }
+
   /* ---------- 6b. 히어로 배경 슬라이더 (영상 + 이미지 페이드, 일정 시간 자동) ---------- */
   function initHeroSlider() {
     var box = $("[data-hd-slider]");
@@ -979,6 +1027,18 @@
     addEventListener("scroll", check, { passive: true });
   }
 
+  /* ---------- 기념(개교 80주년) 섹션 위에선 사이드바를 흰색 테마로 ----------
+     섹션이 화면 세로 중앙선을 지날 때(현재 보고 있는 섹션) sb-light 토글 */
+  function initSidebarTheme() {
+    var sb = $(".sb");
+    var sec = document.getElementById("global");
+    if (!sb || !sec || !("IntersectionObserver" in window)) return;
+    var io = new IntersectionObserver(function (entries) {
+      sb.classList.toggle("sb-light", entries[0].isIntersecting);
+    }, { rootMargin: "-50% 0px -50% 0px", threshold: 0 });
+    io.observe(sec);
+  }
+
   /* ---------- 부트 ---------- */
   function boot() {
     // 캡처/디버그 모드(?cap): 등장 효과·스냅·스티키 비활성화하여 정적 캡처
@@ -987,6 +1047,7 @@
       s.textContent =
         '[data-reveal]{opacity:1!important;transform:none!important;clip-path:none!important}' +
         '[data-stagger]>*{opacity:1!important;transform:none!important}' +
+        ".split-char{opacity:1!important;transform:none!important}" +
         "html.d-snap{scroll-snap-type:none!important}" +
         '.site[data-variant="d"] .hero.hd{position:relative!important}';
       document.head.appendChild(s);
@@ -1003,6 +1064,7 @@
     initProgress();
     initSidebar();
     initHero();
+    initSplitText();
     initHeroSlider();
     initHeroClip();
     initLogoLoop();
@@ -1019,6 +1081,7 @@
     initNewsSlider();
     initAnchors();
     initVideoPause();
+    initSidebarTheme();
   }
 
   /* ---------- Scroll Stack — 3 Campuses ---------- */

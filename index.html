@@ -17,6 +17,8 @@
     <script src="image-slot.js" defer></script>
     <!-- vanilla interactions (no React/Babel) -->
     <script src="app.js" defer></script>
+    <!-- Grainient 배경 효과 (React Bits 컴포넌트를 바닐라 ogl 모듈로 포팅) -->
+    <script type="module" src="grainient.js"></script>
   </head>
   <body>
     <div class="site" data-variant="d" data-shrunk="false">
@@ -512,7 +514,7 @@
               <h1 class="hd-title" aria-label="DONG-A UNIVERSITY">
                 <span class="hd-ch">D</span><span class="hd-ch">O</span><span class="hd-ch">N</span
                 ><span class="hd-ch">G</span><span class="hd-ch">-</span><span class="hd-ch">A</span
-                ><span class="hd-ch">&nbsp;</span><span class="hd-ch">U</span><span class="hd-ch">N</span
+                ><span class="hd-ch">&nbsp;</span><wbr /><span class="hd-ch">U</span><span class="hd-ch">N</span
                 ><span class="hd-ch">I</span><span class="hd-ch">V</span><span class="hd-ch">E</span
                 ><span class="hd-ch">R</span><span class="hd-ch">S</span><span class="hd-ch">I</span
                 ><span class="hd-ch">T</span><span class="hd-ch">Y</span>
@@ -527,12 +529,28 @@
           <a class="hd-more hd-hide" href="#" data-cursor="true"><span>MORE VIEW</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
         </section>
         <section class="sec gpn anniv" id="global">
+          <div class="anniv-grainient" aria-hidden="true"
+               data-grainient
+               data-grainient-color1="#EE2A7B"
+               data-grainient-color2="#7B4E9C"
+               data-grainient-color3="#0072BC"
+               data-grainient-time-speed="0.3"
+               data-grainient-warp-strength="4.5"
+               data-grainient-warp-speed="2.4"
+               data-grainient-warp-frequency="4.0"
+               data-grainient-rotation-amount="120"
+               data-grainient-noise-scale="1.4"
+               data-grainient-zoom="0.9"
+               data-grainient-contrast="1.0"
+               data-grainient-saturation="0.92"
+               data-grainient-blend-angle="135"
+               data-grainient-grain-amount="0.08"></div>
           <div class="wrap">
             <div class="anniv-deco anniv-deco-left" aria-hidden="true"><span class="ad-out">FROM</span><span class="ad-sol">1946</span></div>
             <div class="anniv-deco anniv-deco-right" aria-hidden="true"><span class="ad-out">TO</span><span class="ad-sol">2026</span></div>
             <div class="anniv-inner">
               <img src="assets/anniv-80-full-white.png" alt="동아대학교 개교 80주년" class="anniv-logo" data-reveal="scale" />
-              <h2 class="anniv-head" data-reveal="up">Beyond Busan,<br>Toward the World</h2>
+              <h2 class="anniv-head" data-split data-split-stagger="50">Beyond Busan,<br>Toward the World</h2>
               <div class="anniv-copy">
                 <p data-reveal="up" data-reveal-delay="1">개교 80년, 13개 단과대학과 의료원을 갖춘 종합대학.<br>1946년 개교 이래 13만 동문이 사회 곳곳에서 활약하는 영남 사학의 명문입니다.</p>
                 <p data-reveal="up" data-reveal-delay="2">글로컬대학30 선정, 의과대학·대학병원, 법학전문대학원까지 — 부산 대전환을 이끄는 혁신 거점으로서 당신의 4년을 가장 든든하게 책임지겠습니다.</p>

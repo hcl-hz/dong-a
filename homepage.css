@@ -60,6 +60,16 @@ img{display:block;max-width:100%;}
 .sw > span{display:inline-block;transform:translateY(108%);transition:transform 1.3s var(--ease);transition-delay:calc(var(--i) * .09s);}
 [data-rv] .sw > span{transform:none;}
 
+/* char split entrance (React Bits SplitText의 바닐라 버전) — JS가 글자를 .split-char 로 쪼갬.
+   GSAP 없이 --i 인덱스 기반 transition-delay 로 글자별 stagger 등장 */
+.split-char{display:inline-block;opacity:0;transform:translateY(.5em);
+  transition:opacity .6s var(--ease),transform .6s var(--ease);
+  transition-delay:calc(var(--i) * var(--split-stagger, 45ms));will-change:transform,opacity;}
+[data-split-in] .split-char{opacity:1;transform:none;}
+@media(prefers-reduced-motion:reduce){
+  .split-char{transition:none;opacity:1;transform:none;}
+}
+
 @keyframes kenburns{0%{transform:scale(1.12) translate(2%,1%);}100%{transform:scale(1) translate(0,0);}}
 @keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
 @keyframes spin{to{transform:rotate(360deg);}}
@@ -115,7 +125,9 @@ a[data-cursor]:active,button[data-cursor]:active{ transform:scale(.97); }
    HEADER — VARIANT A : wide left sidebar
    =================================================================== */
 .sb{position:fixed;top:0;left:0;height:100vh;width:240px;z-index:60;
-  background:#fff;border-right:1px solid var(--line);transition:width .5s var(--ease);overflow:hidden;}
+  background:#fff;border-right:1px solid var(--line);overflow:hidden;
+  transition:width .5s var(--ease),background-color .45s var(--ease),border-color .45s var(--ease);}
+.sb-logo-img,.sb-logo .kr,.sb-logo .en,.sb-mini .sb-burger-img{transition:color .45s var(--ease),filter .45s var(--ease);}
 .sb.mini{width:92px;}
 /* full panel */
 .sb-full{position:absolute;inset:0;display:flex;flex-direction:column;padding:30px 26px;
@@ -162,6 +174,21 @@ a[data-cursor]:active,button[data-cursor]:active{ transform:scale(.97); }
 .sb-account.icons .sb-acc.icon:first-child:hover{background:rgba(255,255,255,.88);color:var(--point-strong);}
 /* 미니바 메뉴 아이콘도 흰색으로 */
 .sb-mini .sb-burger-img{filter:brightness(0) invert(1);}
+
+/* ---- 기념(개교 80주년) 섹션 위: 사이드바 흰색 테마로 전환 (그라데이션 블루와 충돌 방지) ---- */
+.sb.sb-light{background:#fff;border-right-color:var(--line);}
+.sb.sb-light .sb-logo-img{filter:none;}
+.sb.sb-light .sb-logo .kr{color:var(--ink);}
+.sb.sb-light .sb-logo .en{color:var(--point);}
+.sb.sb-light .sb-nav a{color:var(--fg-1);}
+.sb.sb-light .sb-nav a .ar{color:var(--point);}
+.sb.sb-light .sb-nav a:hover{background:var(--blue-50);color:var(--point);}
+.sb.sb-light .sb-foot{border-top-color:var(--line);}
+.sb.sb-light .sb-acc{color:var(--fg-1);border-color:var(--line);}
+.sb.sb-light .sb-acc:not(:first-child):hover{background:var(--blue-50);border-color:var(--point);color:var(--point);}
+.sb.sb-light .sb-acc:first-child,
+.sb.sb-light .sb-account.icons .sb-acc.icon:first-child{background:var(--point);color:#fff;border-color:var(--point);}
+.sb.sb-light .sb-mini .sb-burger-img{filter:none;}
 
 /* mini rail */
 .sb-mini{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:space-between;

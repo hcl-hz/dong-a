@@ -39,7 +39,7 @@ HTML 파일은 **반드시 프로젝트 루트에 있어야 합니다** — `ima
 
 ## app.js 구조
 
-`"use strict"` 하나의 IIFE 안에 약 30개의 번호 매겨진 `init*` 모듈(`initReveal`, `initHero`, `initCampusLife`, `initNews` 등)이 들어 있고, 각각 한 섹션을 담당합니다. 스크롤 관련 작업을 건드리기 전에 반드시 이해해야 할 두 개의 공유 기반 함수가 있습니다:
+`"use strict"` 하나의 IIFE 안에 약 30개의 번호 매겨진 `init*` 모듈(`initReveal`, `initHero`, `initCampusLife`, `initNews` 등)이 들어 있고, 각각 한 섹션을 담당합니다. 모든 모듈은 파일 끝의 단일 `boot()` 함수에서 순차 호출되며, `boot()`는 `document.readyState` 검사로 `DOMContentLoaded`에 한 번 실행됩니다. **새 섹션 모듈을 추가하려면 `init*` 함수를 정의하고 `boot()`에 호출 한 줄을 더하세요.** 스크롤 관련 작업을 건드리기 전에 반드시 이해해야 할 두 개의 공유 기반 함수가 있습니다:
 
 - **`visGate(el, wake)`** — `IntersectionObserver`를 감싸 `{active}`를 반환합니다. 스크롤/스크럽 핸들러는 `state.active`를 확인하고 섹션이 화면 밖이면 즉시 빠져나가야 합니다. 그래야 화면 밖 핸들러가 매 스크롤 프레임마다 강제 리플로우를 일으키지 않습니다. 핵심 성능 게이트입니다.
 - **`scrubScroll` / `scrubDrift()`** — Lerp 기반 **가상** 스크롤 값. 네이티브 스크롤은 그대로 두고, 스크럽 애니메이션은 이 보간된 값을 읽어서 휠을 휙 돌려도 뚝 끊기지 않고 부드러운 곡선으로 따라옵니다. 프레임별 구독은 `scrubScroll.sub(fn)`. `prefers-reduced-motion`을 존중합니다.
