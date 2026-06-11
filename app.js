@@ -1040,6 +1040,40 @@
   }
 
   /* ---------- 부트 ---------- */
+  /* ---------- 동아 파워 — 세로 휠을 가로 스크롤로 변환 (lerp 보간) ---------- */
+  function initPowerScroll() {
+    var track = $(".power-cards");
+    if (!track) return;
+    var reduce = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+    function maxX() { return track.scrollWidth - track.clientWidth; }
+    var target = track.scrollLeft;
+    var raf = null;
+    function tick() {
+      var diff = target - track.scrollLeft;
+      if (Math.abs(diff) < 0.5) { track.scrollLeft = target; raf = null; return; }
+      track.scrollLeft += diff * 0.16; // 가상 스크롤 곡선
+      raf = requestAnimationFrame(tick);
+    }
+    // 트랙패드 가로 스와이프 등 네이티브 스크롤은 target을 동기화만
+    track.addEventListener("scroll", function () {
+      if (raf === null) target = track.scrollLeft;
+    }, { passive: true });
+    track.addEventListener("wheel", function (e) {
+      // 이미 가로 입력(트랙패드)이면 브라우저 기본 동작에 맡김
+      if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+      var max = maxX();
+      if (max <= 0) return;
+      var atStart = track.scrollLeft <= 0;
+      var atEnd = track.scrollLeft >= max - 1;
+      // 끝에 닿으면 페이지 세로 스크롤로 자연스럽게 넘김
+      if ((e.deltaY < 0 && atStart) || (e.deltaY > 0 && atEnd)) return;
+      e.preventDefault();
+      target = Math.max(0, Math.min(max, target + e.deltaY));
+      if (reduce) { track.scrollLeft = target; return; }
+      if (raf === null) raf = requestAnimationFrame(tick);
+    }, { passive: false });
+  }
+
   function boot() {
     // 캡처/디버그 모드(?cap): 등장 효과·스냅·스티키 비활성화하여 정적 캡처
     if (/[?&]cap\b/.test(location.search)) {
@@ -1082,6 +1116,7 @@
     initAnchors();
     initVideoPause();
     initSidebarTheme();
+    initPowerScroll();
   }
 
   /* ---------- Scroll Stack — 3 Campuses ---------- */
