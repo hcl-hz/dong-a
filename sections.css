@@ -439,14 +439,22 @@
 .gpn.anniv > .wrap{position:relative;padding-top:clamp(52px,6.5vw,92px);padding-bottom:clamp(52px,6.5vw,92px);}
 /* 좌우 여백 장식 타이포 (아웃라인 + 솔리드) */
 .anniv-deco{position:absolute;z-index:1;display:flex;flex-direction:column;line-height:.9;
-  font-family:var(--font-display);font-weight:900;letter-spacing:-.01em;pointer-events:none;opacity:.4;}
-.anniv-deco-left{left:clamp(4px,1.5vw,32px);top:clamp(28px,5vw,68px);}
-.anniv-deco-right{right:clamp(4px,1.5vw,32px);bottom:clamp(28px,5vw,68px);align-items:flex-end;text-align:right;}
+  font-family:var(--font-display);font-weight:900;letter-spacing:-.01em;pointer-events:none;}
+.anniv-deco-left{left:clamp(4px,1.5vw,32px);top:clamp(28px,5vw,68px);bottom:clamp(40px,6vw,90px);}
+.anniv-deco-right{right:clamp(4px,1.5vw,32px);top:clamp(40px,6vw,90px);bottom:clamp(28px,5vw,68px);align-items:flex-end;text-align:right;}
+.anniv-deco-right .ad-out{margin-top:auto;}  /* TO/2026을 하단으로 (원형은 상단) */
 /* FROM/TO · 숫자 모두 테두리(아웃라인)만 — fill 없이 stroke 만, 전체적으로 크게 */
 .ad-out{font-size:clamp(34px,4.4vw,64px);color:transparent;
-  -webkit-text-stroke:1.5px rgba(255,255,255,.9);letter-spacing:.04em;}
+  -webkit-text-stroke:1.5px rgba(255,255,255,.42);letter-spacing:.04em;}
 .ad-sol{font-size:clamp(60px,8.4vw,120px);color:transparent;
-  -webkit-text-stroke:2px rgba(255,255,255,.9);}
+  -webkit-text-stroke:2px rgba(255,255,255,.42);}
+.ad-sol .kern{margin-left:.06em;}  /* 특정 글자(예: 4·6 사이)만 간격 */
+/* FROM 1946 아래 원형 이미지 카드 (세로 2개) */
+.anniv-circles{display:flex;flex-direction:column;gap:clamp(28px,3.2vw,52px);}
+.anniv-deco-left .anniv-circles{margin-top:auto;}   /* 왼쪽: 원형을 하단으로 */
+.anniv-circle{width:clamp(112px,10vw,168px);height:clamp(112px,10vw,168px);border-radius:50%;
+  overflow:hidden;border:1.5px solid rgba(255,255,255,.85);}
+.anniv-circle img{width:100%;height:100%;object-fit:cover;}
 @media(max-width:1024px){ .anniv-deco{display:none;} }  /* 좁은 화면: 본문과 겹쳐 숨김 */
 .gpn.anniv .gpn-badge{color:#fff;background:rgba(255,255,255,.2);}
 .gpn.anniv .gpn-desc{color:rgba(255,255,255,.92);}
@@ -562,9 +570,14 @@
 .power-eyebrow{display:inline-block;font-family:var(--font-display);font-weight:800;
   font-size:clamp(13px,1.1vw,16px);letter-spacing:.18em;color:var(--cyan);
   margin-bottom:clamp(16px,1.8vw,24px);}
+.power-titlerow{display:flex;align-items:flex-end;flex-wrap:wrap;gap:clamp(12px,2vw,28px);}
 .power-title{font-family:var(--font-display);font-weight:900;
   font-size:clamp(34px,5vw,72px);line-height:1.15;letter-spacing:-.03em;color:#fff;
   text-shadow:0 8px 40px rgba(0,0,0,.4);}
+.power-sub{font-family:var(--font-display);font-weight:600;
+  font-size:clamp(14px,1.3vw,19px);color:rgba(255,255,255,.72);
+  padding-bottom:clamp(6px,0.9vw,14px);}
+.power-sub b{font-weight:800;color:#fff;letter-spacing:.02em;}
 
 /* 동아 파워 — 글래스모피즘 카드 그리드 (3열, 2줄 초과 시 내부 스크롤) */
 .power-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(16px,1.6vw,24px);
