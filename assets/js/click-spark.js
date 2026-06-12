@@ -78,6 +78,8 @@
   const LIGHT_SECTIONS = ['about', 'stats', 'news'];
 
   function sparkColorAt(x, y) {
+    // 페이지별 전역 오버라이드 (예: window.__clickSparkColor = '#ffc24b')
+    if (typeof window !== 'undefined' && window.__clickSparkColor) return window.__clickSparkColor;
     const el = document.elementFromPoint(x, y);
     if (!el) return opts.sparkColor;
     const sec = el.closest('section[id], footer');

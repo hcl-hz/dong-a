@@ -301,7 +301,9 @@ document.querySelectorAll('.notice-tabs').forEach(tabs => {
 });
 
 // ── 누적 스크롤 기반 섹션 이동 (풀페이지 스타일) ──
+// [비활성화] 자유 스크롤로 변경 — 휠/키 가로채기 제거
 (function () {
+  return;
   const targets = [
     ...document.querySelectorAll('main > section'),
     document.querySelector('.site-footer')
@@ -378,4 +380,233 @@ document.querySelectorAll('.notice-tabs').forEach(tabs => {
   window.addEventListener('resize', () => { computeTops(); current = nearest(); });
   computeTops();
   current = nearest();   // 새로고침이 중간에서 됐을 때 대비, 최초 1회만
+})();
+
+// ── 동아파워 카드 슬라이드 (자동 없음 · 좌우 화살표로만 이동) ──
+(function () {
+  const marquee = document.querySelector('.pw2-marquee');
+  if (!marquee) return;
+  const rows = [...marquee.querySelectorAll('.pw2-row')];
+  // 각 행 복제 → 끝까지 가도 끊김 없이 이어짐
+  rows.forEach((row) => { row.innerHTML += row.innerHTML; });
+
+  const states = rows.map((row) => ({ el: row, offset: 0, target: 0, setW: 1 }));
+  const cards = [...marquee.querySelectorAll('.pw2-stat')];
+  const gapPx = () => {
+    const c = cards[0];
+    return c ? (parseFloat(getComputedStyle(c).marginRight) || 0) : 18;
+  };
+  // 보이는 영역에 정확히 N개가 들어가도록 카드 폭 설정 (와이드=5개)
+  const sizeCards = () => {
+    const mw = marquee.clientWidth || 1;
+    const gap = gapPx();
+    const count = mw >= 1180 ? 5 : mw >= 820 ? 4 : mw >= 560 ? 3 : 2;
+    // 내림(floor)으로 5장 합이 영역을 넘지 않게 → 끝 카드 잘림 방지
+    const cardW = Math.floor((mw - gap * (count - 1)) / count);
+    cards.forEach((c) => { c.style.flex = `0 0 ${cardW}px`; c.style.maxWidth = `${cardW}px`; });
+  };
+  const stepPx = () => {
+    const card = cards[0];
+    if (!card) return 240;
+    // 카드 단위(폭+간격)의 2배 — 카드 경계에 정확히 맞춰 이동
+    return Math.round(card.offsetWidth + gapPx()) * 2;
+  };
+  const measure = () => {
+    sizeCards();
+    states.forEach((s) => { s.setW = Math.round(s.el.scrollWidth / 2) || 1; });
+  };
+  const apply = (s) => {
+    let o = s.offset % s.setW;
+    if (o < 0) o += s.setW;
+    s.el.style.transform = `translateX(${-Math.round(o)}px)`; // 정수 px → 서브픽셀 잘림 방지
+  };
+  measure();
+  states.forEach(apply);
+  window.addEventListener('resize', () => { measure(); states.forEach(apply); });
+
+  // 클릭 시 target으로 부드럽게 보간
+  let raf = null;
+  const tick = () => {
+    let moving = false;
+    states.forEach((s) => {
+      const diff = s.target - s.offset;
+      if (Math.abs(diff) > 0.5) { s.offset += diff * 0.18; moving = true; }
+      else {
+        // 정지 시 setW 범위로 정규화 → 오차 누적 방지 (apply는 modulo라 점프 없음)
+        let n = s.target % s.setW;
+        if (n < 0) n += s.setW;
+        s.offset = n;
+        s.target = n;
+      }
+      apply(s);
+    });
+    if (moving) raf = requestAnimationFrame(tick);
+    else raf = null;
+  };
+  const nudge = (dir) => {
+    const step = stepPx();
+    states.forEach((s) => { s.target += dir * step; });
+    if (raf === null) raf = requestAnimationFrame(tick);
+  };
+
+  const prev = document.querySelector('.pw2-prev');
+  const next = document.querySelector('.pw2-next');
+  if (prev) prev.addEventListener('click', () => nudge(-1));
+  if (next) next.addEventListener('click', () => nudge(1));
+})();
+
+// ── 플레이스홀더 링크(href="#") 클릭 시 상단 점프 방지 ──
+document.querySelectorAll('a[href="#"]').forEach((a) => {
+  a.addEventListener('click', (e) => e.preventDefault());
+});
+
+// ── 대학공지 카테고리 버튼 선택 전환 ──
+(function () {
+  const cats = document.querySelectorAll('.na-cat');
+  cats.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      cats.forEach((b) => b.classList.toggle('is-active', b === btn));
+    });
+  });
+})();
+
+// ── 동아뉴스 슬라이더 (텍스트 + 메인/다음 이미지 전환) ──
+(function () {
+  const slider = document.querySelector('.nf-slider');
+  if (!slider) return;
+  const NEWS = [
+    { title: '동아대 부동산학교육과정, ‘2026 통합 원우회장배 골프대회’ 성료', desc: '지난 11일 부산 기장군 베이사이드 컨트리클럽에서 열린 ‘2026 동아대학교 부동산학교육과정 통합 원우회장배 골프대회’ 참가자들이...', date: '2026.05.21', img: 'uploads/image.png' },
+    { title: '동아대 경찰학과, 김수환 前 부산경찰청장 초청 특강 성료', desc: '지난 11일 동아대 부민캠퍼스에서 열린 초청 특강에서 김수환 전 부산경찰청장이 ...', date: '2025.05.20', img: 'uploads/image copy.png' },
+    { title: '동아대 한국어문학과, ‘제5회 살내(矢川) 최낙복 장학금 수여식’ 개최', desc: '‘제5회 살내(矢川) 최낙복 장학금 수여식’에 참석한 최낙복 명예교수와 ...', date: '2025.05.20', img: 'uploads/image copy 2.png' },
+    { title: '동아대·동명대 교수 연합팀, 전국교수축구대회 ‘준우승’', desc: '‘제20회 전국교수축구대회’에서 준우승을 차지한 동아대·동명대 연합팀 소속 교수들...', date: '2025.05.19', img: 'uploads/스크린샷 2026-06-12 10.05.06.png' },
+    { title: '의과대학, 지역 어린이 건강 돌봄 봉사', desc: '지역 아동을 대상으로 건강 검진과 돌봄 활동을 진행했다.', date: '2026.05.22', img: 'uploads/스크린샷 2026-06-12 10.06.12.png' }
+  ];
+  const titleEl = slider.querySelector('[data-nf-title]');
+  const descEl = slider.querySelector('[data-nf-desc]');
+  const dateEl = slider.querySelector('[data-nf-date]');
+  const panels = [...slider.querySelectorAll('.nf-panel')];
+  const prevBtn = slider.querySelector('[data-nf-dir="prev"]');
+  const nextBtn = slider.querySelector('[data-nf-dir="next"]');
+  let idx = 0;
+  const setActive = (i) => {
+    idx = Math.max(0, Math.min(NEWS.length - 1, i)); // 순환 없음 — 양 끝에서 멈춤
+    const nextIdx = idx + 1; // 마지막이면 일치하는 패널 없음 → 미리보기 없음
+    panels.forEach((p, k) => {
+      p.classList.toggle('is-active', k === idx);
+      p.classList.toggle('is-next', k === nextIdx);
+    });
+    if (prevBtn) prevBtn.disabled = idx === 0;
+    if (nextBtn) nextBtn.disabled = idx === NEWS.length - 1;
+    const cur = NEWS[idx];
+    titleEl.textContent = cur.title;
+    descEl.textContent = cur.desc;
+    dateEl.textContent = cur.date;
+  };
+  panels.forEach((p, k) => p.addEventListener('click', () => setActive(k)));
+  slider.querySelectorAll('[data-nf-dir]').forEach((el) => {
+    el.addEventListener('click', () => setActive(idx + (el.dataset.nfDir === 'prev' ? -1 : 1)));
+  });
+  setActive(0);
+})();
+
+// ── 동아 캘린더 (월 달력 그리드) ──
+(function () {
+  const grid = document.querySelector('[data-cal-grid]');
+  const monthEl = document.querySelector('[data-cal-month]');
+  if (!grid) return;
+
+  // 이벤트(학사일정) 시작일 — 월별 dot 표시
+  const EVENTS = { '2026-6': [6, 9, 16, 23, 29] };
+
+  let view = new Date(2026, 5, 1); // 2026.6 기준
+  const today = new Date();
+
+  const render = () => {
+    const year = view.getFullYear();
+    const month = view.getMonth(); // 0-based
+    if (monthEl) monthEl.textContent = year + '.' + (month + 1);
+    const evDays = EVENTS[year + '-' + (month + 1)] || [];
+
+    const firstDow = new Date(year, month, 1).getDay();
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+    const prevDays = new Date(year, month, 0).getDate();
+
+    let html = '';
+    // 이전 달 채우기
+    for (let i = firstDow - 1; i >= 0; i--) {
+      html += `<span class="nt2-cal-day other">${prevDays - i}</span>`;
+    }
+    // 이번 달
+    for (let d = 1; d <= daysInMonth; d++) {
+      const dow = new Date(year, month, d).getDay();
+      let cls = 'nt2-cal-day';
+      if (dow === 0) cls += ' sun';
+      if (dow === 6) cls += ' sat';
+      if (evDays.includes(d)) cls += ' has-event';
+      if (year === today.getFullYear() && month === today.getMonth() && d === today.getDate()) cls += ' today';
+      html += `<span class="${cls}">${d}</span>`;
+    }
+    // 다음 달 채우기
+    const filled = firstDow + daysInMonth;
+    const rest = (7 - (filled % 7)) % 7;
+    for (let i = 1; i <= rest; i++) html += `<span class="nt2-cal-day other">${i}</span>`;
+
+    grid.innerHTML = html;
+  };
+
+  document.querySelectorAll('[data-cal-dir]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      view.setMonth(view.getMonth() + (btn.dataset.calDir === 'next' ? 1 : -1));
+      render();
+    });
+  });
+  render();
+})();
+
+// ── 대학공지/캘린더 탭 선택 전환 ──
+(function () {
+  const groups = [
+    document.querySelectorAll('.nt2-tab'),
+    document.querySelectorAll('.nt2-cal-tab')
+  ];
+  groups.forEach((tabs) => {
+    tabs.forEach((tab) => {
+      tab.addEventListener('click', () => {
+        tabs.forEach((t) => t.classList.toggle('is-active', t === tab));
+      });
+    });
+  });
+})();
+
+// ── 주요서비스 (탭 전환 + 화살표 스크롤) ──
+(function () {
+  const carousel = document.querySelector('.svc2-carousel');
+  if (!carousel) return;
+  const tabs = document.querySelectorAll('.svc2-tab');
+  const tracks = document.querySelectorAll('.svc2-track');
+  const prev = document.querySelector('.svc2-prev');
+  const next = document.querySelector('.svc2-next');
+
+  const activeTrack = () => document.querySelector('.svc2-track.is-active');
+  const step = (track) => {
+    const item = track.querySelector('.svc2-item');
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 12) || 12;
+    const w = item ? item.getBoundingClientRect().width + gap : 240;
+    return w * 3; // 한 번에 3개씩
+  };
+
+  tabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      const key = tab.dataset.panel;
+      tabs.forEach((t) => t.classList.toggle('is-active', t === tab));
+      tracks.forEach((tr) => {
+        const on = tr.dataset.panel === key;
+        tr.classList.toggle('is-active', on);
+        if (on) tr.scrollLeft = 0; // 탭 바꾸면 처음으로
+      });
+    });
+  });
+
+  if (prev) prev.addEventListener('click', () => { const t = activeTrack(); if (t) t.scrollBy({ left: -step(t), behavior: 'smooth' }); });
+  if (next) next.addEventListener('click', () => { const t = activeTrack(); if (t) t.scrollBy({ left: step(t), behavior: 'smooth' }); });
 })();
