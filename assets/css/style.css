@@ -3779,26 +3779,18 @@ html {
   width: clamp(74px, 7vw, 100px);
   height: clamp(74px, 7vw, 100px);
   border-radius: var(--radius);
-  background: var(--sky-light);
-  color: var(--blue);
+  background: #f4f7fc;
   transition: transform var(--transition), box-shadow var(--transition);
 }
+/* 멀티컬러 일러스트 아이콘 — 색은 SVG 내부에서 직접 지정 */
 .svc2-ic svg {
-  width: 46%;
-  height: 46%;
+  width: 66%;
+  height: 66%;
 }
 .svc2-item:hover .svc2-ic {
   transform: translateY(-4px);
   box-shadow: var(--shadow-sm);
 }
-/* 파스텔톤 순환 (7색) */
-.svc2-item:nth-child(7n+1) .svc2-ic { background: #e6f0ff; color: #2f6fed; }
-.svc2-item:nth-child(7n+2) .svc2-ic { background: #e3f7ef; color: #14a37f; }
-.svc2-item:nth-child(7n+3) .svc2-ic { background: #ffeede; color: #ef7d1a; }
-.svc2-item:nth-child(7n+4) .svc2-ic { background: #efe9ff; color: #7a5af0; }
-.svc2-item:nth-child(7n+5) .svc2-ic { background: #ffe6ef; color: #e84d8a; }
-.svc2-item:nth-child(7n+6) .svc2-ic { background: #fff4d4; color: #d39400; }
-.svc2-item:nth-child(7n+7) .svc2-ic { background: #e0f4f7; color: #119aa8; }
 .svc2-label {
   font-size: clamp(13px, 1vw, 15px);
   font-weight: 600;
@@ -3898,13 +3890,25 @@ html {
   align-items: center;
   text-align: center;
   gap: 12px;
-  background: #5b9ef7;
+  background: linear-gradient(150deg, #4f9bf8, #2f7be6);
   border: 1.5px solid #fff;
   border-radius: var(--radius);
   padding: clamp(22px, 2vw, 30px) clamp(16px, 1.4vw, 22px);
   transition: transform 0.3s var(--ease, ease), background 0.3s var(--ease, ease), border-color 0.3s var(--ease, ease);
 }
-.pw2-stat:hover {
+/* 카드 색 — 블루 계열 그라데이션으로 다양화 (마퀴 복제 이음새 유지: 1행 4주기·2행 7주기) */
+[data-row="1"] .pw2-stat:nth-child(4n+1) { background: linear-gradient(150deg, #4f9bf8, #2f7be6); }
+[data-row="1"] .pw2-stat:nth-child(4n+2) { background: linear-gradient(150deg, #6f8af2, #4d63de); }
+[data-row="1"] .pw2-stat:nth-child(4n+3) { background: linear-gradient(150deg, #2fa8dd, #1f86c4); }
+[data-row="1"] .pw2-stat:nth-child(4n)   { background: linear-gradient(150deg, #7a6ced, #5a45d6); }
+[data-row="2"] .pw2-stat:nth-child(7n+1) { background: linear-gradient(150deg, #4f9bf8, #2f7be6); }
+[data-row="2"] .pw2-stat:nth-child(7n+2) { background: linear-gradient(150deg, #2fa8dd, #1f86c4); }
+[data-row="2"] .pw2-stat:nth-child(7n+3) { background: linear-gradient(150deg, #6f8af2, #4d63de); }
+[data-row="2"] .pw2-stat:nth-child(7n+4) { background: linear-gradient(150deg, #2bbcc9, #1d97b3); }
+[data-row="2"] .pw2-stat:nth-child(7n+5) { background: linear-gradient(150deg, #5566e6, #3b46d0); }
+[data-row="2"] .pw2-stat:nth-child(7n+6) { background: linear-gradient(150deg, #3d8ad8, #2b6fc6); }
+[data-row="2"] .pw2-stat:nth-child(7n)   { background: linear-gradient(150deg, #7a6ced, #5a45d6); }
+.pw2-marquee .pw2-stat:hover {
   transform: translateY(-8px);
   background: #fff;
   border-width: 2.5px;

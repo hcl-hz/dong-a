@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>주요서비스 아이콘 스타일 비교</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 48px 32px 80px;
+    font-family: "Noto Sans KR", sans-serif;
+    color: #1a2233;
+    background: #f6f8fb;
+  }
+  h1 { font-size: 22px; margin: 0 0 6px; }
+  .sub { color: #687385; margin: 0 0 40px; font-size: 14px; }
+  .cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 28px;
+    max-width: 1180px;
+    margin: 0 auto;
+  }
+  .col {
+    background: #fff;
+    border: 1px solid #e6eaf0;
+    border-radius: 18px;
+    padding: 26px 22px 30px;
+  }
+  .col h2 { font-size: 16px; margin: 0 0 4px; }
+  .col .desc { font-size: 12.5px; color: #8b93a3; margin: 0 0 22px; line-height: 1.5; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px 10px;
+  }
+  .item { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+  .ic {
+    width: 76px; height: 76px;
+    border-radius: 20px;
+    display: grid; place-items: center;
+  }
+  .ic svg { width: 56%; height: 56%; }
+  .label { font-size: 12px; font-weight: 500; line-height: 1.3; color: #404a5c; min-height: 2.6em; }
+
+  /* ── A. 현재 듀오톤 (단색 + 파스텔칩) ── */
+  .a .ic { background: var(--bg); color: var(--fg); }
+  .a .item:nth-child(7n+1) .ic { --bg:#e6f0ff; --fg:#2f6fed; }
+  .a .item:nth-child(7n+2) .ic { --bg:#e3f7ef; --fg:#14a37f; }
+  .a .item:nth-child(7n+3) .ic { --bg:#ffeede; --fg:#ef7d1a; }
+  .a .item:nth-child(7n+4) .ic { --bg:#efe9ff; --fg:#7a5af0; }
+  .a .item:nth-child(7n+5) .ic { --bg:#ffe6ef; --fg:#e84d8a; }
+  .a .item:nth-child(7n+6) .ic { --bg:#fff4d4; --fg:#d39400; }
+  .a .item:nth-child(7n+7) .ic { --bg:#e0f4f7; --fg:#119aa8; }
+
+  /* ── B. 멀티컬러 일러스트 (흰 칩 + 다색 아이콘) ── */
+  .b .ic { background: #f4f7fc; }
+  .b .ic svg { width: 64%; height: 64%; }
+
+  /* ── C. 손그림 (러프 필터 라인) ── */
+  .c .ic { background: #eef2f8; color: #2b3a55; }
+  .c .ic svg { width: 58%; height: 58%; }
+</style>
+</head>
+<body>
+  <h1>주요서비스 아이콘 — 스타일 비교</h1>
+  <p class="sub">공통 탭 9개 서비스로 비교. 마음에 드는 열을 알려주시면 실제 페이지에 전 항목 적용합니다.</p>
+
+  <!-- 손그림용 러프 필터 -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="rough" x="-20%" y="-20%" width="140%" height="140%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="2" seed="7" result="n" />
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="2.4" />
+    </filter>
+  </svg>
+
+  <div class="cols">
+
+    <!-- ===================== A. 현재 듀오톤 ===================== -->
+    <div class="col a">
+      <h2>① 현재 듀오톤</h2>
+      <p class="desc">단색 + 파스텔 칩. 지금 적용돼 있는 스타일.</p>
+      <div class="grid">
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a7 7 0 0 1 7 7c0 5.2-7 13-7 13S5 14.2 5 9a7 7 0 0 1 7-7Z" fill-opacity=".25"/><circle cx="12" cy="9" r="2.7"/></svg></span><span class="label">캠퍼스맵</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="3" width="20" height="14" rx="2.5" fill-opacity=".25"/><rect x="7.5" y="19" width="9" height="2.2" rx="1.1"/><rect x="11" y="15.5" width="2" height="4"/></svg></span><span class="label">통합정보시스템</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="17.5" cy="7.5" r="2.6" fill-opacity=".25"/><circle cx="9" cy="8" r="3.5"/><path d="M3 19a6 6 0 0 1 12 0 1 1 0 0 1-1 1H4a1 1 0 0 1-1-1Z" fill-opacity=".25"/></svg></span><span class="label">그룹웨어</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 19a5 5 0 0 1-.5-9.97A6 6 0 0 1 18 9.5a4.5 4.5 0 0 1-.5 9.5Z" fill-opacity=".25"/><path d="M9.5 14.2l1.8 1.8 3.4-3.6" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="label">동아클라우드</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="9.5" fill-opacity=".25"/><path d="M12 4a8 8 0 0 1 8 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="3.4"/></svg></span><span class="label">원격지원</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5 3h6a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H5Z" fill-opacity=".25"/><path d="M19 3h-6a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h6Z"/></svg></span><span class="label">도서관</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M5.5 7H21l-1.8 7.2a2 2 0 0 1-1.95 1.55H9.2L7 5H3" fill-opacity=".25"/><path d="M3 4h2l2.2 11.2a1.5 1.5 0 0 0 1.47 1.2h8.86" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="20" r="1.6"/><circle cx="17" cy="20" r="1.6"/></svg></span><span class="label">전자구매</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.5S3 14.5 3 8.7A4.7 4.7 0 0 1 12 6a4.7 4.7 0 0 1 9 2.7c0 5.8-9 11.8-9 11.8Z" fill-opacity=".25"/><path d="M5 11h3l1.5-3 2 5.5 1.6-2.5H19" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="label">병원</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="2" y="5.5" width="20" height="13" rx="2.5" fill-opacity=".25"/><path d="M10 9l5 3-5 3Z"/></svg></span><span class="label">미디어센터</span></div>
+      </div>
+    </div>
+
+    <!-- ===================== B. 멀티컬러 일러스트 ===================== -->
+    <div class="col b">
+      <h2>② 멀티컬러 일러스트</h2>
+      <p class="desc">아이콘마다 배경 원 + 2~3색을 입힌 플랫 일러스트.</p>
+      <div class="grid">
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#e6f0ff"/><path d="M12 5a5 5 0 0 1 5 5c0 3.6-5 8.5-5 8.5S7 13.6 7 10a5 5 0 0 1 5-5Z" fill="#2f6fed"/><circle cx="12" cy="10" r="1.8" fill="#fff"/></svg></span><span class="label">캠퍼스맵</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#e3f7ef"/><rect x="5" y="5.5" width="14" height="9.5" rx="1.6" fill="#14a37f"/><rect x="9.5" y="17.2" width="5" height="1.6" rx=".8" fill="#14a37f"/><rect x="11.2" y="15" width="1.6" height="2.4" fill="#14a37f"/><path d="M7.5 11.8l2-2 1.6 1.6 2.6-3" stroke="#fff" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="label">통합정보시스템</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#ffeede"/><circle cx="15.5" cy="9" r="2.3" fill="#f6ab68"/><path d="M11 18.8a4.5 4.5 0 0 1 9 0 .6.6 0 0 1-.6.6h-7.8a.6.6 0 0 1-.6-.6Z" fill="#f6ab68"/><circle cx="9" cy="8.5" r="3" fill="#ef7d1a"/><path d="M4 18.8a5 5 0 0 1 10 0 .8.8 0 0 1-.8.8H4.8a.8.8 0 0 1-.8-.8Z" fill="#ef7d1a"/></svg></span><span class="label">그룹웨어</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#efe9ff"/><path d="M8.5 17a3.5 3.5 0 0 1-.4-6.98A4.2 4.2 0 0 1 16 10.4a3.2 3.2 0 0 1-.4 6.6Z" fill="#7a5af0"/><path d="M10 13.4l1.4 1.4 2.6-2.8" stroke="#fff" stroke-width="1.4" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="label">동아클라우드</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#ffe6ef"/><path d="M6.5 13a5.5 5.5 0 0 1 11 0" fill="none" stroke="#e84d8a" stroke-width="1.8" stroke-linecap="round"/><rect x="4.8" y="12.5" width="3" height="4.6" rx="1.5" fill="#e84d8a"/><rect x="16.2" y="12.5" width="3" height="4.6" rx="1.5" fill="#e84d8a"/><path d="M17.7 17.1a2 2 0 0 1-2 2h-2" fill="none" stroke="#e84d8a" stroke-width="1.5" stroke-linecap="round"/></svg></span><span class="label">원격지원</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#e6f0ff"/><path d="M12 7c-1.5-1-3.6-1.3-5.1-1a1 1 0 0 0-.9 1v7.6a1 1 0 0 0 1.2 1c1.3-.3 3.2-.1 4.8.9Z" fill="#2f6fed"/><path d="M12 7c1.5-1 3.6-1.3 5.1-1a1 1 0 0 1 .9 1v7.6a1 1 0 0 1-1.2 1c-1.3-.3-3.2-.1-4.8.9Z" fill="#7aa6f5"/></svg></span><span class="label">도서관</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#fff4d4"/><path d="M5.8 7.2h11.4l-1.3 5.4a1.4 1.4 0 0 1-1.36 1.05H8.3L6.9 6H5.3" fill="none" stroke="#d39400" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9" cy="17" r="1.4" fill="#d39400"/><circle cx="15" cy="17" r="1.4" fill="#d39400"/></svg></span><span class="label">전자구매</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#ffe0e1"/><path d="M12 17.6S6 13.6 6 9.9A3.3 3.3 0 0 1 12 7.9 3.3 3.3 0 0 1 18 9.9c0 3.7-6 7.7-6 7.7Z" fill="#e5484d"/><path d="M7.6 11.6h1.7l1-2 1.4 3.6 1-1.6h2.7" stroke="#fff" stroke-width="1.3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="label">병원</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="11" fill="#e0f4f7"/><rect x="5" y="7.5" width="14" height="9" rx="1.8" fill="#119aa8"/><path d="M10.5 10.5l3.2 1.9-3.2 1.9Z" fill="#fff"/></svg></span><span class="label">미디어센터</span></div>
+      </div>
+    </div>
+
+    <!-- ===================== C. 손그림 ===================== -->
+    <div class="col c">
+      <h2>③ 손그림</h2>
+      <p class="desc">라인 아이콘에 러프 필터를 입힌 스케치 느낌.</p>
+      <div class="grid">
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="label">캠퍼스맵</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)"><rect width="20" height="8" x="2" y="2" rx="2"/><rect width="20" height="8" x="2" y="14" rx="2"/><path d="M6 6h.01"/><path d="M6 18h.01"/></svg></span><span class="label">통합정보시스템</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span><span class="label">그룹웨어</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg></span><span class="label">동아클라우드</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/><circle cx="12" cy="12" r="4"/></svg></span><span class="label">원격지원</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg></span><span class="label">도서관</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg></span><span class="label">전자구매</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg></span><span class="label">병원</span></div>
+        <div class="item"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" filter="url(#rough)"><path d="m22 8-6 4 6 4V8Z"/><rect width="14" height="12" x="2" y="6" rx="2"/></svg></span><span class="label">미디어센터</span></div>
+      </div>
+    </div>
+
+  </div>
+</body>
+</html>
