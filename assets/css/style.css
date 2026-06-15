@@ -2748,10 +2748,10 @@ html {
 .nf-deco {
   position: absolute;
   left: 0;
-  top: clamp(-44px, -3.5vw, -18px);
-  width: clamp(210px, 25vw, 375px);
+  top: clamp(-10px, 0.8vw, 14px);
+  width: clamp(260px, 30vw, 440px);
   aspect-ratio: 1;
-  background: url("../../uploads/Gemini_Generated_Image_6d5jmy6d5jmy6d5j-removebg-preview.png") left center / contain no-repeat;
+  background: url("../../uploads/스크린샷 2026-06-15 14.51.53.png") left top / contain no-repeat;
   z-index: 0;
 }
 .nf-deco-txt {
@@ -3729,9 +3729,10 @@ html {
 .svc2-deco-img {
   position: absolute;
   right: 0;
-  bottom: clamp(70px, 9vw, 170px);
-  width: clamp(130px, 16vw, 270px);
+  top: clamp(-10px, 0.8vw, 14px);
+  width: clamp(260px, 30vw, 440px);
   height: auto;
+  transform: scaleX(-1); /* 좌우 반전 */
   z-index: 0;
   pointer-events: none;
 }

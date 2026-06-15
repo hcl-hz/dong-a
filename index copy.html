@@ -119,7 +119,6 @@
 
     <!-- ── NEWS (신규 시안 · uploads/뉴스.png 참고) ── -->
     <section id="news" class="news-feat">
-      <div class="nf-circle" aria-hidden="true"></div>
       <div class="nf-deco" aria-hidden="true"></div>
       <div class="container">
         <div class="news-feat-head reveal">
@@ -151,9 +150,7 @@
     </section>
 
     <!-- ── 공지사항 (신규 시안 · uploads/공지사항.png 참고) ── -->
-    <section id="notice" class="notice-sec svc2">
-      <div class="svc2-deco" aria-hidden="true"></div>
-      <img src="uploads/스크린샷_2026-06-15_14.09.19-removebg-preview.png" alt="" class="svc2-deco-img" aria-hidden="true" />
+    <section id="notice" class="notice-sec">
       <div class="container">
         <div class="nt2-grid">
           <!-- 왼쪽: 공지사항 -->
@@ -221,8 +218,12 @@
           </div>
         </div>
       </div>
-      <!-- ── 주요서비스 ── -->
-      <div class="container svc-block" id="services">
+    </section>
+
+    <!-- ── 주요서비스 ── -->
+    <section id="services" class="svc2">
+      <img src="uploads/스크린샷 2026-06-15 14.51.53.png" alt="" class="svc2-deco-img" aria-hidden="true" />
+      <div class="container">
         <div class="news-feat-head reveal">
           <h2 class="news-feat-title">주요서비스</h2>
           <p class="news-feat-sub">services</p>
@@ -706,16 +707,16 @@
     const opts = {
       variant: 'circle',
       pixelSize: 6,
-      color: '#aecbf5',
+      color: '#9cc0f5',
       patternScale: 3,
-      patternDensity: 0.65,
+      patternDensity: 0.85,
       pixelSizeJitter: 0.3,
       enableRipples: true,
       rippleSpeed: 0.4,
       rippleThickness: 0.12,
       rippleIntensityScale: 1.2,
       speed: 0.5,
-      edgeFade: 0.35,
+      edgeFade: 0.08,
       transparent: true
     };
     document.querySelectorAll('.pw2-bg').forEach((el) => {
