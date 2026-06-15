@@ -2748,10 +2748,10 @@ html {
 .nf-deco {
   position: absolute;
   left: 0;
-  top: clamp(-40px, -3.2vw, -16px);
-  width: clamp(240px, 28vw, 420px);
+  top: clamp(-44px, -3.5vw, -18px);
+  width: clamp(210px, 25vw, 375px);
   aspect-ratio: 1;
-  background: url("../../uploads/스크린샷_2026-06-09_17.01.02-removebg-preview.png") left center / contain no-repeat;
+  background: url("../../uploads/Gemini_Generated_Image_6d5jmy6d5jmy6d5j-removebg-preview.png") left center / contain no-repeat;
   z-index: 0;
 }
 .nf-deco-txt {
