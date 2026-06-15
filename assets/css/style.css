@@ -2727,6 +2727,30 @@ html {
   background: var(--white);
   padding: var(--section-py) 0;
 }
+/* 왼쪽 상단 장식 직사각형 (반투명 그라데이션) */
+.nf-deco {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: clamp(340px, 42vw, 620px);
+  height: clamp(270px, 31vw, 470px);
+  background: rgba(255, 92, 173, 0.2);
+  border-radius: 0 0 clamp(36px, 5vw, 72px) 0;
+  z-index: 0;
+}
+.nf-deco-txt {
+  position: absolute;
+  top: clamp(22px, 2.6vw, 38px);
+  left: clamp(24px, 2.6vw, 40px);
+  font-family: 'Paperlogy', var(--font);
+  font-weight: 800;
+  font-size: clamp(28px, 3vw, 48px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  color: rgba(233, 56, 130, 0.1);
+}
+.news-feat .container { position: relative; z-index: 1; }
 /* 섹션을 꽉 채우도록 컨테이너 폭 확장 (반응형 패딩 유지) */
 .news-feat .container {
   max-width: min(1640px, 92vw);
@@ -2781,7 +2805,7 @@ html {
   bottom: clamp(-48px, -3.5vw, -16px);
   width: clamp(150px, 18vw, 240px);
   height: auto;
-  opacity: 0.1;
+  opacity: 0.12;
   pointer-events: none;
   z-index: 0;
 }
@@ -3670,7 +3694,33 @@ html {
   background: var(--white);
   padding: clamp(56px, 6vw, 88px) 0;
 }
+/* 왼쪽 상단 장식 직사각형 (반투명 노란 계열) */
+.svc2-deco {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: clamp(340px, 42vw, 620px);
+  height: clamp(270px, 31vw, 470px);
+  background: rgba(255, 194, 75, 0.26);
+  border-radius: clamp(36px, 5vw, 72px) 0 0 clamp(36px, 5vw, 72px);
+  z-index: 0;
+}
+.svc2-deco-txt {
+  position: absolute;
+  top: clamp(22px, 2.6vw, 38px);
+  right: clamp(24px, 2.6vw, 40px);
+  font-family: 'Paperlogy', var(--font);
+  font-weight: 800;
+  font-size: clamp(28px, 3vw, 48px);
+  line-height: 1.05;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  text-align: right;
+  color: rgba(255, 199, 71, 0.2);
+}
 .svc2 .container {
+  position: relative;
+  z-index: 1;
   max-width: min(1640px, 92vw);
   padding: 0 clamp(20px, 4vw, 64px);
 }
@@ -3891,7 +3941,7 @@ html {
   text-align: center;
   gap: 12px;
   background: linear-gradient(150deg, #4f9bf8, #2f7be6);
-  border: 1.5px solid #fff;
+  border: 2px solid #fff;
   border-radius: var(--radius);
   padding: clamp(22px, 2vw, 30px) clamp(16px, 1.4vw, 22px);
   transition: transform 0.3s var(--ease, ease), background 0.3s var(--ease, ease), border-color 0.3s var(--ease, ease);
@@ -3911,7 +3961,6 @@ html {
 .pw2-marquee .pw2-stat:hover {
   transform: translateY(-8px);
   background: #fff;
-  border-width: 2.5px;
   border-color: var(--gray-border);
 }
 .pw2-ic {
@@ -4099,50 +4148,78 @@ html {
 /* ── 히어로 우측 하단 대상별 버튼 ── */
 .hero-quick {
   position: absolute;
-  right: clamp(20px, 5vw, 64px);
+  left: clamp(20px, 5vw, 64px);
   bottom: clamp(24px, 4vw, 48px);
   z-index: 4;
   display: flex;
   gap: 0;
+  border: 1.5px solid var(--blue);
+  border-radius: 0;
+  overflow: hidden;
 }
-.hq-label {
+/* 핵심 바로가기 칩 — 여백 없이 붙은 직사각형 바 */
+.hq-chip {
   display: inline-flex;
   align-items: center;
-  padding: 15px 24px;
+  gap: 8px;
+  padding: 14px 26px;
   background: #fff;
   color: var(--blue);
-  font-size: clamp(12px, 0.95vw, 14px);
-  font-weight: 800;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  border-radius: var(--radius-full) 0 0 var(--radius-full);
-  user-select: none;
-}
-.hq-btn {
-  display: inline-flex;
-  align-items: center;
-  padding: 15px 28px;
-  border: none;
-  border-right: 1px solid rgba(255, 255, 255, 0.25);
-  background: var(--blue);
-  color: #fff;
   font-size: clamp(13px, 1vw, 15px);
   font-weight: 700;
   text-decoration: none;
-  transition: background var(--transition);
+  border-right: 1.5px solid var(--blue);
+  transition: background 0.2s var(--ease, ease);
 }
-.hq-btn:last-child {
-  border-right: none;
-  border-radius: 0 var(--radius-full) var(--radius-full) 0;
-}
-.hq-btn:hover { background: var(--blue-dark); }
+.hq-chip:last-child { border-right: none; }
+.hq-chip:hover { background: var(--sky-light); }
 @media (max-width: 560px) {
-  .hero-quick {
-    left: clamp(16px, 5vw, 64px);
-    right: clamp(16px, 5vw, 64px);
-    justify-content: flex-end;
-  }
-  .hq-btn { flex: 1; justify-content: center; padding: 14px 8px; }
+  .hq-chip { padding: 13px 16px; }
+}
+
+/* 오른쪽 플로팅 메뉴 (메인 페이지 d-quick 이식) */
+.d-quick {
+  position: fixed;
+  z-index: 55;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  width: clamp(62px, 5vw, 78px);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-radius: 18px 0 0 18px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: -4px 0 18px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.dq-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 16px 6px;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  background: none;
+  cursor: pointer;
+  font-family: 'Paperlogy', var(--font);
+  font-weight: 700;
+  font-size: clamp(11px, 0.85vw, 13px);
+  line-height: 1.25;
+  text-align: center;
+  color: var(--text-mid);
+  text-decoration: none;
+  transition: background 0.2s var(--ease, ease), color 0.2s var(--ease, ease);
+}
+.dq-item:last-child { border-bottom: none; }
+.dq-item:hover { background: var(--blue); color: #fff; }
+.dq-top { background: var(--blue); color: #fff; }
+.dq-top:hover { background: var(--blue-dark); }
+@media (max-width: 1180px) {
+  .d-quick { display: none; }
 }
 
 /* ── TOP 버튼 (스크롤 시 등장) ── */

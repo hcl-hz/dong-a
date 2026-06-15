@@ -455,6 +455,12 @@ document.querySelectorAll('.notice-tabs').forEach(tabs => {
   if (next) next.addEventListener('click', () => nudge(1));
 })();
 
+// ── 플로팅 도크 TOP 버튼 ──
+(function () {
+  const top = document.querySelector('.dq-top');
+  if (top) top.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+
 // ── 플레이스홀더 링크(href="#") 클릭 시 상단 점프 방지 ──
 document.querySelectorAll('a[href="#"]').forEach((a) => {
   a.addEventListener('click', (e) => e.preventDefault());
