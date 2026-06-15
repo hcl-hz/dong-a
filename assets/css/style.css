@@ -2733,15 +2733,25 @@ html {
   overflow: hidden;
 }
 /* 왼쪽 상단 장식 직사각형 (반투명 그라데이션) */
-.nf-deco {
+/* 보라 사분원 (링 이미지보다 아래 레이어) */
+.nf-circle {
   position: absolute;
   top: 0;
   left: 0;
-  transform: translate(-50%, -50%); /* 원 중심을 좌상단 코너로 → 1/4(사분원)만 보임 */
+  transform: translate(-50%, -50%);
   width: clamp(680px, 76vw, 1180px);
   aspect-ratio: 1;
-  background: rgba(84, 9, 218, 0.12); /* 주조색 #5409DA */
+  background: rgba(84, 9, 218, 0.12);
   border-radius: 50%;
+  z-index: 0;
+}
+.nf-deco {
+  position: absolute;
+  left: 0;
+  top: clamp(-40px, -3.2vw, -16px);
+  width: clamp(240px, 28vw, 420px);
+  aspect-ratio: 1;
+  background: url("../../uploads/스크린샷_2026-06-09_17.01.02-removebg-preview.png") left center / contain no-repeat;
   z-index: 0;
 }
 .nf-deco-txt {
@@ -3715,6 +3725,16 @@ html {
   border-radius: 50%;
   z-index: 0;
 }
+/* 하늘색 도형 위에 올리는 도형(8자 링) 이미지 */
+.svc2-deco-img {
+  position: absolute;
+  right: 0;
+  bottom: clamp(70px, 9vw, 170px);
+  width: clamp(130px, 16vw, 270px);
+  height: auto;
+  z-index: 0;
+  pointer-events: none;
+}
 .svc2-deco-txt {
   position: absolute;
   top: 66%;
@@ -3953,24 +3973,24 @@ html {
   align-items: center;
   text-align: center;
   gap: 12px;
-  background: linear-gradient(150deg, #4f9bf8, #2f7be6);
+  background: #0072bc;
   border: 2px solid #fff;
   border-radius: var(--radius);
   padding: clamp(22px, 2vw, 30px) clamp(16px, 1.4vw, 22px);
   transition: transform 0.3s var(--ease, ease), background 0.3s var(--ease, ease), border-color 0.3s var(--ease, ease);
 }
 /* 카드 색 — 블루 계열 그라데이션으로 다양화 (마퀴 복제 이음새 유지: 1행 4주기·2행 7주기) */
-[data-row="1"] .pw2-stat:nth-child(4n+1) { background: linear-gradient(150deg, #4f9bf8, #2f7be6); }
-[data-row="1"] .pw2-stat:nth-child(4n+2) { background: linear-gradient(150deg, #6f8af2, #4d63de); }
-[data-row="1"] .pw2-stat:nth-child(4n+3) { background: linear-gradient(150deg, #2fa8dd, #1f86c4); }
-[data-row="1"] .pw2-stat:nth-child(4n)   { background: linear-gradient(150deg, #7a6ced, #5a45d6); }
-[data-row="2"] .pw2-stat:nth-child(7n+1) { background: linear-gradient(150deg, #4f9bf8, #2f7be6); }
-[data-row="2"] .pw2-stat:nth-child(7n+2) { background: linear-gradient(150deg, #2fa8dd, #1f86c4); }
-[data-row="2"] .pw2-stat:nth-child(7n+3) { background: linear-gradient(150deg, #6f8af2, #4d63de); }
-[data-row="2"] .pw2-stat:nth-child(7n+4) { background: linear-gradient(150deg, #2bbcc9, #1d97b3); }
-[data-row="2"] .pw2-stat:nth-child(7n+5) { background: linear-gradient(150deg, #5566e6, #3b46d0); }
-[data-row="2"] .pw2-stat:nth-child(7n+6) { background: linear-gradient(150deg, #3d8ad8, #2b6fc6); }
-[data-row="2"] .pw2-stat:nth-child(7n)   { background: linear-gradient(150deg, #7a6ced, #5a45d6); }
+[data-row="1"] .pw2-stat:nth-child(4n+1) { background: #0072bc; }
+[data-row="1"] .pw2-stat:nth-child(4n+2) { background: #6b46c9; }
+[data-row="1"] .pw2-stat:nth-child(4n+3) { background: #2f9bdc; }
+[data-row="1"] .pw2-stat:nth-child(4n)   { background: #ee2a7b; }
+[data-row="2"] .pw2-stat:nth-child(7n+1) { background: #0072bc; }
+[data-row="2"] .pw2-stat:nth-child(7n+2) { background: #2f9bdc; }
+[data-row="2"] .pw2-stat:nth-child(7n+3) { background: #ee2a7b; }
+[data-row="2"] .pw2-stat:nth-child(7n+4) { background: #6b46c9; }
+[data-row="2"] .pw2-stat:nth-child(7n+5) { background: #f0609e; }
+[data-row="2"] .pw2-stat:nth-child(7n+6) { background: #2f9bdc; }
+[data-row="2"] .pw2-stat:nth-child(7n)   { background: #ee2a7b; }
 .pw2-marquee .pw2-stat:hover {
   transform: translateY(-8px);
   background: #fff;
@@ -4241,7 +4261,8 @@ html {
 }
 .dq-item:last-child { border-bottom: none; }
 .dq-item:hover { background: var(--blue); color: #fff; }
-.dq-top { background: var(--purple); color: #fff; }
+.dq-top { background: var(--purple); color: #fff; flex-direction: column; gap: 3px; }
+.dq-top svg { width: 16px; height: 16px; }
 .dq-top:hover { background: var(--purple-dark); }
 @media (max-width: 1180px) {
   .d-quick { display: none; }
