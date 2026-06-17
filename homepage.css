@@ -144,6 +144,14 @@ a[data-cursor]:active,button[data-cursor]:active{ transform:scale(.97); }
 .sb-nav a:hover{background:var(--blue-50);color:var(--point);padding-left:18px;}
 .sb-nav a:hover .ar{opacity:1;transform:none;}
 .sb-foot{display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:18px;}
+/* 언어 토글 (KOR/ENG) */
+.sb-lang{display:flex;align-items:center;justify-content:center;gap:8px;}
+.sb-lang-btn{background:none;border:0;padding:2px 4px;font:inherit;font-size:13px;font-weight:700;color:#8a93a1;cursor:pointer;transition:color .2s var(--ease);}
+.sb-lang-btn:hover,.sb-lang-btn.is-active{color:var(--point);}
+.sb-lang-sep{color:var(--line);}
+#google_translate_element{display:none;}
+.goog-te-banner-frame,.goog-te-gadget-icon{display:none!important;}
+body{top:0!important;}
 .sb-account{display:flex;align-items:center;gap:8px;}
 .sb-account.icons{justify-content:center;gap:6px;}
 .sb-account.icons .sb-acc.icon:first-child{background:var(--point);color:#fff;border-color:var(--point);}

@@ -141,6 +141,12 @@
             ></a>
           </nav>
           <div class="sb-foot">
+            <div class="sb-lang" translate="no">
+              <button type="button" class="sb-lang-btn is-active" data-lang="ko" data-cursor="true">KOR</button>
+              <span class="sb-lang-sep">|</span>
+              <button type="button" class="sb-lang-btn" data-lang="en" data-cursor="true">ENG</button>
+            </div>
+            <div id="google_translate_element" aria-hidden="true"></div>
             <div class="sb-account icons">
               <a class="sb-acc" href="#" data-cursor="true">로그인</a
               ><button class="sb-acc icon" data-cursor="true" aria-label="통합검색">
@@ -1113,19 +1119,26 @@
         <footer class="d-foot">
           <div class="wrap">
             <div class="df-policy">
-              <a href="#" data-cursor="true">개인정보처리방침</a><a href="#" data-cursor="true">입찰정보</a
-              ><a href="#" data-cursor="true">예·결산 공고</a><a href="#" data-cursor="true">등록금 납부안내</a
-              ><a href="#" data-cursor="true">찾아오시는 길</a>
+              <div class="df-policy-links">
+                <a href="#" data-cursor="true">개인정보처리방침</a><a href="#" data-cursor="true">입찰정보</a
+                ><a href="#" data-cursor="true">예·결산 공고</a><a href="#" data-cursor="true">등록금 납부안내</a
+                ><a href="#" data-cursor="true">찾아오시는 길</a>
+              </div>
+              <div class="df-sns">
+                <a href="https://www.instagram.com/donga_univ" target="_blank" rel="noopener" class="sns-ig" data-cursor="true" aria-label="동아대학교 인스타그램"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="16.5" x2="16.51" y1="7.5" y2="7.5"/></svg></a>
+                <a href="https://www.youtube.com/dongauniversity1946" target="_blank" rel="noopener" class="sns-yt" data-cursor="true" aria-label="동아대학교 유튜브"><svg viewBox="0 0 24 24"><path fill="#fff" d="M10 8.3v7.4L16 12z"/></svg></a>
+                <a href="https://blog.naver.com/donga_pr_bot" target="_blank" rel="noopener" class="sns-blog" data-cursor="true" aria-label="동아대학교 블로그"><svg viewBox="0 0 24 24"><path fill="#fff" d="M9 6h2.15v4.05a2.9 2.9 0 0 1 2.05-.78c1.97 0 3.3 1.55 3.3 3.62 0 2.07-1.36 3.61-3.4 3.61-.86 0-1.6-.3-2.1-.87V16H9V6Zm2.1 6.9c0 1.04.7 1.8 1.65 1.8s1.6-.74 1.6-1.8-.63-1.8-1.6-1.8-1.65.78-1.65 1.8Z"/></svg></a>
+                <a href="https://www.facebook.com/dongauniv" target="_blank" rel="noopener" class="sns-fb" data-cursor="true" aria-label="동아대학교 페이스북"><svg viewBox="0 0 24 24"><path fill="#fff" d="M13.4 21v-7.1h2.4l.4-2.8h-2.8V9.3c0-.8.2-1.4 1.4-1.4h1.5V5.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2H8v2.8h2.3V21z"/></svg></a>
+                <a href="https://pf.kakao.com/_vELxob" target="_blank" rel="noopener" class="sns-kakao" data-cursor="true" aria-label="동아대학교 카카오톡"><svg viewBox="0 0 24 24"><path fill="#3c1e1e" d="M12 6.3c-3.85 0-6.97 2.42-6.97 5.4 0 1.93 1.3 3.62 3.25 4.58-.14.5-.52 1.9-.59 2.2-.09.36.13.36.28.26.11-.08 1.8-1.22 2.53-1.72.49.07 1 .11 1.5.11 3.85 0 6.97-2.42 6.97-5.4S15.85 6.3 12 6.3Z"/></svg></a>
+              </div>
             </div>
             <div class="df-main">
               <div class="df-info">
                 <img src="assets/donga-logo.png" alt="동아대학교" class="df-logo" />
                 <div class="df-addr">
-                  <p>
-                    <b>승학캠퍼스(대학본부)</b><br />(49315) 부산 사하구 낙동대로550번길 37 (하단동) TEL : 051-200-6114
-                  </p>
-                  <p><b>구덕캠퍼스</b><br />(49201) 부산시 서구 대신공원로 32(동대신동 3가)</p>
-                  <p><b>부민캠퍼스</b><br />(49236) 부산시 서구 구덕로 225(부민동 2가)</p>
+                  <p><b>승학캠퍼스(대학본부)</b> (49315) 부산 사하구 낙동대로550번길 37 (하단동) TEL : 051-200-6114</p>
+                  <p><b>구덕캠퍼스</b> (49201) 부산시 서구 대신공원로 32(동대신동 3가)</p>
+                  <p><b>부민캠퍼스</b> (49236) 부산시 서구 구덕로 225(부민동 2가)</p>
                 </div>
               </div>
               <div class="df-selects">
@@ -1167,6 +1180,24 @@
                   </svg></button
                 ><button class="df-sel" data-cursor="true">
                   대학원
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    data-lucide="chevron-down"
+                    class="lucide lucide-chevron-down"
+                    style="width: 16px; height: 16px; display: inline-flex"
+                  >
+                    <path d="m6 9 6 6 6-6"></path>
+                  </svg></button
+                ><button class="df-sel" data-cursor="true">
+                  부속기관
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="24"
@@ -1237,5 +1268,33 @@
       <div class="cur-ring"></div>
       <div class="cur-dot"></div>
     </div>
+    <!-- 구글 번역 (KOR/ENG) -->
+    <script>
+      function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          { pageLanguage: 'ko', includedLanguages: 'en,ko', autoDisplay: false },
+          'google_translate_element'
+        );
+      }
+      (function () {
+        var btns = document.querySelectorAll('.sb-lang-btn');
+        var setLang = function (lang) {
+          var tries = 0;
+          (function apply() {
+            var combo = document.querySelector('.goog-te-combo');
+            if (!combo) { if (tries++ < 20) setTimeout(apply, 300); return; }
+            combo.value = lang;
+            combo.dispatchEvent(new Event('change'));
+          })();
+        };
+        btns.forEach(function (b) {
+          b.addEventListener('click', function () {
+            btns.forEach(function (x) { x.classList.toggle('is-active', x === b); });
+            setLang(b.dataset.lang);
+          });
+        });
+      })();
+    </script>
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
   </body>
 </html>

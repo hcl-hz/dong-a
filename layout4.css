@@ -734,9 +734,21 @@ html.d-snap{scroll-snap-type:y proximity;}
 /* ---------- 새 푸터 (D 전용, 레퍼런스형) ---------- */
 .d-foot{background:var(--ink);color:#fff;}
 .d-foot .wrap{max-width:1700px;margin:0 auto;padding:0 clamp(24px,5vw,72px);}
-.df-policy{display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,46px);padding:26px 0;}
-.df-policy a{font-size:14px;font-weight:600;color:rgba(255,255,255,.88);transition:.25s;}
-.df-policy a:hover{color:#fff;}
+.df-policy{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:clamp(16px,2.4vw,32px);padding:26px 0;}
+.df-policy-links{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(20px,3vw,46px);}
+.df-policy-links a{font-size:14px;font-weight:600;color:rgba(255,255,255,.88);transition:.25s;}
+.df-policy-links a:first-child{color:#ee2a7b;}
+.df-policy-links a:hover{color:#fff;}
+/* SNS 아이콘 — 브랜드 본래 색상 */
+.df-sns{display:flex;align-items:center;gap:18px;}
+.df-sns a{display:grid;place-items:center;width:44px;height:44px;border-radius:50%;transition:.25s var(--ease);}
+.df-sns svg{width:24px;height:24px;}
+.df-sns a:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.28);}
+.df-sns .sns-ig{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fdf497 5%,#fd5949 45%,#d6249f 60%,#285aeb 90%);}
+.df-sns .sns-yt{background:#ff0000;}
+.df-sns .sns-blog{background:#03c75a;}
+.df-sns .sns-fb{background:#1877f2;}
+.df-sns .sns-kakao{background:#fee500;}
 .df-main{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;align-items:flex-start;
   padding:34px 0;border-top:1px solid rgba(255,255,255,.16);}
 .df-logo{width:188px;height:auto;filter:brightness(0) invert(1);margin-bottom:22px;}
@@ -745,7 +757,6 @@ html.d-snap{scroll-snap-type:y proximity;}
 .df-selects{display:grid;grid-template-columns:repeat(2,minmax(150px,210px));gap:12px;}
 .df-sel{display:flex;align-items:center;justify-content:space-between;gap:14px;background:transparent;
   border:1px solid rgba(255,255,255,.28);border-radius:8px;padding:13px 18px;color:#fff;font-size:14px;font-weight:600;transition:.25s var(--ease);}
-.df-sel:first-child{grid-column:1;}
 .df-sel:hover{border-color:#fff;background:rgba(255,255,255,.08);}
 .df-copy{font-size:12px;letter-spacing:.04em;color:rgba(255,255,255,.5);padding:20px 0 40px;border-top:1px solid rgba(255,255,255,.16);}
 @media(max-width:720px){ .df-selects{grid-template-columns:1fr;} }

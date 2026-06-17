@@ -277,13 +277,39 @@ updateBackToTop();
 
 // ── 히어로 이미지 슬라이드쇼 (img2부터 5장 반복) ──
 const heroSlides = document.querySelectorAll('#hero-slideshow .hero-slide');
+const heroTexts = document.querySelectorAll('.hero-texts .hero-text');
+const heroVideo = document.querySelector('#hero-slideshow .hero-slide[data-kind="video"] .hero-video');
+const HERO_IMAGE_DWELL = 5000;  // 이미지 슬라이드 노출 시간
+const HERO_VIDEO_DWELL = 12000; // 영상 노출 시간 (긴 영상이라도 이 시간만 재생 후 다음, 10~15초 사이로 조정)
+// 활성 슬라이드에 맞는 텍스트만 노출 (영상=중앙 타이틀 / 이미지=홍보문구)
+const syncHeroText = (i) => {
+  heroTexts.forEach((t) => t.classList.toggle('is-active', Number(t.dataset.slide) === i));
+};
 if (heroSlides.length > 1) {
   let heroIdx = 0;
-  setInterval(() => {
-    heroSlides[heroIdx].classList.remove('is-active');
-    heroIdx = (heroIdx + 1) % heroSlides.length;
-    heroSlides[heroIdx].classList.add('is-active');
-  }, 5000);
+  let heroTimer = null;
+  const goNext = () => showHero((heroIdx + 1) % heroSlides.length);
+  function scheduleHero() {
+    clearTimeout(heroTimer);
+    if (heroVideo) heroVideo.onended = null;
+    const cur = heroSlides[heroIdx];
+    if (cur.dataset.kind === 'video' && heroVideo) {
+      // 영상: 처음부터 재생하되 긴 영상이어도 HERO_VIDEO_DWELL만큼만 보여주고 다음
+      try { heroVideo.currentTime = 0; const p = heroVideo.play(); if (p) p.catch(() => {}); } catch (e) {}
+      heroTimer = setTimeout(goNext, HERO_VIDEO_DWELL);
+    } else {
+      if (heroVideo) heroVideo.pause();
+      heroTimer = setTimeout(goNext, HERO_IMAGE_DWELL);
+    }
+  }
+  function showHero(i) {
+    heroSlides.forEach((s, k) => s.classList.toggle('is-active', k === i));
+    heroIdx = i;
+    syncHeroText(i);
+    scheduleHero();
+  }
+  syncHeroText(0);
+  scheduleHero(); // 초기 영상 슬라이드부터 시작
 }
 
 // ── 공지사항 카드 탭 전환 ──
@@ -455,10 +481,131 @@ document.querySelectorAll('.notice-tabs').forEach(tabs => {
   if (next) next.addEventListener('click', () => nudge(1));
 })();
 
+// ── 동아파워 카드 숫자 카운트업 (섹션 진입 시 1회) ──
+(function () {
+  const marquee = document.querySelector('.pw2-marquee');
+  if (!marquee) return;
+  // 텍스트형(전국 1위·3대 국책사업 등) 제외, 숫자형 figure만 — 마퀴 복제본 포함
+  const figs = [...marquee.querySelectorAll('.pw2-figure:not(.pw2-figure--text)')];
+  if (!figs.length) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const items = figs.map((el) => {
+    const raw = el.textContent.trim();
+    return {
+      el, raw,
+      hasComma: raw.indexOf(',') !== -1,
+      dec: (raw.split('.')[1] || '').length,
+      num: parseFloat(raw.replace(/,/g, '')),
+    };
+  }).filter((it) => isFinite(it.num));
+  if (!items.length) return;
+
+  const fmt = (v, it) => {
+    let s = it.dec ? v.toFixed(it.dec) : String(Math.round(v));
+    if (it.hasComma) {
+      const p = s.split('.');
+      p[0] = Number(p[0]).toLocaleString('en-US');
+      s = p.join('.');
+    }
+    return s;
+  };
+
+  let done = false;
+  const run = () => {
+    if (done) return;
+    done = true;
+    if (reduced) { items.forEach((it) => { it.el.textContent = it.raw; }); return; }
+    const dur = 1400;
+    const ease = (t) => 1 - Math.pow(1 - t, 3);
+    const t0 = performance.now();
+    items.forEach((it) => { it.el.textContent = fmt(0, it); });
+    const frame = (now) => {
+      const t = Math.min(1, (now - t0) / dur);
+      const e = ease(t);
+      items.forEach((it) => { it.el.textContent = fmt(it.num * e, it); });
+      if (t < 1) requestAnimationFrame(frame);
+      else items.forEach((it) => { it.el.textContent = it.raw; }); // 원본 포맷 복원
+    };
+    requestAnimationFrame(frame);
+  };
+
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { run(); io.disconnect(); }
+    }, { threshold: 0.25 });
+    io.observe(marquee);
+  } else {
+    run();
+  }
+})();
+
 // ── 플로팅 도크 TOP 버튼 ──
 (function () {
   const top = document.querySelector('.dq-top');
   if (top) top.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+})();
+
+// ── 대상별 슬라이드 패널 (예비동아인/재학생/교직원/학부모) ──
+(function () {
+  const panel = document.getElementById('dq-panel');
+  if (!panel) return;
+  const titleEl = panel.querySelector('.dq-panel-title');
+  const listEl = panel.querySelector('.dq-panel-list');
+  const closeBtn = panel.querySelector('.dq-panel-close');
+  const btns = [...document.querySelectorAll('.d-quick .dq-item[data-aud]')];
+
+  // 대상별 관련 항목 (실제 링크/항목으로 교체하세요)
+  const LINKS = {
+    '예비동아인': ['학과소개 포털', '입학안내', '수시모집', '정시모집', '편입학', '재외국민전형'],
+    '재학생': ['학습관리시스템(LMS)', '통합정보시스템', '학사일정', '수강신청', '증명서 발급', '장학·등록'],
+    '교직원': ['그룹웨어', '통합정보시스템', '전자결재', '웹메일', '중앙도서관', '증명서 발급'],
+    '학부모': ['입학안내', '장학 안내', '학사일정', '등록금 납부', '캠퍼스맵', '상담·문의'],
+  };
+
+  let openAud = null;
+  const render = (aud) => {
+    titleEl.textContent = aud;
+    listEl.innerHTML = (LINKS[aud] || [])
+      .map((label) => `<li><a href="#">${label}</a></li>`)
+      .join('');
+  };
+  const close = () => {
+    panel.classList.remove('is-open');
+    panel.setAttribute('aria-hidden', 'true');
+    btns.forEach((b) => { b.classList.remove('is-active'); b.setAttribute('aria-expanded', 'false'); });
+    openAud = null;
+  };
+  const open = (aud, btn) => {
+    render(aud);
+    panel.classList.add('is-open');
+    panel.setAttribute('aria-hidden', 'false');
+    btns.forEach((b) => {
+      const on = b === btn;
+      b.classList.toggle('is-active', on);
+      b.setAttribute('aria-expanded', on ? 'true' : 'false');
+    });
+    openAud = aud;
+  };
+
+  btns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const aud = btn.dataset.aud;
+      if (openAud === aud) close(); // 같은 버튼 재클릭 → 닫기
+      else open(aud, btn);
+    });
+  });
+  if (closeBtn) closeBtn.addEventListener('click', close);
+  // 동적 생성된 플레이스홀더 링크(href="#") 상단 점프 방지
+  listEl.addEventListener('click', (e) => {
+    const a = e.target.closest('a[href="#"]');
+    if (a) e.preventDefault();
+  });
+  // 바깥 클릭 / Esc 닫기
+  document.addEventListener('click', (e) => {
+    if (openAud && !panel.contains(e.target) && !e.target.closest('.d-quick')) close();
+  });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') close(); });
 })();
 
 // ── 플레이스홀더 링크(href="#") 클릭 시 상단 점프 방지 ──
@@ -626,6 +773,21 @@ document.querySelectorAll('a[href="#"]').forEach((a) => {
     return w * 3; // 한 번에 3개씩
   };
 
+  // 등장 스태거 애니메이션: 아이템에 인덱스 부여 + 재생 트리거
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduced) {
+    tracks.forEach((tr) => {
+      tr.classList.add('anim');
+      [...tr.querySelectorAll('.svc2-item')].forEach((it, i) => it.style.setProperty('--i', i));
+    });
+  }
+  const playIn = (tr) => {
+    if (!tr || reduced) return;
+    tr.classList.remove('is-in');
+    void tr.offsetWidth; // 리플로우 → 애니메이션 리셋
+    tr.classList.add('is-in');
+  };
+
   tabs.forEach((tab) => {
     tab.addEventListener('click', () => {
       const key = tab.dataset.panel;
@@ -635,8 +797,17 @@ document.querySelectorAll('a[href="#"]').forEach((a) => {
         tr.classList.toggle('is-active', on);
         if (on) tr.scrollLeft = 0; // 탭 바꾸면 처음으로
       });
+      playIn(activeTrack()); // 탭 전환 시 새 아이콘 스태거 재생
     });
   });
+
+  // 섹션이 처음 보일 때 1회 재생
+  if (!reduced && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      if (entries.some((e) => e.isIntersecting)) { playIn(activeTrack()); io.disconnect(); }
+    }, { threshold: 0.2 });
+    io.observe(carousel);
+  }
 
   if (prev) prev.addEventListener('click', () => { const t = activeTrack(); if (t) t.scrollBy({ left: -step(t), behavior: 'smooth' }); });
   if (next) next.addEventListener('click', () => { const t = activeTrack(); if (t) t.scrollBy({ left: step(t), behavior: 'smooth' }); });
