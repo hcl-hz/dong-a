@@ -487,30 +487,55 @@ document.querySelectorAll('a[href="#"]').forEach((a) => {
     { title: '동아대·동명대 교수 연합팀, 전국교수축구대회 ‘준우승’', desc: '‘제20회 전국교수축구대회’에서 준우승을 차지한 동아대·동명대 연합팀 소속 교수들...', date: '2025.05.19', img: 'uploads/스크린샷 2026-06-12 10.05.06.png' },
     { title: '의과대학, 지역 어린이 건강 돌봄 봉사', desc: '지역 아동을 대상으로 건강 검진과 돌봄 활동을 진행했다.', date: '2026.05.22', img: 'uploads/스크린샷 2026-06-12 10.06.12.png' }
   ];
+  const PEOPLE = [
+    { title: '세계를 무대로 — 글로벌 기업 진출 동문', desc: '동아대를 졸업하고 해외 유수 기업에서 활약 중인 동문의 이야기를 전합니다.', date: '2026.05.18', img: 'assets/images/people.jpg' },
+    { title: '연구로 미래를 여는 사람들 — 우수 연구자', desc: '국제 학술지에 잇따라 성과를 낸 동아대 연구진을 만나봅니다.', date: '2026.05.12', img: 'assets/images/people2.jpg' },
+    { title: '캠퍼스를 빛내는 학생들 — 동아 서포터즈', desc: '학교를 알리고 지역과 소통하는 학생 홍보대사들의 활동기.', date: '2026.05.06', img: 'assets/images/people3.jpg' },
+    { title: '지역과 함께 — 동아 봉사단', desc: '이웃과 함께하는 동아인의 따뜻한 나눔 활동을 소개합니다.', date: '2026.04.28', img: 'assets/images/people4.jpg' },
+    { title: '도전하는 청년 — 창업 동아리 스토리', desc: '아이디어를 사업으로 키워가는 동아대 청년 창업가들.', date: '2026.04.20', img: 'assets/images/people5.jpg' }
+  ];
+  const DATA = { '동아뉴스': NEWS, '동아피플': PEOPLE };
+
   const titleEl = slider.querySelector('[data-nf-title]');
   const descEl = slider.querySelector('[data-nf-desc]');
   const dateEl = slider.querySelector('[data-nf-date]');
   const panels = [...slider.querySelectorAll('.nf-panel')];
   const prevBtn = slider.querySelector('[data-nf-dir="prev"]');
   const nextBtn = slider.querySelector('[data-nf-dir="next"]');
+  let current = NEWS;
   let idx = 0;
   const setActive = (i) => {
-    idx = Math.max(0, Math.min(NEWS.length - 1, i)); // 순환 없음 — 양 끝에서 멈춤
-    const nextIdx = idx + 1; // 마지막이면 일치하는 패널 없음 → 미리보기 없음
+    idx = Math.max(0, Math.min(current.length - 1, i)); // 순환 없음
+    const nextIdx = idx + 1;
     panels.forEach((p, k) => {
       p.classList.toggle('is-active', k === idx);
       p.classList.toggle('is-next', k === nextIdx);
     });
     if (prevBtn) prevBtn.disabled = idx === 0;
-    if (nextBtn) nextBtn.disabled = idx === NEWS.length - 1;
-    const cur = NEWS[idx];
+    if (nextBtn) nextBtn.disabled = idx === current.length - 1;
+    const cur = current[idx];
     titleEl.textContent = cur.title;
     descEl.textContent = cur.desc;
     dateEl.textContent = cur.date;
   };
+  const applyDataset = (data) => {
+    current = data;
+    panels.forEach((p, k) => {
+      const img = p.querySelector('img');
+      if (img && data[k]) img.src = data[k].img;
+    });
+    setActive(0);
+  };
   panels.forEach((p, k) => p.addEventListener('click', () => setActive(k)));
   slider.querySelectorAll('[data-nf-dir]').forEach((el) => {
     el.addEventListener('click', () => setActive(idx + (el.dataset.nfDir === 'prev' ? -1 : 1)));
+  });
+  // 제목 라인 탭(동아뉴스/동아피플) → 데이터셋 전환
+  document.querySelectorAll('.nf-tab').forEach((tab) => {
+    tab.addEventListener('click', () => {
+      document.querySelectorAll('.nf-tab').forEach((t) => t.classList.toggle('is-active', t === tab));
+      applyDataset(DATA[tab.textContent.trim()] || NEWS);
+    });
   });
   setActive(0);
 })();

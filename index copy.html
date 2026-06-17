@@ -78,7 +78,12 @@
         </ul>
       </nav>
       <div class="nav-actions">
-        <!-- TODO: 새 버튼 자리 -->
+        <div class="lang-toggle" translate="no">
+          <button type="button" class="lang-btn is-active" data-lang="ko">KOR</button>
+          <span class="lang-sep">|</span>
+          <button type="button" class="lang-btn" data-lang="en">ENG</button>
+        </div>
+        <div id="google_translate_element" aria-hidden="true"></div>
       </div>
       <button class="nav-hamburger" id="nav-hamburger" aria-label="메뉴 열기">
         <span></span><span></span><span></span>
@@ -119,11 +124,14 @@
 
     <!-- ── NEWS (신규 시안 · uploads/뉴스.png 참고) ── -->
     <section id="news" class="news-feat">
-      <div class="nf-deco" aria-hidden="true"></div>
       <div class="container">
         <div class="news-feat-head reveal">
           <h2 class="news-feat-title">동아뉴스</h2>
           <p class="news-feat-sub">dong-a now</p>
+          <div class="nf-headtabs">
+            <button class="nf-tab is-active" type="button">동아뉴스</button>
+            <button class="nf-tab" type="button">동아피플</button>
+          </div>
         </div>
         <div class="nf-slider reveal">
           <div class="nf-slide-text">
@@ -222,7 +230,6 @@
 
     <!-- ── 주요서비스 ── -->
     <section id="services" class="svc2">
-      <img src="uploads/스크린샷 2026-06-15 14.51.53.png" alt="" class="svc2-deco-img" aria-hidden="true" />
       <div class="container">
         <div class="news-feat-head reveal">
           <h2 class="news-feat-title">주요서비스</h2>
@@ -691,6 +698,34 @@
     <a href="#" class="dq-item"><span>교직원</span></a>
     <a href="#" class="dq-item"><span>학부모</span></a>
   </nav>
+
+  <!-- 구글 번역 (KOR/ENG) -->
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'ko', includedLanguages: 'en,ko', autoDisplay: false },
+        'google_translate_element'
+      );
+    }
+    (function () {
+      const btns = document.querySelectorAll('.lang-btn');
+      const setLang = (lang) => {
+        let tries = 0;
+        const apply = () => {
+          const combo = document.querySelector('.goog-te-combo');
+          if (!combo) { if (tries++ < 20) setTimeout(apply, 300); return; }
+          combo.value = lang;
+          combo.dispatchEvent(new Event('change'));
+        };
+        apply();
+      };
+      btns.forEach((b) => b.addEventListener('click', () => {
+        btns.forEach((x) => x.classList.toggle('is-active', x === b));
+        setLang(b.dataset.lang);
+      }));
+    })();
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
   <script>window.__clickSparkColor = '#ffc24b';</script>
   <script src="assets/js/click-spark.js"></script>
