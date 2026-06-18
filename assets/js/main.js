@@ -365,6 +365,59 @@ if (heroSlides.length > 1) {
   scheduleHero(); // 초기 영상 슬라이드부터 시작
 }
 
+// ── 카드형 안내 배너 캐러셀 ──
+(function () {
+  const stage = document.querySelector('[data-cbn-stage]');
+  if (!stage) return;
+  const cards = [...stage.querySelectorAll('.cbn-card')];
+  if (!cards.length) return;
+  const dotsWrap = document.querySelector('[data-cbn-dots]');
+  const toggleBtn = document.querySelector('[data-cbn-toggle]');
+  const DWELL = 5000;
+  const PAUSE = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>';
+  const PLAY = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>';
+  let idx = 0, timer = null, paused = false;
+  const dots = [], fills = [];
+  if (dotsWrap) {
+    cards.forEach((_, i) => {
+      const d = document.createElement('button');
+      d.className = 'cbn-dot'; d.type = 'button';
+      d.setAttribute('aria-label', `${i + 1}번째 배너`);
+      const f = document.createElement('span'); f.className = 'cbn-dot-fill';
+      d.appendChild(f);
+      d.addEventListener('click', () => { go(i); restart(); });
+      dotsWrap.appendChild(d); dots.push(d); fills.push(f);
+    });
+  }
+  function paintFill() {
+    fills.forEach((f, k) => {
+      f.style.transition = 'none'; f.style.width = '0%';
+      if (k === idx && !paused) { void f.offsetWidth; f.style.transition = `width ${DWELL}ms linear`; f.style.width = '100%'; }
+    });
+  }
+  function go(i) {
+    idx = (i % cards.length + cards.length) % cards.length;
+    cards.forEach((c, k) => c.classList.toggle('is-active', k === idx));
+    dots.forEach((d, k) => d.classList.toggle('is-active', k === idx));
+    paintFill();
+  }
+  function restart() { clearInterval(timer); if (!paused && cards.length > 1) timer = setInterval(() => go(idx + 1), DWELL); }
+  if (toggleBtn) {
+    toggleBtn.innerHTML = PAUSE;
+    toggleBtn.addEventListener('click', () => {
+      paused = !paused;
+      toggleBtn.innerHTML = paused ? PLAY : PAUSE;
+      toggleBtn.setAttribute('aria-label', paused ? '배너 재생' : '배너 일시정지');
+      if (paused) {
+        clearInterval(timer);
+        const af = fills[idx];
+        if (af) { const w = getComputedStyle(af).width; af.style.transition = 'none'; af.style.width = w; }
+      } else { paintFill(); restart(); }
+    });
+  }
+  go(0); restart();
+})();
+
 // ── 공지사항 카드 탭 전환 ──
 document.querySelectorAll('.notice-tabs').forEach(tabs => {
   const content = tabs.closest('.reflect-content');

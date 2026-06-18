@@ -750,11 +750,11 @@ html.d-snap{scroll-snap-type:y proximity;}
   transition:background .2s var(--ease),color .2s var(--ease);}
 .dq-item:last-child{border-bottom:none;}
 .dq-item span{white-space:nowrap;}
-.dq-item:hover{background:var(--navy);color:#fff;}
-.dq-top{background:var(--gold);color:#fff;flex-direction:column;gap:3px;}
+.dq-item:hover{background:var(--gold);color:#fff;}
+.dq-top{background:var(--navy);color:#fff;flex-direction:column;gap:3px;}
 .dq-top svg{width:16px;height:16px;}
-.dq-top:hover{background:var(--gold-strong);}
-.dq-item.is-active{background:var(--navy);color:#fff;}
+.dq-top:hover{background:var(--navy-strong);}
+.dq-item.is-active{background:var(--gold);color:#fff;}
 /* 대상별 슬라이드 패널 */
 .dq-panel{position:fixed;z-index:54;top:50%;right:clamp(62px,5vw,78px);
   width:min(560px,88vw);max-height:82vh;overflow-y:auto;margin-right:14px;

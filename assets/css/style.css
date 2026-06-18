@@ -4400,6 +4400,55 @@ html {
 .hpg-toggle:hover { opacity: 1; }
 .hpg-toggle svg { width: 18px; height: 18px; }
 
+/* ── 카드형 안내 배너 (캐러셀) ── */
+.cbn { padding: clamp(28px, 4vw, 56px) 0 clamp(8px, 1.5vw, 16px); }
+.cbn-stage { display: grid; }
+.cbn-card {
+  grid-area: 1 / 1;
+  display: flex; align-items: center; gap: clamp(16px, 2vw, 32px);
+  min-height: clamp(128px, 13vw, 168px);
+  padding: clamp(20px, 2.4vw, 36px) clamp(28px, 3.5vw, 56px);
+  border-radius: 22px; overflow: hidden; text-decoration: none;
+  background: linear-gradient(135deg, var(--c1, #dfe6ff), var(--c2, #cdd8fb));
+  opacity: 0; visibility: hidden; transform: translateY(8px);
+  transition: opacity .5s var(--ease, ease), transform .5s var(--ease, ease), visibility .5s;
+}
+.cbn-card.is-active { opacity: 1; visibility: visible; transform: none; }
+.cbn-text { flex: 1; min-width: 0; text-align: center; }
+.cbn-title { font-family: 'Paperlogy', var(--font); font-weight: 900; font-size: clamp(20px, 2.4vw, 34px); line-height: 1.25; color: #1c2748; }
+.cbn-sub { margin-top: 8px; font-size: clamp(13px, 1.15vw, 16px); font-weight: 600; color: rgba(28, 39, 72, .68); }
+.cbn-ill { flex: 0 0 auto; color: #2a3454; }
+.cbn-ill svg { width: clamp(56px, 6vw, 86px); height: clamp(56px, 6vw, 86px); }
+.cbn-go {
+  flex: 0 0 auto; display: inline-flex; align-items: center; gap: 8px;
+  background: #fff; color: #1c2748; font-weight: 700; font-size: clamp(14px, 1.1vw, 16px);
+  padding: 13px 22px; border-radius: var(--radius-full, 999px);
+  box-shadow: 0 6px 18px rgba(28, 39, 72, .14); transition: transform .25s var(--ease, ease), box-shadow .25s var(--ease, ease);
+}
+.cbn-go svg { width: 16px; height: 16px; transition: transform .25s var(--ease, ease); }
+.cbn-card:hover .cbn-go { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(28, 39, 72, .22); }
+.cbn-card:hover .cbn-go svg { transform: translateX(3px); }
+/* 인디케이터 */
+.cbn-ctrl { display: flex; align-items: center; justify-content: center; gap: 12px; margin-top: clamp(16px, 2vw, 26px); }
+.cbn-dots { display: flex; align-items: center; gap: 8px; }
+.cbn-dot {
+  position: relative; width: 8px; height: 8px; border: 0; padding: 0; border-radius: 99px;
+  background: rgba(60, 72, 120, .28); overflow: hidden; cursor: pointer;
+  transition: width .35s var(--ease, ease), background .25s var(--ease, ease);
+}
+.cbn-dot.is-active { width: 30px; background: rgba(60, 72, 120, .25); }
+.cbn-dot-fill { position: absolute; left: 0; top: 0; height: 100%; width: 0; border-radius: 99px; background: #3b4a86; }
+.cbn-toggle {
+  display: grid; place-items: center; width: 24px; height: 24px; border: 0; background: none;
+  color: #3b4a86; cursor: pointer; opacity: .8; transition: opacity .2s ease;
+}
+.cbn-toggle:hover { opacity: 1; }
+.cbn-toggle svg { width: 13px; height: 13px; }
+@media (max-width: 640px) {
+  .cbn-ill { display: none; }
+  .cbn-text { text-align: left; }
+}
+
 .hero-quick {
   position: absolute;
   left: clamp(20px, 5vw, 64px);
@@ -4481,11 +4530,11 @@ html {
   transition: background 0.2s var(--ease, ease), color 0.2s var(--ease, ease);
 }
 .dq-item:last-child { border-bottom: none; }
-.dq-item:hover { background: var(--blue); color: #fff; }
-.dq-top { background: var(--purple); color: #fff; flex-direction: column; gap: 3px; }
+.dq-item:hover { background: #C4A36A; color: #fff; }
+.dq-top { background: #003265; color: #fff; flex-direction: column; gap: 3px; }
 .dq-top svg { width: 16px; height: 16px; }
-.dq-top:hover { background: var(--purple-dark); }
-.dq-item.is-active { background: var(--blue); color: #fff; }
+.dq-top:hover { background: #001f40; }
+.dq-item.is-active { background: #C4A36A; color: #fff; }
 /* 대상별 슬라이드 패널 */
 .dq-panel {
   position: fixed;
