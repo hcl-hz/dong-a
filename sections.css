@@ -13,7 +13,7 @@
   color:#fff;background:var(--point);padding:3px 9px;border-radius:7px;letter-spacing:0;}
 .sec-eyebrow.on{color:var(--cyan);}
 .sec-eyebrow.on em{background:var(--cyan);color:var(--ink);}
-.sec-title{font-family:var(--font-display);font-weight:800;font-size:clamp(32px,4.4vw,64px);line-height:1.04;
+.sec-title{font-family:var(--font-display);font-weight:800;font-size:clamp(32px,4.4vw,64px);line-height:1.18;
   letter-spacing:-.03em;color:var(--ink);}
 .sec-title.sm{font-size:clamp(26px,2.6vw,36px);margin-bottom:30px;}
 .sec-title em{font-style:normal;color:var(--point);}
@@ -592,7 +592,7 @@
 .site[data-variant="d"] .svc{position:relative;z-index:2;}  /* sticky 히어로가 비치지 않도록 */
 .svc-head-left{display:flex;flex-direction:column;}
 .svc-dot{display:block;width:16px;height:16px;border-radius:50%;background:var(--gold);margin-bottom:16px;}
-.svc-title{font-family:var(--font-display);font-weight:900;font-size:clamp(30px,4vw,56px);letter-spacing:-.03em;color:var(--ink);}
+.svc-title{font-family:var(--font-display);font-weight:900;font-size:clamp(30px,4vw,56px);line-height:1.18;letter-spacing:-.03em;color:var(--ink);}
 .svc-tabs{display:flex;gap:12px;flex-wrap:wrap;justify-content:flex-end;margin-bottom:0;}
 .svc-tab{font-family:var(--font-display);font-weight:700;font-size:clamp(15px,1.3vw,18px);
   padding:12px 30px;border-radius:99px;background:var(--bg-soft);color:var(--fg-2);

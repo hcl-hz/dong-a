@@ -311,7 +311,7 @@
 .nc-badge text{fill:var(--point);font-family:var(--font-en);font-weight:700;font-size:13px;letter-spacing:.04em;}
 .site[data-variant="d"] .d-nl{position:relative;z-index:2;}
 .nl-bar{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:34px;}
-.nl-title{position:relative;font-family:var(--font-display);font-weight:900;font-size:clamp(34px,4.4vw,56px);letter-spacing:-.03em;color:var(--ink);display:block;}
+.nl-title{position:relative;font-family:var(--font-display);font-weight:900;font-size:clamp(34px,4.4vw,56px);line-height:1.18;letter-spacing:-.03em;color:var(--ink);display:block;}
 .nl-dot{display:block;width:16px;height:16px;border-radius:50%;background:var(--gold);margin-bottom:16px;}
 .nl-tabs{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:6px;}
 .nl-tabs button{font-size:14px;font-weight:600;color:var(--fg-3);padding:9px 18px;border-radius:99px;transition:.25s var(--ease);}
@@ -1274,7 +1274,7 @@ html.d-snap{scroll-snap-type:y proximity;}
 .dnews-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
   margin-bottom:clamp(28px,3vw,48px);flex-wrap:wrap;}
 .dnews-title{font-family:var(--font-display);font-weight:900;font-size:clamp(30px,4vw,56px);
-  letter-spacing:-.03em;line-height:1;color:var(--ink);}
+  letter-spacing:-.03em;line-height:1.18;color:var(--ink);}
 .dnews-all{font-size:14px;font-weight:700;color:var(--gold-strong);transition:color .2s var(--ease);white-space:nowrap;}
 .dnews-all:hover{color:var(--gold);}
 /* 카테고리 탭 (동아뉴스 / 동아피플) */

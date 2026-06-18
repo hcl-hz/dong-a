@@ -203,8 +203,11 @@ body {
 .nav-header.scrolled .lang-btn.is-active { color: var(--blue); }
 .nav-header.scrolled .lang-sep { color: var(--gray-border); }
 #google_translate_element { display: none; }
-/* 구글 번역 상단 배너 숨김 */
-.goog-te-banner-frame, .goog-te-gadget-icon { display: none !important; }
+/* 구글 번역 상단 배너 숨김 (구버전 .goog-te-banner-frame + 신버전 iframe.skiptranslate) */
+.goog-te-banner-frame, .goog-te-gadget-icon, iframe.skiptranslate, .skiptranslate > iframe { display: none !important; }
+.goog-tooltip, #goog-gt-tt, .goog-te-balloon-frame { display: none !important; }
+.goog-text-highlight { background: none !important; box-shadow: none !important; }
+html { margin-top: 0 !important; }
 body { top: 0 !important; }
 
 .btn-nav-cta {
@@ -4369,7 +4372,7 @@ html {
 }
 .hpg-seg {
   position: relative;
-  width: clamp(30px, 3.5vw, 52px);
+  width: clamp(34px, 4vw, 60px);
   height: 3px;
   border: 0;
   padding: 0;
@@ -4389,6 +4392,13 @@ html {
   border-radius: 99px;
 }
 .hpg-seg:hover { background: rgba(255, 255, 255, 0.6); }
+.hpg-toggle {
+  margin-left: 4px; display: grid; place-items: center;
+  width: 34px; height: 34px; border: 0; background: none; color: #fff;
+  cursor: pointer; opacity: 0.85; transition: opacity 0.25s ease;
+}
+.hpg-toggle:hover { opacity: 1; }
+.hpg-toggle svg { width: 18px; height: 18px; }
 
 .hero-quick {
   position: absolute;

@@ -288,8 +288,11 @@ const syncHeroText = (i) => {
 if (heroSlides.length > 1) {
   let heroIdx = 0;
   let heroTimer = null;
+  let heroPaused = false;
   const dwellOf = (i) => (heroSlides[i].dataset.kind === 'video' ? HERO_VIDEO_DWELL : HERO_IMAGE_DWELL);
-  // 세그먼트 인디케이터 생성 (슬라이드당 1개)
+  const HPG_PAUSE = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>';
+  const HPG_PLAY = '<svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>';
+  // 세그먼트 인디케이터 생성 (슬라이드당 1개) + 재생/일시정지 토글
   const progWrap = document.querySelector('[data-hero-prog]');
   const segFills = [];
   if (progWrap) {
@@ -305,6 +308,26 @@ if (heroSlides.length > 1) {
       progWrap.appendChild(b);
       segFills.push(f);
     });
+    const toggle = document.createElement('button');
+    toggle.className = 'hpg-toggle';
+    toggle.type = 'button';
+    toggle.innerHTML = HPG_PAUSE;
+    toggle.setAttribute('aria-label', '슬라이드 일시정지');
+    progWrap.appendChild(toggle);
+    toggle.addEventListener('click', () => {
+      heroPaused = !heroPaused;
+      toggle.innerHTML = heroPaused ? HPG_PLAY : HPG_PAUSE;
+      toggle.setAttribute('aria-label', heroPaused ? '슬라이드 재생' : '슬라이드 일시정지');
+      if (heroPaused) {
+        clearTimeout(heroTimer);
+        if (heroVideo) heroVideo.pause();
+        const af = segFills[heroIdx]; // 현재 막대를 현재 너비에서 정지
+        if (af) { const w = getComputedStyle(af).width; af.style.transition = 'none'; af.style.width = w; }
+      } else {
+        paintSegs(heroIdx);
+        scheduleHero();
+      }
+    });
   }
   function paintSegs(i) {
     const dur = dwellOf(i);
@@ -318,6 +341,7 @@ if (heroSlides.length > 1) {
   const goNext = () => showHero((heroIdx + 1) % heroSlides.length);
   function scheduleHero() {
     clearTimeout(heroTimer);
+    if (heroPaused) return;
     if (heroVideo) heroVideo.onended = null;
     const cur = heroSlides[heroIdx];
     if (cur.dataset.kind === 'video' && heroVideo) {
