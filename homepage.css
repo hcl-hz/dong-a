@@ -11,8 +11,8 @@ img{display:block;max-width:100%;}
 
 /* custom scrollbar */
 ::-webkit-scrollbar{width:11px;height:11px;}
-::-webkit-scrollbar-thumb{background:#ffd325;border-radius:99px;border:3px solid #fff;}
-::-webkit-scrollbar-thumb:hover{background:#f0c000;}
+::-webkit-scrollbar-thumb{background:var(--gold);border-radius:99px;border:3px solid #fff;}
+::-webkit-scrollbar-thumb:hover{background:var(--gold-strong);}
 
 /* ---------- MOTION UTILITIES (data-reveal → data-rv when shown) ---------- */
 /* will-change 제거: 수십 개 요소의 영구 레이어 승격이 스크롤 합성 비용을 키움 (전환 중엔 브라우저가 자동 승격) */
@@ -143,17 +143,21 @@ a[data-cursor]:active,button[data-cursor]:active{ transform:scale(.97); }
 .sb-nav a .ar{opacity:0;transform:translateX(-6px);transition:.3s var(--ease);color:var(--point);}
 .sb-nav a:hover{background:var(--blue-50);color:var(--point);padding-left:18px;}
 .sb-nav a:hover .ar{opacity:1;transform:none;}
-.sb-foot{display:flex;flex-direction:column;gap:12px;border-top:1px solid var(--line);padding-top:18px;}
+.sb-foot{display:flex;flex-direction:column;gap:20px;border-top:1px solid var(--line);padding-top:18px;}
 /* 언어 토글 (KOR/ENG) */
 .sb-lang{display:flex;align-items:center;justify-content:center;gap:8px;}
 .sb-lang-btn{background:none;border:0;padding:2px 4px;font:inherit;font-size:13px;font-weight:700;color:#8a93a1;cursor:pointer;transition:color .2s var(--ease);}
 .sb-lang-btn:hover,.sb-lang-btn.is-active{color:var(--point);}
 .sb-lang-sep{color:var(--line);}
 #google_translate_element{display:none;}
-.goog-te-banner-frame,.goog-te-gadget-icon{display:none!important;}
+/* 구글 번역 상단 배너 숨김 (구버전 .goog-te-banner-frame + 신버전 iframe.skiptranslate) */
+.goog-te-banner-frame,.goog-te-gadget-icon,iframe.skiptranslate,.skiptranslate>iframe{display:none!important;}
+.goog-tooltip,#goog-gt-tt,.goog-te-balloon-frame{display:none!important;}
+.goog-text-highlight{background:none!important;box-shadow:none!important;}
+html{margin-top:0!important;}
 body{top:0!important;}
 .sb-account{display:flex;align-items:center;gap:8px;}
-.sb-account.icons{justify-content:center;gap:6px;}
+.sb-account.icons{justify-content:center;gap:10px;}
 .sb-account.icons .sb-acc.icon:first-child{background:var(--point);color:#fff;border-color:var(--point);}
 .sb-account.icons .sb-acc.icon:first-child:hover{background:var(--point-strong);}
 .sb-acc{display:inline-flex;align-items:center;justify-content:center;gap:7px;font-size:13px;font-weight:600;color:var(--fg-1);
@@ -164,7 +168,11 @@ body{top:0!important;}
 .sb-acc.icon{flex:0 0 auto;padding:11px;width:42px;height:42px;}
 
 /* ---- 사이드바 블루 테마 (포인트 컬러 배경 + 내부 요소 반전) ---- */
-.sb{background:var(--point);border-right-color:rgba(255,255,255,.14);}
+/* 사이드바: 항상 네이비 유리 (각 섹션 배경이 뒤로 확장되어 비침) */
+.sb{--point:var(--navy);--point-strong:var(--navy-strong);
+  background:rgba(0,50,101,.55);
+  backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);
+  border-right-color:rgba(255,255,255,.18);}
 .sb-logo-img{filter:brightness(0) invert(1);}            /* 짙은 로고 → 흰색 */
 .sb-logo .kr{color:#fff;}
 .sb-logo .en{color:rgba(255,255,255,.85);}
@@ -182,9 +190,16 @@ body{top:0!important;}
 .sb-account.icons .sb-acc.icon:first-child:hover{background:rgba(255,255,255,.88);color:var(--point-strong);}
 /* 미니바 메뉴 아이콘도 흰색으로 */
 .sb-mini .sb-burger-img{filter:brightness(0) invert(1);}
+/* 언어 토글: 네이비 배경 위에서 잘 보이도록 (KOR/ENG 선택 시 흰색) */
+.sb:not(.sb-light) .sb-lang-btn{color:rgba(255,255,255,.6);}
+.sb:not(.sb-light) .sb-lang-btn:hover,
+.sb:not(.sb-light) .sb-lang-btn.is-active{color:#fff;}
+.sb:not(.sb-light) .sb-lang-sep{color:rgba(255,255,255,.3);}
 
 /* ---- 기념(개교 80주년) 섹션 위: 사이드바 흰색 테마로 전환 (그라데이션 블루와 충돌 방지) ---- */
-.sb.sb-light{background:#fff;border-right-color:var(--line);}
+.sb.sb-light{background:rgba(255,255,255,.55);
+  backdrop-filter:blur(20px) saturate(140%);-webkit-backdrop-filter:blur(20px) saturate(140%);
+  border-right-color:rgba(255,255,255,.5);}
 .sb.sb-light .sb-logo-img{filter:none;}
 .sb.sb-light .sb-logo .kr{color:var(--ink);}
 .sb.sb-light .sb-logo .en{color:var(--point);}

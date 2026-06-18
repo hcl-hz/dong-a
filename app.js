@@ -268,30 +268,38 @@
     if (n < 2) return;                 // 슬라이드 1개면 굳이 돌리지 않음
     var DUR = 7000;                    // 각 슬라이드 노출 시간
     var idx = 0, timer = null, paused = false;
-    // 인디케이터: 진행 라인(fill) + 슬라이드 점들 + 재생/일시정지 토글
-    var fillEl = $("[data-hd-fill]");
-    var dotsWrap = $("[data-hd-dots]"), dots = [];
-    if (dotsWrap) {
+    // 인디케이터: 세그먼트 바(슬라이드당 1개) + 재생/일시정지 토글
+    var segWrap = $("[data-hd-dots]"), segs = [], segFills = [];
+    if (segWrap) {
       slides.forEach(function (_, i) {
-        var d = document.createElement("button");
-        d.className = "hd-pdot" + (i === 0 ? " is-active" : "");
-        d.setAttribute("aria-label", (i + 1) + "번째 화면 보기");
-        d.setAttribute("data-cursor", "true");
-        d.addEventListener("click", function () { go(i); restart(); });
-        dotsWrap.appendChild(d);
-        dots.push(d);
+        var b = document.createElement("button");
+        b.className = "hd-seg" + (i === 0 ? " is-active" : "");
+        b.setAttribute("aria-label", (i + 1) + "번째 화면 보기");
+        b.setAttribute("data-cursor", "true");
+        var f = document.createElement("span");
+        f.className = "hd-seg-fill";
+        b.appendChild(f);
+        b.addEventListener("click", function () { go(i); restart(); });
+        segWrap.appendChild(b);
+        segs.push(b);
+        segFills.push(f);
       });
     }
-    // 진행 라인: 현재 슬라이드 동안 0→100% 채워짐 (일시정지면 멈춤)
+    // 지난 슬라이드는 가득 / 현재 슬라이드는 0→100% 채워짐(일시정지면 멈춤) / 이후는 빈 막대
     function setFill() {
-      if (!fillEl) return;
-      fillEl.style.transition = "none";
-      fillEl.style.width = "0%";
-      void fillEl.offsetWidth; // reflow로 리셋 확정
-      if (!paused) {
-        fillEl.style.transition = "width " + DUR + "ms linear";
-        fillEl.style.width = "100%";
-      }
+      segFills.forEach(function (f, k) {
+        f.style.transition = "none";
+        if (k < idx) { f.style.width = "100%"; }
+        else if (k > idx) { f.style.width = "0%"; }
+        else {
+          f.style.width = "0%";
+          void f.offsetWidth; // reflow로 리셋 확정
+          if (!paused) {
+            f.style.transition = "width " + DUR + "ms linear";
+            f.style.width = "100%";
+          }
+        }
+      });
     }
     // 활성 슬라이드의 영상만 재생, 나머지는 일시정지
     function syncVideo() {
@@ -302,16 +310,24 @@
         else v.pause();
       });
     }
-    var center = $(".hd-center"), moreBtn = $(".hd-more");
+    var center = $(".hd-center");
+    var promoWrap = $("[data-hd-promo]");
+    var promoItems = promoWrap ? $$(".hd-promo-item", promoWrap) : [];
     function go(i) {
       idx = (i % n + n) % n;
       slides.forEach(function (s, k) { s.classList.toggle("is-active", k === idx); });
-      dots.forEach(function (d, k) { d.classList.toggle("is-active", k === idx); });
+      segs.forEach(function (s, k) { s.classList.toggle("is-active", k === idx); });
       setFill();
       var isVideo = slides[idx].getAttribute("data-hd-type") === "video";
-      // 영상 슬라이드: 중앙 타이틀 노출 / 이미지 슬라이드: MORE VIEW 버튼 노출
+      // 영상 슬라이드: 중앙 타이틀 노출 / 이미지 슬라이드: 우측 홍보문구 + MORE VIEW 노출
       if (center) center.classList.toggle("hd-hide", !isVideo);
-      if (moreBtn) moreBtn.classList.toggle("hd-hide", isVideo);
+      if (promoWrap) {
+        promoWrap.classList.toggle("hd-hide", isVideo);
+        promoWrap.setAttribute("aria-hidden", isVideo ? "true" : "false");
+      }
+      promoItems.forEach(function (p) {
+        p.classList.toggle("is-active", String(idx) === p.getAttribute("data-hd-slide"));
+      });
       syncVideo();
     }
     function restart() { clearInterval(timer); if (!paused) timer = setInterval(function () { go(idx + 1); }, DUR); }
@@ -327,7 +343,8 @@
         toggleBtn.innerHTML = paused ? PLAY : PAUSE;
         if (paused) {
           clearInterval(timer);
-          if (fillEl) { var w = getComputedStyle(fillEl).width; fillEl.style.transition = "none"; fillEl.style.width = w; } // 현재 너비에서 정지
+          var af = segFills[idx]; // 현재 세그먼트를 현재 너비에서 정지
+          if (af) { var w = getComputedStyle(af).width; af.style.transition = "none"; af.style.width = w; }
         } else {
           setFill();
           restart();
@@ -938,10 +955,141 @@
     });
   }
 
-  /* ---------- 10. 우측 도크 TOP ---------- */
+  /* ---------- 10. 우측 도크 TOP + 대상별 패널 ---------- */
   function initDock() {
     var top = $(".dq-top") || $(".d-dock-top");
     if (top) top.addEventListener("click", function () { scrollTo({ top: 0, behavior: "smooth" }); });
+
+    var panel = document.getElementById("dq-panel");
+    if (!panel) return;
+    var titleEl = panel.querySelector(".dq-panel-title");
+    var icoEl = panel.querySelector(".dq-panel-ico");
+    var listEl = panel.querySelector(".dq-panel-list");
+    var closeBtn = panel.querySelector(".dq-panel-close");
+    var btns = [].slice.call(document.querySelectorAll(".d-quick .dq-item[data-aud]"));
+
+    // 대상별 관련 항목 (실제 링크/항목으로 교체하세요)
+    var LINKS = {
+      "예비동아인": [
+        { t: "대학 입학안내", u: "https://ent.donga.ac.kr/admission/html/main/intro.asp" },
+        { t: "대학원 입학안내", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN057" },
+        { t: "대학소개", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN272" },
+        { t: "장학제도안내", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN153" },
+        { t: "캠퍼스맵", u: "https://www.donga.ac.kr/kor/CMS/CampusMgr/list.do?mCode=MN032" },
+        { t: "오시는 길", u: "http://donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN034" }
+      ],
+      "동아인": { groups: [
+        { g: "학사·장학", items: [
+          { t: "수강신청", u: "https://dxsugang.donga.ac.kr/login" },
+          { t: "등록금", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN159" },
+          { t: "학사일정", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN173" },
+          { t: "장학공지", u: "https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN172" },
+          { t: "공지사항", u: "https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN170" },
+          { t: "증명서 발급", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN200" },
+          { t: "공결안내", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN100" },
+          { t: "교내장학규정", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN153" }
+        ] },
+        { g: "학습·취업", items: [
+          { t: "LMS(학습관리시스템)", u: "https://eclass.donga.ac.kr/" },
+          { t: "GeLC<br>(부·울·경 이러닝지원센터)", u: "https://gelc.or.kr/main/MainView.dunet#main" },
+          { t: "DECO 시스템", u: "https://deco.donga.ac.kr/" },
+          { t: "현장실습신청", u: "https://dx.donga.ac.kr/" },
+          { t: "다잇다(취업선배 온라인 멘토링)", u: "https://daitdaa.donga.ac.kr/" }
+        ] },
+        { g: "생활·캠퍼스", items: [
+          { t: "캠퍼스맵", u: "https://www.donga.ac.kr/kor/CMS/CampusMgr/list.do?mCode=MN032" },
+          { t: "식단표", u: "https://www.donga.ac.kr/kor/CMS/DietMenuMgr/list.do?mCode=MN199" },
+          { t: "셔틀버스", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN201" },
+          { t: "기숙사(한림생활관)", u: "https://hanlim.donga.ac.kr/" },
+          { t: "도서관", u: "https://library.donga.ac.kr/" },
+          { t: "네트워크 접근제어(NAC)", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN191" }
+        ] }
+      ] },
+      "교직원": [
+        { t: "식단표", u: "https://www.donga.ac.kr/kor/CMS/DietMenuMgr/list.do?mCode=MN199" },
+        { t: "그룹웨어", u: "https://portal.donga.ac.kr/" },
+        { t: "주차안내", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN204" },
+        { t: "교내 연락처", u: "https://www.donga.ac.kr/kor/CMS/ContactMgr/list.do?mCode=MN014" },
+        { t: "통합정보시스템", u: "https://dx.donga.ac.kr/" },
+        { t: "네트워크 접근제어(NAC)", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN191" },
+        { t: "NAC 관련 FAQ", u: "https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN254" }
+      ],
+      "일반인": [
+        { t: "채용공고", u: "https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN175" },
+        { t: "교내 연락처", u: "https://www.donga.ac.kr/kor/CMS/ContactMgr/list.do?mCode=MN014" },
+        { t: "대관 및 예약안내", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN286" },
+        { t: "주차시설안내", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN204" },
+        { t: "오시는 길", u: "https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN034" }
+      ]
+    };
+
+    // 대상별 아이콘 (Lucide 인라인 SVG)
+    var ICONS = {
+      "예비동아인": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
+      "동아인": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+      "교직원": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+      "일반인": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>'
+    };
+
+    var openAud = null;
+    function linkHTML(item) {
+      var label = typeof item === "string" ? item : item.t;
+      var href = typeof item === "string" ? "#" : item.u;
+      var ext = href && href !== "#";
+      return '<a href="' + href + '"' + (ext ? ' target="_blank" rel="noopener"' : "") + ">" + label + "</a>";
+    }
+    function render(aud) {
+      titleEl.textContent = aud;
+      if (icoEl) icoEl.innerHTML = ICONS[aud] || "";
+      var data = LINKS[aud] || [];
+      var grouped = !Array.isArray(data) && data.groups;
+      if (grouped) {
+        listEl.classList.add("is-grouped");
+        listEl.innerHTML = data.groups.map(function (grp) {
+          return '<li class="dq-group"><span class="dq-group-title">' + grp.g + '</span>' +
+            '<div class="dq-group-grid">' + grp.items.map(linkHTML).join("") + "</div></li>";
+        }).join("");
+        panel.classList.add("dq-wide");
+      } else {
+        listEl.classList.remove("is-grouped");
+        listEl.innerHTML = data.map(function (item) { return "<li>" + linkHTML(item) + "</li>"; }).join("");
+        panel.classList.toggle("dq-wide", data.length >= 12);
+      }
+    }
+    function close() {
+      panel.classList.remove("is-open");
+      panel.setAttribute("aria-hidden", "true");
+      btns.forEach(function (b) { b.classList.remove("is-active"); b.setAttribute("aria-expanded", "false"); });
+      openAud = null;
+    }
+    function open(aud, btn) {
+      render(aud);
+      panel.classList.add("is-open");
+      panel.setAttribute("aria-hidden", "false");
+      btns.forEach(function (b) {
+        var on = b === btn;
+        b.classList.toggle("is-active", on);
+        b.setAttribute("aria-expanded", on ? "true" : "false");
+      });
+      openAud = aud;
+    }
+
+    btns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var aud = btn.dataset.aud;
+        if (openAud === aud) close();
+        else open(aud, btn);
+      });
+    });
+    if (closeBtn) closeBtn.addEventListener("click", close);
+    listEl.addEventListener("click", function (e) {
+      var a = e.target.closest('a[href="#"]');
+      if (a) e.preventDefault();
+    });
+    document.addEventListener("click", function (e) {
+      if (openAud && !panel.contains(e.target) && !e.target.closest(".d-quick")) close();
+    });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") close(); });
   }
 
   /* ---------- 11. 대학공지 탭 필터 (게시판 재구성) ---------- */
@@ -1027,16 +1175,105 @@
     addEventListener("scroll", check, { passive: true });
   }
 
-  /* ---------- 기념(개교 80주년) 섹션 위에선 사이드바를 흰색 테마로 ----------
-     섹션이 화면 세로 중앙선을 지날 때(현재 보고 있는 섹션) sb-light 토글 */
+  /* ---------- 기념 섹션 연혁 타임라인: 휠/드래그로 가로 스크롤 (끝에 닿으면 페이지로 양보) ---------- */
+  function initAnnivHistory() {
+    var sc = $("[data-ah-scroll]");
+    if (!sc) return;
+    // 세로 휠 → 가로 스크롤
+    sc.addEventListener("wheel", function (e) {
+      var dy = e.deltaY;
+      if (!dy) return;
+      var atStart = sc.scrollLeft <= 0;
+      var atEnd = sc.scrollLeft + sc.clientWidth >= sc.scrollWidth - 1;
+      if ((dy < 0 && atStart) || (dy > 0 && atEnd)) return; // 양 끝 → 페이지 세로 스크롤 허용
+      e.preventDefault();
+      sc.scrollLeft += dy;
+    }, { passive: false });
+    // 마우스 드래그 → 가로 스크롤 (터치는 네이티브 스크롤 사용)
+    var down = false, sx = 0, sl = 0;
+    sc.addEventListener("pointerdown", function (e) {
+      if (e.pointerType !== "mouse") return;
+      down = true; sx = e.clientX; sl = sc.scrollLeft;
+      sc.classList.add("is-drag");
+      try { sc.setPointerCapture(e.pointerId); } catch (err) {}
+    });
+    sc.addEventListener("pointermove", function (e) {
+      if (!down) return;
+      sc.scrollLeft = sl - (e.clientX - sx);
+    });
+    var up = function () { down = false; sc.classList.remove("is-drag"); };
+    sc.addEventListener("pointerup", up);
+    sc.addEventListener("pointercancel", up);
+  }
+
+  /* ---------- 동아뉴스: 카테고리 탭(동아뉴스/동아피플) 데이터 전환 ---------- */
+  function initDNews() {
+    var sec = document.getElementById("news");
+    if (!sec) return;
+    var NEWS = [
+      { title: "동아대 부동산학교육과정, ‘2026 통합 원우회장배 골프대회’ 성료", desc: "지난 11일 부산 기장군 베이사이드 컨트리클럽에서 열린 ‘2026 동아대학교 부동산학교육과정 통합 원우회장배 골프대회’가 성황리에 마무리됐다.", date: "2026.05.21", img: "uploads/image.png" },
+      { title: "동아대 경찰학과, 김수환 前 부산경찰청장 초청 특강 성료", desc: "지난 11일 동아대 부민캠퍼스에서 김수환 전 부산경찰청장을 초청해 현장 경험을 나누는 특강이 열렸다.", date: "2026.05.20", img: "uploads/image copy.png" },
+      { title: "동아대 한국어문학과, ‘제5회 살내(矢川) 최낙복 장학금 수여식’ 개최", desc: "최낙복 명예교수의 뜻을 이어 후학을 지원하는 장학금 수여식이 열렸다.", date: "2026.05.20", img: "uploads/image copy 2.png" },
+      { title: "동아대·동명대 교수 연합팀, 전국교수축구대회 ‘준우승’", desc: "‘제20회 전국교수축구대회’에서 동아대·동명대 연합팀이 준우승을 차지했다.", date: "2026.05.19", img: "uploads/스크린샷 2026-06-12 10.05.06.png" },
+      { title: "의과대학, 지역 어린이 건강 돌봄 봉사", desc: "지역 아동을 대상으로 건강 검진과 돌봄 활동을 진행했다.", date: "2026.05.22", img: "uploads/스크린샷 2026-06-12 10.06.12.png" }
+    ];
+    var PEOPLE = [
+      { title: "세계를 무대로 — 글로벌 기업 진출 동문", desc: "동아대를 졸업하고 해외 유수 기업에서 활약 중인 동문의 이야기를 전합니다.", date: "2026.05.18", img: "assets/images/people.jpg" },
+      { title: "연구로 미래를 여는 사람들 — 우수 연구자", desc: "국제 학술지에 잇따라 성과를 낸 동아대 연구진을 만나봅니다.", date: "2026.05.12", img: "assets/images/people2.jpg" },
+      { title: "캠퍼스를 빛내는 학생들 — 동아 서포터즈", desc: "학교를 알리고 지역과 소통하는 학생 홍보대사들의 활동기.", date: "2026.05.06", img: "assets/images/people3.jpg" },
+      { title: "지역과 함께 — 동아 봉사단", desc: "이웃과 함께하는 동아인의 따뜻한 나눔 활동을 소개합니다.", date: "2026.04.28", img: "assets/images/people4.jpg" },
+      { title: "도전하는 청년 — 창업 동아리 스토리", desc: "아이디어를 사업으로 키워가는 동아대 청년 창업가들.", date: "2026.04.20", img: "assets/images/people5.jpg" }
+    ];
+    var DATA = { "동아뉴스": NEWS, "동아피플": PEOPLE };
+    var CAT = { "동아뉴스": "대학소식", "동아피플": "동아인" };
+
+    var feat = sec.querySelector(".dnews-feat");
+    var items = [].slice.call(sec.querySelectorAll(".dnews-list .dnews-item"));
+    var set = function (root, sel, val, isImg) {
+      var el = root && root.querySelector(sel);
+      if (!el) return;
+      if (isImg) el.src = val; else el.textContent = val;
+    };
+    function render(name) {
+      var data = DATA[name] || NEWS;
+      var f = data[0];
+      set(feat, ".dnews-feat-img img", f.img, true);
+      set(feat, ".dnews-cat", CAT[name] || "대학소식");
+      set(feat, ".dnews-feat-tit", f.title);
+      set(feat, ".dnews-feat-desc", f.desc);
+      set(feat, ".dnews-date", f.date);
+      items.forEach(function (it, k) {
+        var d = data[k + 1];
+        if (!d) return;
+        set(it, ".dnews-item-img img", d.img, true);
+        set(it, ".dnews-item-tit", d.title);
+        set(it, ".dnews-item-desc", d.desc);
+        set(it, ".dnews-date", d.date);
+      });
+    }
+    var tabs = [].slice.call(sec.querySelectorAll("[data-dnews-tab]"));
+    tabs.forEach(function (tab) {
+      tab.addEventListener("click", function () {
+        tabs.forEach(function (t) { t.classList.toggle("is-active", t === tab); });
+        render(tab.textContent.trim());
+      });
+    });
+    render("동아뉴스");
+  }
+
+  /* ---------- 사이드바 테마 전환 ----------
+     히어로 영역: 네이비 유리(sb-glass) / 기념 섹션: 흰색 유리(sb-light) / 그 외: 솔리드 네이비.
+     히어로가 sticky로 뒤에 계속 깔려서, 다른 섹션에서 유리 너머로 비치는 현상 방지 */
   function initSidebarTheme() {
     var sb = $(".sb");
-    var sec = document.getElementById("global");
-    if (!sb || !sec || !("IntersectionObserver" in window)) return;
-    var io = new IntersectionObserver(function (entries) {
-      sb.classList.toggle("sb-light", entries[0].isIntersecting);
-    }, { rootMargin: "-50% 0px -50% 0px", threshold: 0 });
-    io.observe(sec);
+    if (!sb) return;
+    var anniv = document.getElementById("global");
+    // 기념 섹션: 흰색 유리 (그 외엔 네이비 유리 — .sb 기본값)
+    if (anniv && "IntersectionObserver" in window) {
+      new IntersectionObserver(function (entries) {
+        sb.classList.toggle("sb-light", entries[0].isIntersecting);
+      }, { rootMargin: "-50% 0px -50% 0px", threshold: 0 }).observe(anniv);
+    }
   }
 
   /* ---------- 부트 ---------- */
@@ -1094,7 +1331,7 @@
     initNlNews();
     initNlThumb();
     initWhyType();
-    initCursor();
+    // initCursor();  // 커스텀 마우스 커서 비활성화 (기본 커서 사용)
     initProgress();
     initSidebar();
     initHero();
@@ -1115,6 +1352,8 @@
     initNewsSlider();
     initAnchors();
     initVideoPause();
+    initDNews();
+    initAnnivHistory();
     initSidebarTheme();
     initPowerScroll();
   }

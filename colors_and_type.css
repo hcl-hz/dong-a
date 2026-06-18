@@ -40,6 +40,8 @@
   --blue-900:#001f4d;
   --point:#006ee9;
   --point-strong:#0057c2;
+  --navy:#003265;       /* 동아대 메인 컬러 (사이드바 등) */
+  --navy-strong:#001f40;
 
   /* ---------- INK / NEUTRALS ---------- */
   --ink:#0b1530;        /* near-black navy, primary text */
@@ -56,7 +58,8 @@
 
   /* ---------- ACCENT (energy) ---------- */
   --cyan:#00c2ff;       /* electric edge, used sparingly in motion */
-  --gold:#ffc24b;       /* warm highlight for badges */
+  --gold:#C4A36A;       /* 동아대 서브 골드 컬러 (도트/푸터/스크롤 포인트) */
+  --gold-strong:#A6864F;
 
   /* ---------- TYPE FAMILIES ---------- */
   --font-display:'Paperlogy','Pretendard Variable',sans-serif;

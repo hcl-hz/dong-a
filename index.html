@@ -1,595 +1,453 @@
 <!doctype html>
 <html lang="ko">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>동아대학교 — 홈페이지 리뉴얼 시안</title>
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    <link rel="preconnect" href="https://fastly.jsdelivr.net" />
-    <link rel="stylesheet" href="colors_and_type.css" />
-    <link rel="stylesheet" href="homepage.css" />
-    <link rel="stylesheet" href="sections.css" />
-    <link rel="stylesheet" href="layouts.css" />
-    <link rel="stylesheet" href="layout4.css" />
-    <link rel="stylesheet" href="layout5.css" />
 
-    <!-- image-slot web component (plain JS) -->
-    <script src="image-slot.js" defer></script>
-    <!-- vanilla interactions (no React/Babel) -->
-    <script src="app.js" defer></script>
-    <!-- Grainient 배경 효과 (React Bits 컴포넌트를 바닐라 ogl 모듈로 포팅) -->
-    <script type="module" src="grainient.js"></script>
-  </head>
-  <body>
-    <div class="site" data-variant="d" data-shrunk="false">
-      <aside class="sb">
-        <div class="sb-full">
-          <a class="sb-logo" href="#top"><img src="assets/donga-logo.png" alt="동아대학교" class="sb-logo-img" /></a>
-          <nav class="sb-nav">
-            <a href="index copy.html"
-              >학교소개<svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="chevron-right"
-                class="lucide lucide-chevron-right ar"
-                style="width: 16px; height: 16px; display: inline-flex"
-              >
-                <path d="m9 18 6-6-6-6"></path></svg></a
-            ><a href="#"
-              >입학안내<svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="chevron-right"
-                class="lucide lucide-chevron-right ar"
-                style="width: 16px; height: 16px; display: inline-flex"
-              >
-                <path d="m9 18 6-6-6-6"></path></svg></a
-            ><a href="#"
-              >대학<svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="chevron-right"
-                class="lucide lucide-chevron-right ar"
-                style="width: 16px; height: 16px; display: inline-flex"
-              >
-                <path d="m9 18 6-6-6-6"></path></svg></a
-            ><a href="#"
-              >대학원<svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="chevron-right"
-                class="lucide lucide-chevron-right ar"
-                style="width: 16px; height: 16px; display: inline-flex"
-              >
-                <path d="m9 18 6-6-6-6"></path></svg></a
-            ><a href="#"
-              >학사안내<svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="chevron-right"
-                class="lucide lucide-chevron-right ar"
-                style="width: 16px; height: 16px; display: inline-flex"
-              >
-                <path d="m9 18 6-6-6-6"></path></svg></a
-            ><a href="#"
-              >대학생활<svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="chevron-right"
-                class="lucide lucide-chevron-right ar"
-                style="width: 16px; height: 16px; display: inline-flex"
-              >
-                <path d="m9 18 6-6-6-6"></path></svg></a
-            ><a href="#"
-              >동아광장<svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="chevron-right"
-                class="lucide lucide-chevron-right ar"
-                style="width: 16px; height: 16px; display: inline-flex"
-              >
-                <path d="m9 18 6-6-6-6"></path></svg
-            ></a>
-          </nav>
-          <div class="sb-foot">
-            <div class="sb-lang" translate="no">
-              <button type="button" class="sb-lang-btn is-active" data-lang="ko" data-cursor="true">KOR</button>
-              <span class="sb-lang-sep">|</span>
-              <button type="button" class="sb-lang-btn" data-lang="en" data-cursor="true">ENG</button>
-            </div>
-            <div id="google_translate_element" aria-hidden="true"></div>
-            <div class="sb-account icons">
-              <a class="sb-acc" href="#" data-cursor="true">로그인</a
-              ><button class="sb-acc icon" data-cursor="true" aria-label="통합검색">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="24"
-                  height="24"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  data-lucide="search"
-                  class="lucide lucide-search"
-                  style="width: 16px; height: 16px; display: inline-flex"
-                >
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.3-4.3"></path>
-                </svg>
-              </button>
-            </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>동아대학교 — 홈페이지 리뉴얼 시안</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" />
+  <link rel="stylesheet" href="colors_and_type.css" />
+  <link rel="stylesheet" href="homepage.css" />
+  <link rel="stylesheet" href="sections.css" />
+  <link rel="stylesheet" href="layouts.css" />
+  <link rel="stylesheet" href="layout4.css" />
+  <link rel="stylesheet" href="layout5.css" />
+
+  <!-- image-slot web component (plain JS) -->
+  <script src="image-slot.js" defer></script>
+  <!-- vanilla interactions (no React/Babel) -->
+  <script src="app.js" defer></script>
+  <!-- Grainient 배경 효과 (React Bits 컴포넌트를 바닐라 ogl 모듈로 포팅) -->
+  <script type="module" src="grainient.js"></script>
+</head>
+
+<body>
+  <div class="site" data-variant="d" data-shrunk="false">
+    <aside class="sb">
+      <div class="sb-full">
+        <a class="sb-logo" href="#top"><img src="assets/donga-logo.png" alt="동아대학교" class="sb-logo-img" /></a>
+        <nav class="sb-nav">
+          <a href="index copy.html">학교소개<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" data-lucide="chevron-right" class="lucide lucide-chevron-right ar"
+              style="width: 16px; height: 16px; display: inline-flex">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg></a><a href="#">입학안내<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="chevron-right" class="lucide lucide-chevron-right ar"
+              style="width: 16px; height: 16px; display: inline-flex">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg></a><a href="#">대학<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="chevron-right" class="lucide lucide-chevron-right ar"
+              style="width: 16px; height: 16px; display: inline-flex">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg></a><a href="#">대학원<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="chevron-right" class="lucide lucide-chevron-right ar"
+              style="width: 16px; height: 16px; display: inline-flex">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg></a><a href="#">학사안내<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="chevron-right" class="lucide lucide-chevron-right ar"
+              style="width: 16px; height: 16px; display: inline-flex">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg></a><a href="#">대학생활<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="chevron-right" class="lucide lucide-chevron-right ar"
+              style="width: 16px; height: 16px; display: inline-flex">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg></a><a href="#">동아광장<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="chevron-right" class="lucide lucide-chevron-right ar"
+              style="width: 16px; height: 16px; display: inline-flex">
+              <path d="m9 18 6-6-6-6"></path>
+            </svg></a>
+        </nav>
+        <div class="sb-foot">
+          <div class="sb-lang" translate="no">
+            <button type="button" class="sb-lang-btn is-active" data-lang="ko" data-cursor="true">KOR</button>
+            <span class="sb-lang-sep">|</span>
+            <button type="button" class="sb-lang-btn" data-lang="en" data-cursor="true">ENG</button>
+          </div>
+          <div id="google_translate_element" aria-hidden="true"></div>
+          <div class="sb-account icons">
+            <a class="sb-acc" href="#" data-cursor="true">로그인</a><button class="sb-acc icon" data-cursor="true"
+              aria-label="통합검색">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                data-lucide="search" class="lucide lucide-search"
+                style="width: 16px; height: 16px; display: inline-flex">
+                <circle cx="11" cy="11" r="8"></circle>
+                <path d="m21 21-4.3-4.3"></path>
+              </svg>
+            </button>
           </div>
         </div>
-        <div class="sb-mini">
-          <a class="sb-mark" href="#top" data-cursor="true"><img src="assets/donga-emblem.png" alt="동아대학교" /></a
-          ><button class="sb-burger" data-cursor="true" aria-label="메뉴 열기">
-            <img src="assets/menu-icon.png" alt="메뉴" class="sb-burger-img" /></button
-          ><button class="sb-totop" data-cursor="true">
-            <span class="vtext">SCROLL TOP</span
-            ><svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              data-lucide="arrow-up"
-              class="lucide lucide-arrow-up"
-              style="width: 16px; height: 16px; display: inline-flex"
-            >
-              <path d="m5 12 7-7 7 7"></path>
-              <path d="M12 19V5"></path>
-            </svg>
-          </button>
-        </div>
-      </aside>
-      <div class="overlay from-left">
-        <button class="ov-close" data-cursor="true">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            data-lucide="x"
-            class="lucide lucide-x"
-            style="width: 22px; height: 22px; display: inline-flex"
-          >
-            <path d="M18 6 6 18"></path>
-            <path d="m6 6 12 12"></path>
+      </div>
+      <div class="sb-mini">
+        <a class="sb-mark" href="#top" data-cursor="true"><img src="assets/donga-emblem.png" alt="동아대학교" /></a><button
+          class="sb-burger" data-cursor="true" aria-label="메뉴 열기">
+          <img src="assets/menu-icon.png" alt="메뉴" class="sb-burger-img" /></button><button class="sb-totop"
+          data-cursor="true">
+          <span class="vtext">SCROLL TOP</span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+            stroke-linejoin="round" data-lucide="arrow-up" class="lucide lucide-arrow-up"
+            style="width: 16px; height: 16px; display: inline-flex">
+            <path d="m5 12 7-7 7 7"></path>
+            <path d="M12 19V5"></path>
           </svg>
         </button>
-        <div class="ov-left">
-          <a href="index copy.html" data-cursor="true">학교소개</a><a href="#" data-cursor="true">입학안내</a
-          ><a href="#" data-cursor="true">대학</a><a href="#" data-cursor="true">대학원</a
-          ><a href="#" data-cursor="true">학사안내</a><a href="#" data-cursor="true">대학생활</a
-          ><a href="#" data-cursor="true">동아광장</a>
+      </div>
+    </aside>
+    <div class="overlay from-left">
+      <button class="ov-close" data-cursor="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="x"
+          class="lucide lucide-x" style="width: 22px; height: 22px; display: inline-flex">
+          <path d="M18 6 6 18"></path>
+          <path d="m6 6 12 12"></path>
+        </svg>
+      </button>
+      <div class="ov-left">
+        <a href="index copy.html" data-cursor="true">학교소개</a><a href="#" data-cursor="true">입학안내</a><a href="#"
+          data-cursor="true">대학</a><a href="#" data-cursor="true">대학원</a><a href="#" data-cursor="true">학사안내</a><a
+          href="#" data-cursor="true">대학생활</a><a href="#" data-cursor="true">동아광장</a>
+      </div>
+      <div class="ov-right">
+        <div style="font-size: 13px; letter-spacing: 0.2em; color: var(--cyan); font-weight: 700">QUICK LINKS</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px 28px">
+          <a href="#" data-cursor="true" style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 600;
+                padding: 6px 0px;
+              "><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="calendar-days" class="lucide lucide-calendar-days"
+              style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)">
+              <path d="M8 2v4"></path>
+              <path d="M16 2v4"></path>
+              <rect width="18" height="18" x="3" y="4" rx="2"></rect>
+              <path d="M3 10h18"></path>
+              <path d="M8 14h.01"></path>
+              <path d="M12 14h.01"></path>
+              <path d="M16 14h.01"></path>
+              <path d="M8 18h.01"></path>
+              <path d="M12 18h.01"></path>
+              <path d="M16 18h.01"></path>
+            </svg>
+            학사일정</a><a href="#" data-cursor="true" style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 600;
+                padding: 6px 0px;
+              "><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="list-checks" class="lucide lucide-list-checks"
+              style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)">
+              <path d="m3 17 2 2 4-4"></path>
+              <path d="m3 7 2 2 4-4"></path>
+              <path d="M13 6h8"></path>
+              <path d="M13 12h8"></path>
+              <path d="M13 18h8"></path>
+            </svg>
+            수강신청</a><a href="#" data-cursor="true" style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 600;
+                padding: 6px 0px;
+              "><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="layout-grid" class="lucide lucide-layout-grid"
+              style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)">
+              <rect width="7" height="7" x="3" y="3" rx="1"></rect>
+              <rect width="7" height="7" x="14" y="3" rx="1"></rect>
+              <rect width="7" height="7" x="14" y="14" rx="1"></rect>
+              <rect width="7" height="7" x="3" y="14" rx="1"></rect>
+            </svg>
+            SmartDONGA</a><a href="#" data-cursor="true" style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 600;
+                padding: 6px 0px;
+              "><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="book-open" class="lucide lucide-book-open"
+              style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)">
+              <path d="M12 7v14"></path>
+              <path
+                d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z">
+              </path>
+            </svg>
+            중앙도서관</a><a href="#" data-cursor="true" style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 600;
+                padding: 6px 0px;
+              "><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="file-badge" class="lucide lucide-file-badge"
+              style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)">
+              <path d="M12 22h6a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3"></path>
+              <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+              <path d="M5 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
+              <path d="M7 16.5 8 22l-3-1-3 1 1-5.5"></path>
+            </svg>
+            증명서 발급</a><a href="#" data-cursor="true" style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 600;
+                padding: 6px 0px;
+              "><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="heart-pulse" class="lucide lucide-heart-pulse"
+              style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)">
+              <path
+                d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+              </path>
+              <path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path>
+            </svg>
+            동아대학교병원</a><a href="#" data-cursor="true" style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 600;
+                padding: 6px 0px;
+              "><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              data-lucide="landmark" class="lucide lucide-landmark"
+              style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)">
+              <line x1="3" x2="21" y1="22" y2="22"></line>
+              <line x1="6" x2="6" y1="18" y2="11"></line>
+              <line x1="10" x2="10" y1="18" y2="11"></line>
+              <line x1="14" x2="14" y1="18" y2="11"></line>
+              <line x1="18" x2="18" y1="18" y2="11"></line>
+              <polygon points="12 2 20 7 4 7"></polygon>
+            </svg>
+            석당박물관</a><a href="#" data-cursor="true" style="
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                color: rgba(255, 255, 255, 0.85);
+                font-weight: 600;
+                padding: 6px 0px;
+              "><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" data-lucide="map"
+              class="lucide lucide-map" style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)">
+              <path
+                d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z">
+              </path>
+              <path d="M15 5.764v15"></path>
+              <path d="M9 3.236v15"></path>
+            </svg>
+            캠퍼스맵</a>
         </div>
-        <div class="ov-right">
-          <div style="font-size: 13px; letter-spacing: 0.2em; color: var(--cyan); font-weight: 700">QUICK LINKS</div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px 28px">
-            <a
-              href="#"
-              data-cursor="true"
-              style="
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                color: rgba(255, 255, 255, 0.85);
-                font-weight: 600;
-                padding: 6px 0px;
-              "
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="calendar-days"
-                class="lucide lucide-calendar-days"
-                style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)"
-              >
-                <path d="M8 2v4"></path>
-                <path d="M16 2v4"></path>
-                <rect width="18" height="18" x="3" y="4" rx="2"></rect>
-                <path d="M3 10h18"></path>
-                <path d="M8 14h.01"></path>
-                <path d="M12 14h.01"></path>
-                <path d="M16 14h.01"></path>
-                <path d="M8 18h.01"></path>
-                <path d="M12 18h.01"></path>
-                <path d="M16 18h.01"></path>
-              </svg>
-              학사일정</a
-            ><a
-              href="#"
-              data-cursor="true"
-              style="
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                color: rgba(255, 255, 255, 0.85);
-                font-weight: 600;
-                padding: 6px 0px;
-              "
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="list-checks"
-                class="lucide lucide-list-checks"
-                style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)"
-              >
-                <path d="m3 17 2 2 4-4"></path>
-                <path d="m3 7 2 2 4-4"></path>
-                <path d="M13 6h8"></path>
-                <path d="M13 12h8"></path>
-                <path d="M13 18h8"></path>
-              </svg>
-              수강신청</a
-            ><a
-              href="#"
-              data-cursor="true"
-              style="
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                color: rgba(255, 255, 255, 0.85);
-                font-weight: 600;
-                padding: 6px 0px;
-              "
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="layout-grid"
-                class="lucide lucide-layout-grid"
-                style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)"
-              >
-                <rect width="7" height="7" x="3" y="3" rx="1"></rect>
-                <rect width="7" height="7" x="14" y="3" rx="1"></rect>
-                <rect width="7" height="7" x="14" y="14" rx="1"></rect>
-                <rect width="7" height="7" x="3" y="14" rx="1"></rect>
-              </svg>
-              SmartDONGA</a
-            ><a
-              href="#"
-              data-cursor="true"
-              style="
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                color: rgba(255, 255, 255, 0.85);
-                font-weight: 600;
-                padding: 6px 0px;
-              "
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="book-open"
-                class="lucide lucide-book-open"
-                style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)"
-              >
-                <path d="M12 7v14"></path>
-                <path
-                  d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"
-                ></path>
-              </svg>
-              중앙도서관</a
-            ><a
-              href="#"
-              data-cursor="true"
-              style="
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                color: rgba(255, 255, 255, 0.85);
-                font-weight: 600;
-                padding: 6px 0px;
-              "
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="file-badge"
-                class="lucide lucide-file-badge"
-                style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)"
-              >
-                <path d="M12 22h6a2 2 0 0 0 2-2V7l-5-5H6a2 2 0 0 0-2 2v3"></path>
-                <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
-                <path d="M5 17a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"></path>
-                <path d="M7 16.5 8 22l-3-1-3 1 1-5.5"></path>
-              </svg>
-              증명서 발급</a
-            ><a
-              href="#"
-              data-cursor="true"
-              style="
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                color: rgba(255, 255, 255, 0.85);
-                font-weight: 600;
-                padding: 6px 0px;
-              "
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="heart-pulse"
-                class="lucide lucide-heart-pulse"
-                style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)"
-              >
-                <path
-                  d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"
-                ></path>
-                <path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"></path>
-              </svg>
-              동아대학교병원</a
-            ><a
-              href="#"
-              data-cursor="true"
-              style="
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                color: rgba(255, 255, 255, 0.85);
-                font-weight: 600;
-                padding: 6px 0px;
-              "
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="landmark"
-                class="lucide lucide-landmark"
-                style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)"
-              >
-                <line x1="3" x2="21" y1="22" y2="22"></line>
-                <line x1="6" x2="6" y1="18" y2="11"></line>
-                <line x1="10" x2="10" y1="18" y2="11"></line>
-                <line x1="14" x2="14" y1="18" y2="11"></line>
-                <line x1="18" x2="18" y1="18" y2="11"></line>
-                <polygon points="12 2 20 7 4 7"></polygon>
-              </svg>
-              석당박물관</a
-            ><a
-              href="#"
-              data-cursor="true"
-              style="
-                display: flex;
-                align-items: center;
-                gap: 12px;
-                color: rgba(255, 255, 255, 0.85);
-                font-weight: 600;
-                padding: 6px 0px;
-              "
-              ><svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                data-lucide="map"
-                class="lucide lucide-map"
-                style="width: 18px; height: 18px; display: inline-flex; color: var(--blue-300)"
-              >
-                <path
-                  d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
-                ></path>
-                <path d="M15 5.764v15"></path>
-                <path d="M9 3.236v15"></path>
-              </svg>
-              캠퍼스맵</a
-            >
-          </div>
-          <div
-            style="
+        <div style="
               margin-top: 18px;
               padding-top: 22px;
               border-top: 1px solid rgba(255, 255, 255, 0.12);
               font-size: 13.5px;
               color: rgba(255, 255, 255, 0.6);
               line-height: 1.8;
-            "
-          >
-            (49236) 부산광역시 서구 구덕로 225 (부민동2가) 동아대학교<br />대표전화 051-200-6114
-          </div>
+            ">
+          (49236) 부산광역시 서구 구덕로 225 (부민동2가) 동아대학교<br />대표전화 051-200-6114
         </div>
       </div>
-      <main class="main main-d">
-        <section class="hero hd" id="top">
-          <div class="hd-media" data-hd-slider>
-            <div class="hd-slide is-active" data-hd-type="video">
-              <video class="hd-video" src="assets/hero-flow.mp4" autoplay muted playsinline data-hero-clip data-clip-start="0" data-clip-end="10"></video>
-            </div>
-            <div class="hd-slide" data-hd-type="image">
-              <img class="hd-img" src="uploads/Gemini_Generated_Image_h21ldsh21ldsh21l.png" alt="부산형 지역혁신중심 대학지원체계(RISE) 사업 선정" loading="lazy" />
-            </div>
-            <div class="hd-slide" data-hd-type="image">
-              <img class="hd-img" src="uploads/Gemini_Generated_Image_nqoilqnqoilqnqoi.png" alt="대학기초연구소지원(G-LAMP) 사업 최종 선정" loading="lazy" />
-            </div>
-            <div class="hd-sweep"></div>
+    </div>
+    <main class="main main-d">
+      <section class="hero hd" id="top">
+        <div class="hd-media" data-hd-slider>
+          <div class="hd-slide is-active" data-hd-type="video">
+            <video class="hd-video" src="assets/hero-flow.mp4" autoplay muted playsinline data-hero-clip
+              data-clip-start="0" data-clip-end="10"></video>
           </div>
-          <div class="hd-center">
-            <div class="hd-text">
-              <span class="hd-eyebrow">부산을 넘어 세계로, 도전과 혁신의 80년</span>
-              <h1 class="hd-title" aria-label="DONG-A UNIVERSITY">
-                <span class="hd-ch">D</span><span class="hd-ch">O</span><span class="hd-ch">N</span
-                ><span class="hd-ch">G</span><span class="hd-ch">-</span><span class="hd-ch">A</span
-                ><span class="hd-ch">&nbsp;</span><wbr /><span class="hd-ch">U</span><span class="hd-ch">N</span
-                ><span class="hd-ch">I</span><span class="hd-ch">V</span><span class="hd-ch">E</span
-                ><span class="hd-ch">R</span><span class="hd-ch">S</span><span class="hd-ch">I</span
-                ><span class="hd-ch">T</span><span class="hd-ch">Y</span>
-              </h1>
+          <div class="hd-slide" data-hd-type="image">
+            <img class="hd-img" src="assets/campus-stone-hall.jpg" alt="부산형 지역혁신중심 대학지원체계(RISE) 사업 선정" loading="lazy" />
+          </div>
+          <div class="hd-slide" data-hd-type="image">
+            <img class="hd-img" src="assets/campus-seunghak.jpg" alt="대학기초연구소지원(G-LAMP) 사업 최종 선정" loading="lazy" />
+          </div>
+          <div class="hd-sweep"></div>
+        </div>
+        <div class="hd-center">
+          <div class="hd-text">
+            <span class="hd-eyebrow">부산을 넘어 세계로, 도전과 혁신의 80년</span>
+            <h1 class="hd-title" aria-label="DONG-A UNIVERSITY">
+              <span class="hd-ch">D</span><span class="hd-ch">O</span><span class="hd-ch">N</span><span
+                class="hd-ch">G</span><span class="hd-ch">-</span><span class="hd-ch">A</span><span
+                class="hd-ch">&nbsp;</span><wbr /><span class="hd-ch">U</span><span class="hd-ch">N</span><span
+                class="hd-ch">I</span><span class="hd-ch">V</span><span class="hd-ch">E</span><span
+                class="hd-ch">R</span><span class="hd-ch">S</span><span class="hd-ch">I</span><span
+                class="hd-ch">T</span><span class="hd-ch">Y</span>
+            </h1>
+          </div>
+        </div>
+        <!-- 이미지 슬라이드(영상 다음)에 노출되는 홍보문구 — 오른쪽 중앙상단, MORE VIEW는 아래 -->
+        <div class="hd-promo hd-hide" data-hd-promo aria-hidden="true">
+          <div class="hd-promo-stack">
+            <div class="hd-promo-item" data-hd-slide="1">
+              <span class="hd-promo-eyebrow">DONG-A NEWS</span>
+              <h2 class="hd-promo-title">부산형 지역혁신중심<br />대학지원체계(RISE) 사업 선정</h2>
+              <p class="hd-promo-desc">지역과 대학이 함께 성장하는 부산형 RISE 사업에 선정되어, 5년간 약 900억 원 규모의 지원으로 지역혁신을 이끌어 갑니다.</p>
+            </div>
+            <div class="hd-promo-item" data-hd-slide="2">
+              <span class="hd-promo-eyebrow">DONG-A NEWS</span>
+              <h2 class="hd-promo-title">대학기초연구소지원<br />(G-LAMP) 사업 최종 선정</h2>
+              <p class="hd-promo-desc">기초연구 역량 강화를 위한 G-LAMP 사업에 최종 선정되어, 세계적 수준의 연구 기반을 갖춘 연구중심 대학으로 도약합니다.</p>
             </div>
           </div>
-          <div class="hd-prog" data-hd-prog>
-            <div class="hd-prog-track"><span class="hd-prog-fill" data-hd-fill></span></div>
-            <div class="hd-prog-dots" data-hd-dots></div>
-            <button class="hd-prog-toggle" data-hd-toggle aria-label="슬라이드 일시정지" data-cursor="true"></button>
+          <a class="hd-more" href="#" data-cursor="true"><span>MORE VIEW</span><svg width="18" height="18"
+              viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+              stroke-linejoin="round">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg></a>
+        </div>
+        <div class="hd-prog" data-hd-prog>
+          <div class="hd-prog-segs" data-hd-dots></div>
+          <button class="hd-prog-toggle" data-hd-toggle aria-label="슬라이드 일시정지" data-cursor="true"></button>
+        </div>
+      </section>
+      <section class="sec gpn anniv" id="global">
+        <div class="anniv-grainient" aria-hidden="true" data-grainient data-grainient-color1="#EE2A7B"
+          data-grainient-color2="#7B4E9C" data-grainient-color3="#0072BC" data-grainient-time-speed="0.3"
+          data-grainient-warp-strength="4.5" data-grainient-warp-speed="2.4" data-grainient-warp-frequency="4.0"
+          data-grainient-rotation-amount="120" data-grainient-noise-scale="1.4" data-grainient-zoom="0.9"
+          data-grainient-contrast="1.0" data-grainient-saturation="0.92" data-grainient-blend-angle="135"
+          data-grainient-grain-amount="0.08"></div>
+        <div class="wrap">
+          <div class="anniv-deco anniv-deco-left" aria-hidden="true"><span class="ad-out">FROM</span><span
+              class="ad-sol">194<span class="kern">6</span></span>
+            <div class="anniv-circles">
+              <div class="anniv-circle"><img src="uploads/스크린샷 2026-06-11 09.55.35.png" alt="" /></div>
+              <div class="anniv-circle"><img src="uploads/스크린샷 2026-06-11 09.55.54.png" alt="" /></div>
+            </div>
           </div>
-          <a class="hd-more hd-hide" href="#" data-cursor="true"><span>MORE VIEW</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-        </section>
-        <section class="sec gpn anniv" id="global">
-          <div class="anniv-grainient" aria-hidden="true"
-               data-grainient
-               data-grainient-color1="#EE2A7B"
-               data-grainient-color2="#7B4E9C"
-               data-grainient-color3="#0072BC"
-               data-grainient-time-speed="0.3"
-               data-grainient-warp-strength="4.5"
-               data-grainient-warp-speed="2.4"
-               data-grainient-warp-frequency="4.0"
-               data-grainient-rotation-amount="120"
-               data-grainient-noise-scale="1.4"
-               data-grainient-zoom="0.9"
-               data-grainient-contrast="1.0"
-               data-grainient-saturation="0.92"
-               data-grainient-blend-angle="135"
-               data-grainient-grain-amount="0.08"></div>
-          <div class="wrap">
-            <div class="anniv-deco anniv-deco-left" aria-hidden="true"><span class="ad-out">FROM</span><span class="ad-sol">194<span class="kern">6</span></span>
-              <div class="anniv-circles">
-                <div class="anniv-circle"><img src="uploads/스크린샷 2026-06-11 09.55.35.png" alt="" /></div>
-                <div class="anniv-circle"><img src="uploads/스크린샷 2026-06-11 09.55.54.png" alt="" /></div>
-              </div>
+          <div class="anniv-deco anniv-deco-right" aria-hidden="true">
+            <span class="ad-out">TO</span><span class="ad-sol">2026</span>
+            <div class="anniv-circles">
+              <div class="anniv-circle"><img src="assets/campus-brick-day.jpg" alt="" /></div>
+              <div class="anniv-circle"><img src="assets/campus-stone-hall.jpg" alt="" /></div>
             </div>
-            <div class="anniv-deco anniv-deco-right" aria-hidden="true">
-              <div class="anniv-circles">
-                <div class="anniv-circle"><img src="assets/campus-brick-day.jpg" alt="" /></div>
-                <div class="anniv-circle"><img src="assets/campus-stone-hall.jpg" alt="" /></div>
-              </div>
-              <span class="ad-out">TO</span><span class="ad-sol">2026</span>
-            </div>
-            <div class="anniv-inner">
-              <img src="assets/anniv-80-full-white.png" alt="동아대학교 개교 80주년" class="anniv-logo" data-reveal="scale" />
-              <h2 class="anniv-head" data-reveal="up">Beyond Busan,<br>Toward the World</h2>
+          </div>
+          <div class="anniv-inner">
+            <img src="assets/anniv-80-full-white.png" alt="동아대학교 개교 80주년" class="anniv-logo" data-reveal="scale" />
+            <div class="anniv-lead">
+              <h2 class="anniv-head" data-reveal="up"><span class="ah-l1">Beyond Busan,</span><span class="ah-l2">Toward the World</span></h2>
               <div class="anniv-copy">
-                <p data-reveal="up" data-reveal-delay="1">건학 80년을 넘어 미래 100년을 향한 차원 높은 새로운 도약을 이루며,<br>끊임없는 도전과 상승으로 더 높은 미래를 향해 나아갑니다.</p>
+                <p data-reveal="up" data-reveal-delay="1">건학 80년을 넘어 미래 100년을 향한 차원 높은 새로운 도약을 이루며,<br>끊임없는 도전과 상승으로 더 높은
+                  미래를 향해 나아갑니다.</p>
               </div>
-              <div class="anniv-stats" data-reveal="up" data-reveal-delay="3">
-                <div class="hs-inner" data-hs-slide>
-                  <div class="hs-track"><div class="hs-roll" data-hs-roll></div></div>
-                  <div class="hs-arrows">
-                    <button class="hs-arr" data-hs-dir="prev"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg></button>
-                    <button class="hs-arr" data-hs-dir="next"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button>
-                  </div>
-                </div>
+            </div>
+            <div class="anniv-history" data-reveal="up" data-reveal-delay="3">
+              <span class="ah-head">History <em>1946 – 2026</em></span>
+              <div class="ah-scroll" data-ah-scroll>
+                <ul class="ah-track">
+                  <li class="ah-item ah-start"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">1946</span><span class="ah-label">개교</span></div></li>
+                  <li class="ah-item"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">1947</span><span class="ah-label">동아대학 설립 인가</span></div></li>
+                  <li class="ah-item"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">1949</span><span class="ah-label">제1회 졸업식</span></div></li>
+                  <li class="ah-item"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">1958</span><span class="ah-label">대학원 개원</span></div></li>
+                  <li class="ah-item"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">1959</span><span class="ah-label">종합대학교 승격</span></div></li>
+                  <li class="ah-item"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">2002</span><span class="ah-label">동아대학교 의료원 출범</span></div></li>
+                  <li class="ah-item"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">2006</span><span class="ah-label">의학전문대학원 설치</span></div></li>
+                  <li class="ah-item"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">2008</span><span class="ah-label">법학전문대학원 인가</span></div></li>
+                  <li class="ah-item"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">2009</span><span class="ah-label">석당박물관 개관</span></div></li>
+                  <li class="ah-item"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">2011</span><span class="ah-label">건축·디자인·패션대학 설립</span></div></li>
+                  <li class="ah-item"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">2013</span><span class="ah-label">대학기관평가인증 획득</span></div></li>
+                  <li class="ah-item"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">2020</span><span class="ah-label">석당뮤지엄 개관</span></div></li>
+                  <li class="ah-item"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">2024</span><span class="ah-label">글로컬대학30 선정</span></div></li>
+                  <li class="ah-item ah-now"><span class="ah-dot"></span><div class="ah-text"><span class="ah-year">2026</span><span class="ah-label">개교 80주년</span></div></li>
+                </ul>
               </div>
             </div>
           </div>
-        </section>
-        <section class="sec d-nl" id="notice">
-          <div class="wrap">
-            <div class="nl-area">
+        </div>
+      </section>
+      <section class="sec d-news" id="news">
+        <div class="wrap">
+          <div class="dnews-head">
+            <div class="dnews-head-left">
+              <span class="nl-dot" data-reveal="up"></span>
+              <h2 class="dnews-title" data-reveal="up">동아 뉴스</h2>
+            </div>
+            <div class="dnews-tabs" data-reveal="up">
+              <button class="dnews-tab is-active" type="button" data-dnews-tab data-cursor="true">동아뉴스</button>
+              <button class="dnews-tab" type="button" data-dnews-tab data-cursor="true">동아피플</button>
+            </div>
+          </div>
+          <div class="dnews-grid">
+            <a class="dnews-feat" href="#" data-cursor="true" data-reveal="up">
+              <div class="dnews-feat-img"><img src="uploads/image.png" alt=""
+                  loading="lazy" /></div>
+              <div class="dnews-feat-body">
+                <span class="dnews-cat">대학소식</span>
+                <h3 class="dnews-feat-tit">동아대학교 2026 글로컬대학30 비전 선포식 성료</h3>
+                <p class="dnews-feat-desc">지역과 함께 성장하는 글로컬 혁신 대학으로의 도약을 선언하며, 미래 100년을 향한 새로운 비전과 추진 전략을 공유했습니다.</p>
+                <span class="dnews-date">2026.06.10</span>
+              </div>
+            </a>
+            <div class="dnews-list" data-stagger="up">
+              <a class="dnews-item" href="#" data-cursor="true">
+                <div class="dnews-item-body">
+                  <h4 class="dnews-item-tit">동아대 경영학과, 캡스톤 경진대회 대상 수상</h4>
+                  <p class="dnews-item-desc">현장 문제 해결형 프로젝트로 우수한 성과를 거두며 최고상을 받았습니다.</p>
+                  <span class="dnews-date">2026.06.05</span>
+                </div>
+                <div class="dnews-item-img"><img src="uploads/image copy.png" alt=""
+                    loading="lazy" /></div>
+              </a>
+              <a class="dnews-item" href="#" data-cursor="true">
+                <div class="dnews-item-body">
+                  <h4 class="dnews-item-tit">국제교류처, 해외 협력대학과 공동학위 협약</h4>
+                  <p class="dnews-item-desc">글로벌 인재 양성을 위한 교환·복수학위 트랙을 확대합니다.</p>
+                  <span class="dnews-date">2026.06.03</span>
+                </div>
+                <div class="dnews-item-img"><img src="uploads/image copy 2.png" alt=""
+                    loading="lazy" /></div>
+              </a>
+              <a class="dnews-item" href="#" data-cursor="true">
+                <div class="dnews-item-body">
+                  <h4 class="dnews-item-tit">석당박물관 특별기획전 ‘기록으로 보는 동아’ 개최</h4>
+                  <p class="dnews-item-desc">개교 80년의 역사를 담은 귀중한 기록물을 한자리에서 만나보세요.</p>
+                  <span class="dnews-date">2026.05.28</span>
+                </div>
+                <div class="dnews-item-img"><img src="uploads/스크린샷 2026-06-12 10.05.06.png" alt=""
+                    loading="lazy" /></div>
+              </a>
+              <a class="dnews-item" href="#" data-cursor="true">
+                <div class="dnews-item-body">
+                  <h4 class="dnews-item-tit">동아대 산학협력단, 지역 혁신 R&amp;D 사업 선정</h4>
+                  <p class="dnews-item-desc">부산 지역 산업과 연계한 대형 연구과제를 본격 추진합니다.</p>
+                  <span class="dnews-date">2026.05.22</span>
+                </div>
+                <div class="dnews-item-img"><img src="uploads/스크린샷 2026-06-12 10.06.12.png" alt="" loading="lazy" /></div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="sec d-nl" id="notice">
+        <div class="wrap">
+          <div class="nl-area">
             <div class="nl-head">
               <div class="nl-head-left">
-                <span class="nl-dot" data-reveal="scale"></span>
-                <h2 class="nl-title" data-reveal="up">동아 공지 · 뉴스</h2>
+                <span class="nl-dot" data-reveal="up"></span>
+                <h2 class="nl-title" data-reveal="up">동아 공지</h2>
               </div>
               <nav class="nl-main-tabs" data-reveal="up">
                 <button class="nmt on" data-nmt="notice" data-cursor="true">공지사항</button>
@@ -602,14 +460,13 @@
               <div class="nl-box-left">
                 <!-- 공지 카테고리 (공지사항 탭) -->
                 <div class="nl-slot" data-slot="notice">
-                  <button class="nl-cat-full on" data-nlcat="all" data-cursor="true" data-reveal="up">전체</button>
                   <div class="nl-cats" data-stagger="up">
+                    <button class="nl-cat on" data-nlcat="all" data-cursor="true">전체</button>
                     <button class="nl-cat" data-nlcat="공지사항" data-cursor="true">공지사항</button>
                     <button class="nl-cat" data-nlcat="학사공지" data-cursor="true">학사공지</button>
                     <button class="nl-cat" data-nlcat="장학공지" data-cursor="true">장학공지</button>
                     <button class="nl-cat" data-nlcat="행사모집" data-cursor="true">행사모집</button>
                     <button class="nl-cat" data-nlcat="채용" data-cursor="true">채용</button>
-                    <button class="nl-cat" data-nlcat="news" data-cursor="true">뉴스</button>
                     <button class="nl-cat" data-nlcat="faq" data-cursor="true">FAQ</button>
                     <button class="nl-cat" data-nlcat="qna" data-cursor="true">Q&amp;A</button>
                   </div>
@@ -617,11 +474,21 @@
                 <!-- 캘린더 (일정 탭) -->
                 <div class="nl-slot" data-slot="schedule" style="display:none">
                   <div class="nl-cal-head">
-                    <button class="nl-cal-arr" data-cal-dir="prev" data-cursor="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <button class="nl-cal-arr" data-cal-dir="prev" data-cursor="true"><svg width="16" height="16"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="m15 18-6-6 6-6" />
+                      </svg></button>
                     <span class="nl-cal-month">2026.06</span>
-                    <button class="nl-cal-arr" data-cal-dir="next" data-cursor="true"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+                    <button class="nl-cal-arr" data-cal-dir="next" data-cursor="true"><svg width="16" height="16"
+                        viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="m9 18 6-6-6-6" />
+                      </svg></button>
                   </div>
-                  <div class="nl-cal-weekdays"><span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span></div>
+                  <div class="nl-cal-weekdays">
+                    <span>SUN</span><span>MON</span><span>TUE</span><span>WED</span><span>THU</span><span>FRI</span><span>SAT</span>
+                  </div>
                   <div class="nl-cal-days" data-cal-grid></div>
                 </div>
               </div>
@@ -630,11 +497,26 @@
                 <div class="nl-slot" data-slot="notice">
                   <div class="nl-right-inner" data-right-view="list">
                     <div class="nl-list">
-                      <a class="nl-row nl-row-anim" href="#" data-cursor="true"><span class="nl-row-cat cat-학사공지">학사공지</span><p class="nl-tit">2026학년도 2학기 재학생 수강신청 일정 및 유의사항 안내</p><span class="nl-date">2026.06.01</span></a>
-                      <a class="nl-row nl-row-anim" href="#" data-cursor="true"><span class="nl-row-cat cat-장학공지">장학공지</span><p class="nl-tit">2학기 교내·외 장학금 신청 안내 (성적·복지·근로 장학)</p><span class="nl-date">2026.05.30</span></a>
-                      <a class="nl-row nl-row-anim" href="#" data-cursor="true"><span class="nl-row-cat cat-채용">채용</span><p class="nl-tit">2026년 상반기 교직원(행정·기술) 신규채용 공고</p><span class="nl-date">2026.05.29</span></a>
-                      <a class="nl-row nl-row-anim" href="#" data-cursor="true"><span class="nl-row-cat cat-공지사항">공지사항</span><p class="nl-tit">여름방학 중 중앙도서관 운영시간 및 시설 이용 변경 안내</p><span class="nl-date">2026.05.27</span></a>
-                      <a class="nl-row nl-row-anim" href="#" data-cursor="true"><span class="nl-row-cat cat-학사공지">학사공지</span><p class="nl-tit">계절학기(하계) 개설 교과목 및 수강신청 안내</p><span class="nl-date">2026.05.26</span></a>
+                      <a class="nl-row nl-row-anim" href="#" data-cursor="true"><span
+                          class="nl-row-cat cat-학사공지">학사공지</span>
+                        <p class="nl-tit">2026학년도 2학기 재학생 수강신청 일정 및 유의사항 안내</p><span class="nl-date">2026.06.01</span>
+                      </a>
+                      <a class="nl-row nl-row-anim" href="#" data-cursor="true"><span
+                          class="nl-row-cat cat-장학공지">장학공지</span>
+                        <p class="nl-tit">2학기 교내·외 장학금 신청 안내 (성적·복지·근로 장학)</p><span class="nl-date">2026.05.30</span>
+                      </a>
+                      <a class="nl-row nl-row-anim" href="#" data-cursor="true"><span
+                          class="nl-row-cat cat-채용">채용</span>
+                        <p class="nl-tit">2026년 상반기 교직원(행정·기술) 신규채용 공고</p><span class="nl-date">2026.05.29</span>
+                      </a>
+                      <a class="nl-row nl-row-anim" href="#" data-cursor="true"><span
+                          class="nl-row-cat cat-공지사항">공지사항</span>
+                        <p class="nl-tit">여름방학 중 중앙도서관 운영시간 및 시설 이용 변경 안내</p><span class="nl-date">2026.05.27</span>
+                      </a>
+                      <a class="nl-row nl-row-anim" href="#" data-cursor="true"><span
+                          class="nl-row-cat cat-학사공지">학사공지</span>
+                        <p class="nl-tit">계절학기(하계) 개설 교과목 및 수강신청 안내</p><span class="nl-date">2026.05.26</span>
+                      </a>
                     </div>
                   </div>
                   <div class="nl-right-inner" data-right-view="news" style="display:none">
@@ -642,124 +524,425 @@
                       <div class="nn2-track">
                         <a class="nn2-card" href="#" data-cursor="true">
                           <div class="nn2-thumb"><img src="assets/campus-aerial.jpg" alt="" /></div>
-                          <div class="nn2-text"><h4 class="nn2-tit">동아대, 글로컬대학30 혁신모델로 지역 산업 대전환</h4><span class="nn2-date">2026.06.02</span></div>
+                          <div class="nn2-text">
+                            <h4 class="nn2-tit">동아대, 글로컬대학30 혁신모델로 지역 산업 대전환</h4><span
+                              class="nn2-date">2026.06.02</span>
+                          </div>
                         </a>
                         <a class="nn2-card" href="#" data-cursor="true">
                           <div class="nn2-thumb"><img src="assets/campus-seunghak.jpg" alt="" /></div>
-                          <div class="nn2-text"><h4 class="nn2-tit">의과대학 연구팀, AI 기반 암 조기진단 시스템 개발</h4><span class="nn2-date">2026.05.28</span></div>
+                          <div class="nn2-text">
+                            <h4 class="nn2-tit">의과대학 연구팀, AI 기반 암 조기진단 시스템 개발</h4><span
+                              class="nn2-date">2026.05.28</span>
+                          </div>
                         </a>
                         <a class="nn2-card" href="#" data-cursor="true">
                           <div class="nn2-thumb"><img src="assets/campus-brick-day.jpg" alt="" /></div>
-                          <div class="nn2-text"><h4 class="nn2-tit">차세대 이차전지 소재, 국제학술지 표지 논문 게재</h4><span class="nn2-date">2026.05.20</span></div>
+                          <div class="nn2-text">
+                            <h4 class="nn2-tit">차세대 이차전지 소재, 국제학술지 표지 논문 게재</h4><span class="nn2-date">2026.05.20</span>
+                          </div>
                         </a>
                         <a class="nn2-card" href="#" data-cursor="true">
                           <div class="nn2-thumb"><img src="assets/campus-stone-hall.jpg" alt="" /></div>
-                          <div class="nn2-text"><h4 class="nn2-tit">석당박물관, 예비 큐레이터 양성 프로젝트 6기 모집</h4><span class="nn2-date">2026.05.15</span></div>
+                          <div class="nn2-text">
+                            <h4 class="nn2-tit">석당박물관, 예비 큐레이터 양성 프로젝트 6기 모집</h4><span
+                              class="nn2-date">2026.05.15</span>
+                          </div>
                         </a>
                       </div>
-                      <button class="nn2-arr nn2-prev" data-nn2-dir="prev" data-cursor="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
-                      <button class="nn2-arr nn2-next" data-nn2-dir="next" data-cursor="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+                      <button class="nn2-arr nn2-prev" data-nn2-dir="prev" data-cursor="true"><svg width="18"
+                          height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <path d="m15 18-6-6 6-6" />
+                        </svg></button>
+                      <button class="nn2-arr nn2-next" data-nn2-dir="next" data-cursor="true"><svg width="18"
+                          height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                          stroke-linecap="round" stroke-linejoin="round">
+                          <path d="m9 18 6-6-6-6" />
+                        </svg></button>
                     </div>
                   </div>
                 </div>
                 <!-- 일정 리스트 -->
                 <div class="nl-slot" data-slot="schedule" style="display:none">
                   <div class="nl-list nl-list-scroll">
-                    <a class="nl-row" href="#" data-cursor="true"><span class="nl-row-cat">06.01 ~ 06.29</span><p class="nl-tit">2026학년도 1학기 기말 강의평가 기간</p></a>
-                    <a class="nl-row" href="#" data-cursor="true"><span class="nl-row-cat">06.02 ~ 06.05</span><p class="nl-tit">2026학년도 2학기 재입학 접수기간</p></a>
-                    <a class="nl-row" href="#" data-cursor="true"><span class="nl-row-cat">06.16 ~ 06.29</span><p class="nl-tit">2026학년도 1학기 성적입력 및 열람기간</p></a>
-                    <a class="nl-row" href="#" data-cursor="true"><span class="nl-row-cat">06.22 ~ 06.22</span><p class="nl-tit">2026학년도 1학기 종강</p></a>
-                    <a class="nl-row" href="#" data-cursor="true"><span class="nl-row-cat">06.23 ~ 06.23</span><p class="nl-tit">보강가능일</p></a>
+                    <a class="nl-row" href="#" data-cursor="true"><span class="nl-row-cat">06.01 ~ 06.29</span>
+                      <p class="nl-tit">2026학년도 1학기 기말 강의평가 기간</p>
+                    </a>
+                    <a class="nl-row" href="#" data-cursor="true"><span class="nl-row-cat">06.02 ~ 06.05</span>
+                      <p class="nl-tit">2026학년도 2학기 재입학 접수기간</p>
+                    </a>
+                    <a class="nl-row" href="#" data-cursor="true"><span class="nl-row-cat">06.16 ~ 06.29</span>
+                      <p class="nl-tit">2026학년도 1학기 성적입력 및 열람기간</p>
+                    </a>
+                    <a class="nl-row" href="#" data-cursor="true"><span class="nl-row-cat">06.22 ~ 06.22</span>
+                      <p class="nl-tit">2026학년도 1학기 종강</p>
+                    </a>
+                    <a class="nl-row" href="#" data-cursor="true"><span class="nl-row-cat">06.23 ~ 06.23</span>
+                      <p class="nl-tit">보강가능일</p>
+                    </a>
                   </div>
                 </div>
               </div>
             </div>
-            <img src="assets/tiger.png" alt="" class="nl-tiger" aria-hidden="true" data-reveal="up" />
-            </div>
+          </div>
 
-            <div class="svc-block">
+          <div class="svc-block">
             <div class="sec-head">
               <div class="svc-head-left">
-                <span class="svc-dot" data-reveal="scale"></span>
+                <span class="svc-dot" data-reveal="up"></span>
                 <h2 class="svc-title" data-reveal="up">주요 서비스</h2>
               </div>
-            </div>
-            <div class="svc-tabs" data-reveal="up">
-              <button class="svc-tab on" data-svc-tab="common" data-cursor="true">공통</button>
-              <button class="svc-tab" data-svc-tab="pre" data-cursor="true">예비동아인</button>
-              <button class="svc-tab" data-svc-tab="cur" data-cursor="true">재학생</button>
+              <div class="svc-tabs" data-reveal="up">
+                <button class="svc-tab on" data-svc-tab="common" data-cursor="true">공통</button>
+                <button class="svc-tab" data-svc-tab="pre" data-cursor="true">예비동아인</button>
+                <button class="svc-tab" data-svc-tab="cur" data-cursor="true">재학생</button>
+              </div>
             </div>
             <div class="svc-panels">
-              <div class="svc-grid on" data-svc-panel="common">
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg><span>캠퍼스맵</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg><span>통합정보시스템</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><span>그룹웨어</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z"/></svg><span>동아클라우드서비스</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/></svg><span>원격지원서비스</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 7v14"/><path d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z"/></svg><span>도서관</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg><span>전자구매(협력업체)</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27"/></svg><span>동아대학교 병원</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M7 3v18"/><path d="M3 7.5h4"/><path d="M3 12h18"/><path d="M3 16.5h4"/><path d="M17 3v18"/><path d="M17 7.5h4"/><path d="M17 16.5h4"/></svg><span>다우미디어센터</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+              <div class="svc-grid on" data-svc-panel="common" data-stagger="up">
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path
+                        d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" />
+                      <circle cx="12" cy="10" r="3" />
+                    </svg><span>캠퍼스맵</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="20" height="14" x="2" y="3" rx="2" />
+                      <line x1="8" x2="16" y1="21" y2="21" />
+                      <line x1="12" x2="12" y1="17" y2="21" />
+                    </svg><span>통합정보시스템</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+                      <circle cx="9" cy="7" r="4" />
+                      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+                      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                    </svg><span>그룹웨어</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z" />
+                    </svg><span>동아클라우드서비스</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path
+                        d="M3 14h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3" />
+                    </svg><span>원격지원서비스</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M12 7v14" />
+                      <path
+                        d="M3 18a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h5a4 4 0 0 1 4 4 4 4 0 0 1 4-4h5a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-6a3 3 0 0 0-3 3 3 3 0 0 0-3-3z" />
+                    </svg><span>도서관</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="8" cy="21" r="1" />
+                      <circle cx="19" cy="21" r="1" />
+                      <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                    </svg><span>전자구매(협력업체)</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path
+                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                      <path d="M3.22 12H9.5l.5-1 2 4.5 2-7 1.5 3.5h5.27" />
+                    </svg><span>동아대학교 병원</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="18" height="18" x="3" y="3" rx="2" />
+                      <path d="M7 3v18" />
+                      <path d="M3 7.5h4" />
+                      <path d="M3 12h18" />
+                      <path d="M3 16.5h4" />
+                      <path d="M17 3v18" />
+                      <path d="M17 7.5h4" />
+                      <path d="M17 16.5h4" />
+                    </svg><span>다우미디어센터</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
               </div>
-              <div class="svc-grid" data-svc-panel="pre">
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><span>학과소개 포털</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/></svg><span>입학안내</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="m9 16 2 2 4-4"/></svg><span>수시모집</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg><span>정시모집</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg><span>편입학</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg><span>재외국민</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+              <div class="svc-grid" data-svc-panel="pre" data-stagger="up">
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="7" height="7" x="3" y="3" rx="1" />
+                      <rect width="7" height="7" x="14" y="3" rx="1" />
+                      <rect width="7" height="7" x="14" y="14" rx="1" />
+                      <rect width="7" height="7" x="3" y="14" rx="1" />
+                    </svg><span>학과소개 포털</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                      <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                      <path d="M16 13H8" />
+                      <path d="M16 17H8" />
+                      <path d="M10 9H8" />
+                    </svg><span>입학안내</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M8 2v4" />
+                      <path d="M16 2v4" />
+                      <rect width="18" height="18" x="3" y="4" rx="2" />
+                      <path d="M3 10h18" />
+                      <path d="m9 16 2 2 4-4" />
+                    </svg><span>수시모집</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M8 2v4" />
+                      <path d="M16 2v4" />
+                      <rect width="18" height="18" x="3" y="4" rx="2" />
+                      <path d="M3 10h18" />
+                      <path d="M8 14h.01" />
+                      <path d="M12 14h.01" />
+                      <path d="M16 14h.01" />
+                      <path d="M8 18h.01" />
+                      <path d="M12 18h.01" />
+                      <path d="M16 18h.01" />
+                    </svg><span>정시모집</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="m17 2 4 4-4 4" />
+                      <path d="M3 11v-1a4 4 0 0 1 4-4h14" />
+                      <path d="m7 22-4-4 4-4" />
+                      <path d="M21 13v1a4 4 0 0 1-4 4H3" />
+                    </svg><span>편입학</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                      <path d="M2 12h20" />
+                    </svg><span>재외국민</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
               </div>
-              <div class="svc-grid" data-svc-panel="cur">
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg><span>학습관리시스템(LMS)</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="3" rx="2"/><line x1="8" x2="16" y1="21" y2="21"/><line x1="12" x2="12" y1="17" y2="21"/></svg><span>통합정보시스템</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4"/><path d="M16 2v4"/><rect width="18" height="18" x="3" y="4" rx="2"/><path d="M3 10h18"/><path d="M8 14h.01"/><path d="M12 14h.01"/><path d="M16 14h.01"/><path d="M8 18h.01"/><path d="M12 18h.01"/><path d="M16 18h.01"/></svg><span>학사일정</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg><span>학과소개</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></svg><span>증명서발급</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
-                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/><rect width="20" height="14" x="2" y="6" rx="2"/></svg><span>취업정보</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+              <div class="svc-grid" data-svc-panel="cur" data-stagger="up">
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path
+                        d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z" />
+                      <path d="M22 10v6" />
+                      <path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5" />
+                    </svg><span>학습관리시스템(LMS)</span></span><svg class="svc-arr" width="16" height="16"
+                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                    stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="20" height="14" x="2" y="3" rx="2" />
+                      <line x1="8" x2="16" y1="21" y2="21" />
+                      <line x1="12" x2="12" y1="17" y2="21" />
+                    </svg><span>통합정보시스템</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M8 2v4" />
+                      <path d="M16 2v4" />
+                      <rect width="18" height="18" x="3" y="4" rx="2" />
+                      <path d="M3 10h18" />
+                      <path d="M8 14h.01" />
+                      <path d="M12 14h.01" />
+                      <path d="M16 14h.01" />
+                      <path d="M8 18h.01" />
+                      <path d="M12 18h.01" />
+                      <path d="M16 18h.01" />
+                    </svg><span>학사일정</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <rect width="7" height="7" x="3" y="3" rx="1" />
+                      <rect width="7" height="7" x="14" y="3" rx="1" />
+                      <rect width="7" height="7" x="14" y="14" rx="1" />
+                      <rect width="7" height="7" x="3" y="14" rx="1" />
+                    </svg><span>학과소개</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M19 17V5a2 2 0 0 0-2-2H4" />
+                      <path
+                        d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3" />
+                    </svg><span>증명서발급</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
+                <a class="svc-link" href="#" data-cursor="true"><span class="svc-label"><svg class="svc-ic" width="24"
+                      height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M16 20V4a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                      <rect width="20" height="14" x="2" y="6" rx="2" />
+                    </svg><span>취업정보</span></span><svg class="svc-arr" width="16" height="16" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M5 12h14" />
+                    <path d="m12 5 7 7-7 7" />
+                  </svg></a>
               </div>
-            </div>
             </div>
           </div>
-        </section>
-        <section class="sec power" id="power">
-          <div class="power-bg">
-            <img src="uploads/KakaoTalk_Photo_2026-05-21-10-01-20 001 1.jpg" alt="" class="power-bg-img" />
-            <div class="power-scrim"></div>
-          </div>
-          <div class="wrap">
-            <div class="power-inner">
-              <span class="svc-dot" data-reveal="scale"></span>
-              <div class="power-titlerow">
-                <h2 class="power-title" data-reveal="up" data-reveal-delay="1">동아 파워</h2>
-                <span class="power-sub" data-reveal="up" data-reveal-delay="2">최고의 리더를 키우는 <b>DONG-A GREAT POWER</b></span>
-              </div>
+        </div>
+      </section>
+      <section class="sec power" id="power">
+        <div class="power-bg">
+          <img src="uploads/KakaoTalk_Photo_2026-05-21-10-01-20 001 1.jpg" alt="" class="power-bg-img" />
+          <div class="power-scrim"></div>
+        </div>
+        <div class="wrap">
+          <div class="power-inner">
+            <span class="svc-dot" data-reveal="up"></span>
+            <div class="power-titlerow">
+              <h2 class="power-title" data-reveal="up" data-reveal-delay="1">동아 파워</h2>
+              <span class="power-sub" data-reveal="up" data-reveal-delay="2">최고의 리더를 키우는 <b>DONG-A GREAT
+                  POWER</b></span>
             </div>
-            <div class="power-cards" data-reveal="up" data-reveal-delay="2">
-              <article class="power-card"><span class="pc-eyebrow">SCHOLARSHIP</span><h3>장학·등록금 지원</h3><p>성적우수·생활복지·근로 등 폭넓은 교내외 장학 제도를 운영합니다. 등록금 부담을 덜고 오직 학업과 성장에만 집중할 수 있도록 든든하게 지원합니다.</p></article>
-              <article class="power-card"><span class="pc-eyebrow">GLOBAL</span><h3>글로벌·교환학생</h3><p>해외 30여 개 협력 대학과 교환학생·공동학위 트랙을 운영합니다. 다양한 글로벌 경험을 통해 세계를 무대로 활약하는 인재로 성장할 수 있습니다.</p></article>
-              <article class="power-card"><span class="pc-eyebrow">CAREER</span><h3>취업·창업 지원</h3><p>대학일자리플러스센터와 창업지원단이 진로 설계의 시작부터 끝까지 함께합니다. 취업 역량 강화부터 창업 보육까지 단계별 맞춤 프로그램을 제공합니다.</p></article>
-              <article class="power-card"><span class="pc-eyebrow">CAMPUS LIFE</span><h3>캠퍼스 라이프</h3><p>쾌적한 기숙사와 200여 개 동아리, 계절마다 펼쳐지는 축제까지. 배움을 넘어 잊지 못할 청춘의 일상이 동아대학교 캠퍼스에서 시작됩니다.</p></article>
-              <article class="power-card"><span class="pc-eyebrow">LIBRARY</span><h3>중앙도서관·학술</h3><p>수백만 권의 장서와 24시간 열람실, 다양한 학습·연구 공간을 갖추고 있습니다. 지식의 깊이를 더하고 학문의 여정을 이어가도록 든든히 돕습니다.</p></article>
-              <article class="power-card"><span class="pc-eyebrow">MEDICAL &amp; CARE</span><h3>의료·복지</h3><p>부산 권역 의료의 중심 동아대학교병원과 촘촘한 학생 복지 제도를 갖추고 있습니다. 건강과 생활 전반을 세심하게 살펴 안심하고 학업에 임할 수 있습니다.</p></article>
-              <article class="power-card"><span class="pc-eyebrow">장학금</span><h3>장학금 지급 총액 663억 원</h3><p>부·울·경 1위 · 전국 9위<span class="pc-note">※2025년 대학정보공시, 4년제 대학 기준</span></p></article>
-              <article class="power-card"><span class="pc-eyebrow">취업경쟁력</span><h3>Kmove(미국취업) 13년 연속 우수과정</h3><p>2013년 ~ 2025년</p></article>
-              <article class="power-card"><span class="pc-eyebrow">취업선호분야 취업률</span><h3>39.6%</h3><p>2023년 전체 취업자(KEDI 기준)<br>대기업 · 중견기업 · 공기업 · 국가공무원</p></article>
-              <article class="power-card"><span class="pc-eyebrow">취업경쟁력</span><h3>해외 취업자 수 전국 상위</h3><p>2023년 전국 1위 · 2024년 전국 3위<span class="pc-note">대학정보공시, 4년제 대학 기준</span></p></article>
-              <article class="power-card"><span class="pc-eyebrow">해외교류대학</span><h3>41개국 350기관</h3></article>
-              <article class="power-card"><span class="pc-eyebrow">정부지정 국책사업</span><h3>글로컬대학30 · RISE · G-LAMP 선정</h3><p>글로컬대학30 — 5년간 약 1,000억 원<br>RISE — 5년간 약 900억 원<br>G-LAMP — 5년간 약 250억 원</p></article>
-              <article class="power-card"><span class="pc-eyebrow">외국인 유학생</span><h3>52개국 2,113명</h3><p><span class="pc-note">※2025년 10월 기준 · 교육국제화역량 인증대학</span></p></article>
-              <article class="power-card"><span class="pc-eyebrow">취·창업 멘토링 플랫폼</span><h3>DA-ITDAA</h3><p>동아의 선후배를 잇다<span class="pc-note">전국 유일 실시간 취·창업 멘토링 플랫폼 운영</span></p></article>
-              <article class="power-card"><span class="pc-eyebrow">취업경쟁력</span><h3>2023년 취업률 60.0%</h3><p><span class="pc-note">2024년 대학정보공시 기준</span></p></article>
-            </div>
-            <div class="power-hint" aria-hidden="true"><span class="ph-line"></span>scroll</div>
           </div>
-        </section>
-        <div hidden data-archived="보존: Why / 캠퍼스 소개 / 캠퍼스 라이프">
+          <div class="power-cards" data-reveal="up" data-reveal-delay="2">
+            <article class="power-card"><span class="pc-eyebrow">장학금 지급 총액</span>
+              <h3 data-count="663">663<span class="pc-unit">억원</span></h3>
+              <p>부·울·경 1위 · 전국 9위</p>
+            </article>
+            <article class="power-card"><span class="pc-eyebrow">해외 교류대학</span>
+              <h3 data-count="41">41<span class="pc-unit">개국</span></h3>
+              <p>350개 기관과 협력</p>
+            </article>
+            <article class="power-card"><span class="pc-eyebrow">외국인 유학생</span>
+              <h3 data-count="2113" data-comma="1">2,113<span class="pc-unit">명</span></h3>
+              <p>52개국 · 국제화역량 인증대학</p>
+            </article>
+            <article class="power-card"><span class="pc-eyebrow">졸업생 취업률</span>
+              <h3 data-count="60" data-dec="1">60.0<span class="pc-unit">%</span></h3>
+              <p>2024 대학정보공시 기준</p>
+            </article>
+            <article class="power-card"><span class="pc-eyebrow">취업 선호분야 취업률</span>
+              <h3 data-count="39.6" data-dec="1">39.6<span class="pc-unit">%</span></h3>
+              <p>대기업·중견·공기업·공무원</p>
+            </article>
+            <article class="power-card"><span class="pc-eyebrow">Kmove 미국취업 우수과정</span>
+              <h3 data-count="13">13<span class="pc-unit">년 연속</span></h3>
+              <p>2013 ~ 2025</p>
+            </article>
+            <article class="power-card"><span class="pc-eyebrow">해외 취업자 수</span>
+              <h3>전국 1위</h3>
+              <p>2023 전국 1위 · 2024 전국 3위</p>
+            </article>
+            <article class="power-card"><span class="pc-eyebrow">정부지정 국책사업 선정</span>
+              <h3 data-count="3">3<span class="pc-unit">대 국책사업</span></h3>
+              <p>글로컬대학30 · RISE · G-LAMP</p>
+            </article>
+            <article class="power-card"><span class="pc-eyebrow">단과대학</span>
+              <h3 data-count="13">13<span class="pc-unit">개</span></h3>
+              <p>의료원 포함 종합대학</p>
+            </article>
+            <article class="power-card"><span class="pc-eyebrow">대학원</span>
+              <h3 data-count="8">8<span class="pc-unit">개</span></h3>
+              <p>일반·전문·특수대학원</p>
+            </article>
+            <article class="power-card"><span class="pc-eyebrow">재학생</span>
+              <h3 data-count="23000" data-comma="1">23,000<span class="pc-unit">명 +</span></h3>
+              <p>학부·대학원 재학생</p>
+            </article>
+            <article class="power-card"><span class="pc-eyebrow">졸업 동문</span>
+              <h3 data-count="136000" data-comma="1">136,000<span class="pc-unit">명 +</span></h3>
+              <p>사회 곳곳에서 활약</p>
+            </article>
+            <article class="power-card"><span class="pc-eyebrow">산학협력 기업</span>
+              <h3 data-count="500">500<span class="pc-unit">개 +</span></h3>
+              <p>산학협력 가족회사</p>
+            </article>
+          </div>
+          <div class="power-hint" aria-hidden="true"><span class="ph-line"></span>scroll</div>
+        </div>
+      </section>
+      <div hidden data-archived="보존: Why / 캠퍼스 소개 / 캠퍼스 라이프">
         <section class="sec d-kine" id="works">
           <div class="wrap">
             <div class="why-top">
-              <span class="why-dot" data-reveal="scale"></span>
-              <h2 class="why-mega" data-why-type>Four Years That<br/>Change Everything</h2>
+              <span class="why-dot" data-reveal="up"></span>
+              <h2 class="why-mega" data-why-type>Four Years That<br />Change Everything</h2>
             </div>
             <div class="why-edit">
               <div class="why-photo" data-reveal="up">
@@ -778,22 +961,13 @@
                 </p>
                 <p class="why-quote" data-reveal="scaleUp" data-reveal-delay="3">Beyond Busan, Toward the World</p>
                 <div class="why-net" data-reveal="up" data-reveal-delay="4">
-                  <span class="why-net-ic"
-                    ><svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      class="lucide"
-                      style="width: 22px; height: 22px"
-                    >
+                  <span class="why-net-ic"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                      stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                      class="lucide" style="width: 22px; height: 22px">
                       <circle cx="12" cy="12" r="10"></circle>
                       <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
-                      <path d="M2 12h20"></path></svg
-                  ></span>
+                      <path d="M2 12h20"></path>
+                    </svg></span>
                   <div class="why-net-tx">
                     <b>30<i>+</i> 해외 협력 대학</b><span>Global Network · Over the World</span>
                   </div>
@@ -821,7 +995,8 @@
                     </div>
                     <div class="wc2-track">
                       <a class="wc2-slide" href="#" data-wc2-idx="0">
-                        <image-slot id="why-life" fit="cover" src="assets/campus-aerial.jpg" placeholder="글로컬대학30"></image-slot>
+                        <image-slot id="why-life" fit="cover" src="assets/campus-aerial.jpg"
+                          placeholder="글로컬대학30"></image-slot>
                         <div class="wc2-slide-grad"></div>
                         <div class="wc2-slide-cap">
                           <span class="wc2-tag">GLOCAL 30</span>
@@ -830,7 +1005,8 @@
                         </div>
                       </a>
                       <a class="wc2-slide" href="#" data-wc2-idx="1" style="display:none">
-                        <image-slot id="why-med" fit="cover" src="assets/campus-stone-hall.jpg" placeholder="의과대학"></image-slot>
+                        <image-slot id="why-med" fit="cover" src="assets/campus-stone-hall.jpg"
+                          placeholder="의과대학"></image-slot>
                         <div class="wc2-slide-grad"></div>
                         <div class="wc2-slide-cap">
                           <span class="wc2-tag">MEDICAL</span>
@@ -839,7 +1015,8 @@
                         </div>
                       </a>
                       <a class="wc2-slide" href="#" data-wc2-idx="2" style="display:none">
-                        <image-slot id="why-campus" fit="cover" src="assets/campus-brick-day.jpg" placeholder="법학전문대학원"></image-slot>
+                        <image-slot id="why-campus" fit="cover" src="assets/campus-brick-day.jpg"
+                          placeholder="법학전문대학원"></image-slot>
                         <div class="wc2-slide-grad"></div>
                         <div class="wc2-slide-cap">
                           <span class="wc2-tag">LAW SCHOOL</span>
@@ -848,7 +1025,8 @@
                         </div>
                       </a>
                       <a class="wc2-slide" href="#" data-wc2-idx="3" style="display:none">
-                        <image-slot id="why-museum" fit="cover" src="assets/campus-seunghak.jpg" placeholder="석당박물관"></image-slot>
+                        <image-slot id="why-museum" fit="cover" src="assets/campus-seunghak.jpg"
+                          placeholder="석당박물관"></image-slot>
                         <div class="wc2-slide-grad"></div>
                         <div class="wc2-slide-cap">
                           <span class="wc2-tag">MUSEUM</span>
@@ -865,40 +1043,36 @@
           <div class="kine-rows">
             <div class="kine-row" data-dir="left" style="--dur: 34s">
               <div class="kine-track">
-                <span class="kine-item">도전</span><span class="kine-sep">·</span><span class="kine-item out">혁신</span
-                ><span class="kine-sep">·</span><span class="kine-item hl">글로컬</span><span class="kine-sep">·</span
-                ><span class="kine-item">세계로</span><span class="kine-sep">·</span
-                ><span class="kine-item out">미래</span><span class="kine-sep">·</span
-                ><span class="kine-item hl">융합</span><span class="kine-sep">·</span><span class="kine-item">도전</span
-                ><span class="kine-sep">·</span><span class="kine-item out">혁신</span><span class="kine-sep">·</span
-                ><span class="kine-item hl">글로컬</span><span class="kine-sep">·</span
-                ><span class="kine-item">세계로</span><span class="kine-sep">·</span
-                ><span class="kine-item out">미래</span><span class="kine-sep">·</span
-                ><span class="kine-item hl">융합</span><span class="kine-sep">·</span>
+                <span class="kine-item">도전</span><span class="kine-sep">·</span><span
+                  class="kine-item out">혁신</span><span class="kine-sep">·</span><span
+                  class="kine-item hl">글로컬</span><span class="kine-sep">·</span><span class="kine-item">세계로</span><span
+                  class="kine-sep">·</span><span class="kine-item out">미래</span><span class="kine-sep">·</span><span
+                  class="kine-item hl">융합</span><span class="kine-sep">·</span><span class="kine-item">도전</span><span
+                  class="kine-sep">·</span><span class="kine-item out">혁신</span><span class="kine-sep">·</span><span
+                  class="kine-item hl">글로컬</span><span class="kine-sep">·</span><span class="kine-item">세계로</span><span
+                  class="kine-sep">·</span><span class="kine-item out">미래</span><span class="kine-sep">·</span><span
+                  class="kine-item hl">융합</span><span class="kine-sep">·</span>
               </div>
             </div>
             <div class="kine-row out-row" data-dir="right" style="--dur: 42s">
               <div class="kine-track">
-                <span class="kine-item">부산을 넘어 세계로</span><span class="kine-sep">·</span
-                ><span class="kine-item out">BEYOND BUSAN</span><span class="kine-sep">·</span
-                ><span class="kine-item hl">도전과 혁신의 80년</span><span class="kine-sep">·</span
-                ><span class="kine-item">부산을 넘어 세계로</span><span class="kine-sep">·</span
-                ><span class="kine-item out">BEYOND BUSAN</span><span class="kine-sep">·</span
-                ><span class="kine-item hl">도전과 혁신의 80년</span><span class="kine-sep">·</span>
+                <span class="kine-item">부산을 넘어 세계로</span><span class="kine-sep">·</span><span
+                  class="kine-item out">BEYOND BUSAN</span><span class="kine-sep">·</span><span class="kine-item hl">도전과
+                  혁신의 80년</span><span class="kine-sep">·</span><span class="kine-item">부산을 넘어 세계로</span><span
+                  class="kine-sep">·</span><span class="kine-item out">BEYOND BUSAN</span><span
+                  class="kine-sep">·</span><span class="kine-item hl">도전과 혁신의 80년</span><span class="kine-sep">·</span>
               </div>
             </div>
             <div class="kine-row sm" data-dir="left" style="--dur: 28s">
               <div class="kine-track">
-                <span class="kine-item">80년 전통</span><span class="kine-sep">·</span
-                ><span class="kine-item hl">13개 단과대학</span><span class="kine-sep">·</span
-                ><span class="kine-item">23,000 재학생</span><span class="kine-sep">·</span
-                ><span class="kine-item hl">136,000 동문</span><span class="kine-sep">·</span
-                ><span class="kine-item">30+ 해외대학</span><span class="kine-sep">·</span
-                ><span class="kine-item">80년 전통</span><span class="kine-sep">·</span
-                ><span class="kine-item hl">13개 단과대학</span><span class="kine-sep">·</span
-                ><span class="kine-item">23,000 재학생</span><span class="kine-sep">·</span
-                ><span class="kine-item hl">136,000 동문</span><span class="kine-sep">·</span
-                ><span class="kine-item">30+ 해외대학</span><span class="kine-sep">·</span>
+                <span class="kine-item">80년 전통</span><span class="kine-sep">·</span><span class="kine-item hl">13개
+                  단과대학</span><span class="kine-sep">·</span><span class="kine-item">23,000 재학생</span><span
+                  class="kine-sep">·</span><span class="kine-item hl">136,000 동문</span><span
+                  class="kine-sep">·</span><span class="kine-item">30+ 해외대학</span><span class="kine-sep">·</span><span
+                  class="kine-item">80년 전통</span><span class="kine-sep">·</span><span class="kine-item hl">13개
+                  단과대학</span><span class="kine-sep">·</span><span class="kine-item">23,000 재학생</span><span
+                  class="kine-sep">·</span><span class="kine-item hl">136,000 동문</span><span
+                  class="kine-sep">·</span><span class="kine-item">30+ 해외대학</span><span class="kine-sep">·</span>
               </div>
             </div>
           </div>
@@ -909,9 +1083,10 @@
         <section class="sec campus-stack" id="campuses">
           <div class="wrap">
             <div class="cs-header">
-              <span class="cs-dot" data-reveal="scale"></span>
+              <span class="cs-dot" data-reveal="up"></span>
               <h2 class="cs-title" data-reveal="up">하나의 동아, 세 개의 캠퍼스</h2>
-              <p class="cs-desc" data-reveal="up" data-reveal-delay="1">부산 전역에 걸친 3개 캠퍼스가 각자의 특색을 살리며 하나의 동아대학교로 함께합니다.</p>
+              <p class="cs-desc" data-reveal="up" data-reveal-delay="1">부산 전역에 걸친 3개 캠퍼스가 각자의 특색을 살리며 하나의 동아대학교로 함께합니다.
+              </p>
             </div>
           </div>
           <div class="cs-scroll-area">
@@ -982,36 +1157,19 @@
                 <span class="cl-dot"></span>
                 <h2 class="cl-bigtitle">동아 캠퍼스 라이프</h2>
                 <div class="cl-vtag">학생의 모든 순간을 함께하는 동아대학교</div>
-                <span class="cl-hint"
-                  ><svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    data-lucide="arrow-right"
-                    class="lucide lucide-arrow-right"
-                    style="width: 18px; height: 18px; display: inline-flex"
-                  >
+                <span class="cl-hint"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    data-lucide="arrow-right" class="lucide lucide-arrow-right"
+                    style="width: 18px; height: 18px; display: inline-flex">
                     <path d="M5 12h14"></path>
                     <path d="m12 5 7 7-7 7"></path>
                   </svg>
-                  SCROLL</span
-                >
+                  SCROLL</span>
               </div>
               <article class="cl-panel lay-0" data-cursor="true">
                 <span class="cl-line"></span><span class="cl-no">01</span>
                 <div class="cl-img">
-                  <image-slot
-                    id="cl-0"
-                    fit="cover"
-                    src="assets/campus-aerial.jpg"
-                    placeholder="장학·등록금 지원"
-                  ></image-slot>
+                  <image-slot id="cl-0" fit="cover" src="assets/campus-aerial.jpg" placeholder="장학·등록금 지원"></image-slot>
                 </div>
                 <div class="cl-body">
                   <span class="cl-en">SCHOLARSHIP</span>
@@ -1025,12 +1183,8 @@
               <article class="cl-panel lay-1" data-cursor="true">
                 <span class="cl-line"></span><span class="cl-no">02</span>
                 <div class="cl-img">
-                  <image-slot
-                    id="cl-1"
-                    fit="cover"
-                    src="assets/campus-seunghak.jpg"
-                    placeholder="글로벌·교환학생"
-                  ></image-slot>
+                  <image-slot id="cl-1" fit="cover" src="assets/campus-seunghak.jpg"
+                    placeholder="글로벌·교환학생"></image-slot>
                 </div>
                 <div class="cl-body">
                   <span class="cl-en">GLOBAL</span>
@@ -1044,12 +1198,8 @@
               <article class="cl-panel lay-2" data-cursor="true">
                 <span class="cl-line"></span><span class="cl-no">03</span>
                 <div class="cl-img">
-                  <image-slot
-                    id="cl-2"
-                    fit="cover"
-                    src="assets/campus-brick-day.jpg"
-                    placeholder="취업·창업 지원"
-                  ></image-slot>
+                  <image-slot id="cl-2" fit="cover" src="assets/campus-brick-day.jpg"
+                    placeholder="취업·창업 지원"></image-slot>
                 </div>
                 <div class="cl-body">
                   <span class="cl-en">CAREER</span>
@@ -1063,12 +1213,8 @@
               <article class="cl-panel lay-0" data-cursor="true">
                 <span class="cl-line"></span><span class="cl-no">04</span>
                 <div class="cl-img">
-                  <image-slot
-                    id="cl-3"
-                    fit="cover"
-                    src="assets/campus-brick-night.jpg"
-                    placeholder="캠퍼스 라이프"
-                  ></image-slot>
+                  <image-slot id="cl-3" fit="cover" src="assets/campus-brick-night.jpg"
+                    placeholder="캠퍼스 라이프"></image-slot>
                 </div>
                 <div class="cl-body">
                   <span class="cl-en">CAMPUS LIFE</span>
@@ -1082,12 +1228,8 @@
               <article class="cl-panel lay-1" data-cursor="true">
                 <span class="cl-line"></span><span class="cl-no">05</span>
                 <div class="cl-img">
-                  <image-slot
-                    id="cl-4"
-                    fit="cover"
-                    src="assets/campus-stone-hall.jpg"
-                    placeholder="중앙도서관·학술"
-                  ></image-slot>
+                  <image-slot id="cl-4" fit="cover" src="assets/campus-stone-hall.jpg"
+                    placeholder="중앙도서관·학술"></image-slot>
                 </div>
                 <div class="cl-body">
                   <span class="cl-en">LIBRARY</span>
@@ -1115,186 +1257,160 @@
             </div>
           </div>
         </section>
-        </div>
-        <footer class="d-foot">
-          <div class="wrap">
-            <div class="df-policy">
-              <div class="df-policy-links">
-                <a href="#" data-cursor="true">개인정보처리방침</a><a href="#" data-cursor="true">입찰정보</a
-                ><a href="#" data-cursor="true">예·결산 공고</a><a href="#" data-cursor="true">등록금 납부안내</a
-                ><a href="#" data-cursor="true">찾아오시는 길</a>
-              </div>
-              <div class="df-sns">
-                <a href="https://www.instagram.com/donga_univ" target="_blank" rel="noopener" class="sns-ig" data-cursor="true" aria-label="동아대학교 인스타그램"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="5"/><circle cx="12" cy="12" r="4"/><line x1="16.5" x2="16.51" y1="7.5" y2="7.5"/></svg></a>
-                <a href="https://www.youtube.com/dongauniversity1946" target="_blank" rel="noopener" class="sns-yt" data-cursor="true" aria-label="동아대학교 유튜브"><svg viewBox="0 0 24 24"><path fill="#fff" d="M10 8.3v7.4L16 12z"/></svg></a>
-                <a href="https://blog.naver.com/donga_pr_bot" target="_blank" rel="noopener" class="sns-blog" data-cursor="true" aria-label="동아대학교 블로그"><svg viewBox="0 0 24 24"><path fill="#fff" d="M9 6h2.15v4.05a2.9 2.9 0 0 1 2.05-.78c1.97 0 3.3 1.55 3.3 3.62 0 2.07-1.36 3.61-3.4 3.61-.86 0-1.6-.3-2.1-.87V16H9V6Zm2.1 6.9c0 1.04.7 1.8 1.65 1.8s1.6-.74 1.6-1.8-.63-1.8-1.6-1.8-1.65.78-1.65 1.8Z"/></svg></a>
-                <a href="https://www.facebook.com/dongauniv" target="_blank" rel="noopener" class="sns-fb" data-cursor="true" aria-label="동아대학교 페이스북"><svg viewBox="0 0 24 24"><path fill="#fff" d="M13.4 21v-7.1h2.4l.4-2.8h-2.8V9.3c0-.8.2-1.4 1.4-1.4h1.5V5.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2H8v2.8h2.3V21z"/></svg></a>
-                <a href="https://pf.kakao.com/_vELxob" target="_blank" rel="noopener" class="sns-kakao" data-cursor="true" aria-label="동아대학교 카카오톡"><svg viewBox="0 0 24 24"><path fill="#3c1e1e" d="M12 6.3c-3.85 0-6.97 2.42-6.97 5.4 0 1.93 1.3 3.62 3.25 4.58-.14.5-.52 1.9-.59 2.2-.09.36.13.36.28.26.11-.08 1.8-1.22 2.53-1.72.49.07 1 .11 1.5.11 3.85 0 6.97-2.42 6.97-5.4S15.85 6.3 12 6.3Z"/></svg></a>
-              </div>
+      </div>
+      <footer class="d-foot">
+        <div class="wrap">
+          <div class="df-policy">
+            <div class="df-policy-links">
+              <a href="#" data-cursor="true">개인정보처리방침</a><a href="#" data-cursor="true">입찰정보</a><a href="#"
+                data-cursor="true">예·결산 공고</a><a href="#" data-cursor="true">등록금 납부안내</a><a href="#"
+                data-cursor="true">찾아오시는 길</a>
             </div>
-            <div class="df-main">
-              <div class="df-info">
-                <img src="assets/donga-logo.png" alt="동아대학교" class="df-logo" />
-                <div class="df-addr">
-                  <p><b>승학캠퍼스(대학본부)</b> (49315) 부산 사하구 낙동대로550번길 37 (하단동) TEL : 051-200-6114</p>
-                  <p><b>구덕캠퍼스</b> (49201) 부산시 서구 대신공원로 32(동대신동 3가)</p>
-                  <p><b>부민캠퍼스</b> (49236) 부산시 서구 구덕로 225(부민동 2가)</p>
-                </div>
-              </div>
-              <div class="df-selects">
-                <button class="df-sel" data-cursor="true">
-                  DAU Links
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    data-lucide="chevron-down"
-                    class="lucide lucide-chevron-down"
-                    style="width: 16px; height: 16px; display: inline-flex"
-                  >
-                    <path d="m6 9 6 6 6-6"></path>
-                  </svg></button
-                ><button class="df-sel" data-cursor="true">
-                  대학
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    data-lucide="chevron-down"
-                    class="lucide lucide-chevron-down"
-                    style="width: 16px; height: 16px; display: inline-flex"
-                  >
-                    <path d="m6 9 6 6 6-6"></path>
-                  </svg></button
-                ><button class="df-sel" data-cursor="true">
-                  대학원
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    data-lucide="chevron-down"
-                    class="lucide lucide-chevron-down"
-                    style="width: 16px; height: 16px; display: inline-flex"
-                  >
-                    <path d="m6 9 6 6 6-6"></path>
-                  </svg></button
-                ><button class="df-sel" data-cursor="true">
-                  부속기관
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    data-lucide="chevron-down"
-                    class="lucide lucide-chevron-down"
-                    style="width: 16px; height: 16px; display: inline-flex"
-                  >
-                    <path d="m6 9 6 6 6-6"></path>
-                  </svg></button
-                ><button class="df-sel" data-cursor="true">
-                  온라인서비스
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    data-lucide="chevron-down"
-                    class="lucide lucide-chevron-down"
-                    style="width: 16px; height: 16px; display: inline-flex"
-                  >
-                    <path d="m6 9 6 6 6-6"></path>
-                  </svg></button
-                ><button class="df-sel" data-cursor="true">
-                  주요사이트
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    data-lucide="chevron-down"
-                    class="lucide lucide-chevron-down"
-                    style="width: 16px; height: 16px; display: inline-flex"
-                  >
-                    <path d="m6 9 6 6 6-6"></path>
-                  </svg>
-                </button>
-              </div>
+            <div class="df-sns">
+              <a href="https://www.instagram.com/donga_univ" target="_blank" rel="noopener" class="sns-ig"
+                data-cursor="true" aria-label="동아대학교 인스타그램"><svg viewBox="0 0 24 24" fill="none" stroke="#fff"
+                  stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="18" height="18" x="3" y="3" rx="5" />
+                  <circle cx="12" cy="12" r="4" />
+                  <line x1="16.5" x2="16.51" y1="7.5" y2="7.5" />
+                </svg></a>
+              <a href="https://www.youtube.com/dongauniversity1946" target="_blank" rel="noopener" class="sns-yt"
+                data-cursor="true" aria-label="동아대학교 유튜브"><svg viewBox="0 0 24 24">
+                  <path fill="#fff" d="M10 8.3v7.4L16 12z" />
+                </svg></a>
+              <a href="https://blog.naver.com/donga_pr_bot" target="_blank" rel="noopener" class="sns-blog"
+                data-cursor="true" aria-label="동아대학교 블로그"><svg viewBox="0 0 24 24">
+                  <path fill="#fff"
+                    d="M9 6h2.15v4.05a2.9 2.9 0 0 1 2.05-.78c1.97 0 3.3 1.55 3.3 3.62 0 2.07-1.36 3.61-3.4 3.61-.86 0-1.6-.3-2.1-.87V16H9V6Zm2.1 6.9c0 1.04.7 1.8 1.65 1.8s1.6-.74 1.6-1.8-.63-1.8-1.6-1.8-1.65.78-1.65 1.8Z" />
+                </svg></a>
+              <a href="https://www.facebook.com/dongauniv" target="_blank" rel="noopener" class="sns-fb"
+                data-cursor="true" aria-label="동아대학교 페이스북"><svg viewBox="0 0 24 24">
+                  <path fill="#fff"
+                    d="M13.4 21v-7.1h2.4l.4-2.8h-2.8V9.3c0-.8.2-1.4 1.4-1.4h1.5V5.4c-.3 0-1.2-.1-2.2-.1-2.2 0-3.7 1.3-3.7 3.8v2H8v2.8h2.3V21z" />
+                </svg></a>
+              <a href="https://pf.kakao.com/_vELxob" target="_blank" rel="noopener" class="sns-kakao" data-cursor="true"
+                aria-label="동아대학교 카카오톡"><svg viewBox="0 0 24 24">
+                  <path fill="#3c1e1e"
+                    d="M12 6.3c-3.85 0-6.97 2.42-6.97 5.4 0 1.93 1.3 3.62 3.25 4.58-.14.5-.52 1.9-.59 2.2-.09.36.13.36.28.26.11-.08 1.8-1.22 2.53-1.72.49.07 1 .11 1.5.11 3.85 0 6.97-2.42 6.97-5.4S15.85 6.3 12 6.3Z" />
+                </svg></a>
             </div>
-            <div class="df-copy">COPYRIGHT(C) 2026 DONG-A UNIVERSITY ALLRIGHTS RESERVED.</div>
           </div>
-        </footer>
-        <nav class="d-quick">
-          <a href="#" class="dq-item" data-cursor="true"><span>예비동아인</span></a>
-          <a href="#" class="dq-item" data-cursor="true"><span>재학생</span></a>
-          <a href="#" class="dq-item" data-cursor="true"><span>교직원</span></a>
-          <a href="#" class="dq-item" data-cursor="true"><span>학부모</span></a>
-          <button class="dq-item dq-top" data-cursor="true"><span>TOP</span></button>
-        </nav>
-      </main>
-      <div class="scroll-prog"></div>
-      <div class="cur-ring"></div>
-      <div class="cur-dot"></div>
-    </div>
-    <!-- 구글 번역 (KOR/ENG) -->
-    <script>
-      function googleTranslateElementInit() {
-        new google.translate.TranslateElement(
-          { pageLanguage: 'ko', includedLanguages: 'en,ko', autoDisplay: false },
-          'google_translate_element'
-        );
-      }
-      (function () {
-        var btns = document.querySelectorAll('.sb-lang-btn');
-        var setLang = function (lang) {
-          var tries = 0;
-          (function apply() {
-            var combo = document.querySelector('.goog-te-combo');
-            if (!combo) { if (tries++ < 20) setTimeout(apply, 300); return; }
-            combo.value = lang;
-            combo.dispatchEvent(new Event('change'));
-          })();
-        };
-        btns.forEach(function (b) {
-          b.addEventListener('click', function () {
-            btns.forEach(function (x) { x.classList.toggle('is-active', x === b); });
-            setLang(b.dataset.lang);
-          });
+          <div class="df-main">
+            <div class="df-info">
+              <img src="assets/donga-logo.png" alt="동아대학교" class="df-logo" />
+              <div class="df-addr">
+                <p><b>승학캠퍼스(대학본부)</b> (49315) 부산 사하구 낙동대로550번길 37 (하단동) TEL : 051-200-6114</p>
+                <p><b>구덕캠퍼스</b> (49201) 부산시 서구 대신공원로 32(동대신동 3가)</p>
+                <p><b>부민캠퍼스</b> (49236) 부산시 서구 구덕로 225(부민동 2가)</p>
+              </div>
+            </div>
+            <div class="df-selects">
+              <button class="df-sel" data-cursor="true">
+                DAU Links
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="chevron-down" class="lucide lucide-chevron-down"
+                  style="width: 16px; height: 16px; display: inline-flex">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg></button><button class="df-sel" data-cursor="true">
+                대학
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="chevron-down" class="lucide lucide-chevron-down"
+                  style="width: 16px; height: 16px; display: inline-flex">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg></button><button class="df-sel" data-cursor="true">
+                대학원
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="chevron-down" class="lucide lucide-chevron-down"
+                  style="width: 16px; height: 16px; display: inline-flex">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg></button><button class="df-sel" data-cursor="true">
+                부속기관
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="chevron-down" class="lucide lucide-chevron-down"
+                  style="width: 16px; height: 16px; display: inline-flex">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg></button><button class="df-sel" data-cursor="true">
+                온라인서비스
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="chevron-down" class="lucide lucide-chevron-down"
+                  style="width: 16px; height: 16px; display: inline-flex">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg></button><button class="df-sel" data-cursor="true">
+                주요사이트
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  data-lucide="chevron-down" class="lucide lucide-chevron-down"
+                  style="width: 16px; height: 16px; display: inline-flex">
+                  <path d="m6 9 6 6 6-6"></path>
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="df-copy">COPYRIGHT(C) 2026 DONG-A UNIVERSITY ALLRIGHTS RESERVED.</div>
+        </div>
+      </footer>
+      <nav class="d-quick" aria-label="대상별 바로가기">
+        <button type="button" class="dq-item dq-top" data-cursor="true"><svg viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m6 15 6-6 6 6" />
+          </svg><span>TOP</span></button>
+        <button type="button" class="dq-item" data-aud="예비동아인" aria-expanded="false"
+          data-cursor="true"><span>예비동아인</span></button>
+        <button type="button" class="dq-item" data-aud="동아인" aria-expanded="false"
+          data-cursor="true"><span>동아인</span></button>
+        <button type="button" class="dq-item" data-aud="교직원" aria-expanded="false"
+          data-cursor="true"><span>교직원</span></button>
+        <button type="button" class="dq-item" data-aud="일반인" aria-expanded="false"
+          data-cursor="true"><span>일반인</span></button>
+      </nav>
+      <aside class="dq-panel" id="dq-panel" aria-hidden="true">
+        <div class="dq-panel-head">
+          <span class="dq-panel-titlewrap"><span class="dq-panel-ico" aria-hidden="true"></span><span
+              class="dq-panel-title"></span></span>
+          <button type="button" class="dq-panel-close" aria-label="닫기" data-cursor="true"><svg viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 6 6 18" />
+              <path d="m6 6 12 12" />
+            </svg></button>
+        </div>
+        <ul class="dq-panel-list"></ul>
+      </aside>
+    </main>
+    <div class="scroll-prog"></div>
+  </div>
+  <!-- 구글 번역 (KOR/ENG) -->
+  <script>
+    function googleTranslateElementInit() {
+      new google.translate.TranslateElement(
+        { pageLanguage: 'ko', includedLanguages: 'en,ko', autoDisplay: false },
+        'google_translate_element'
+      );
+    }
+    (function () {
+      var btns = document.querySelectorAll('.sb-lang-btn');
+      var setLang = function (lang) {
+        var tries = 0;
+        (function apply() {
+          var combo = document.querySelector('.goog-te-combo');
+          if (!combo) { if (tries++ < 20) setTimeout(apply, 300); return; }
+          combo.value = lang;
+          combo.dispatchEvent(new Event('change'));
+        })();
+      };
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          btns.forEach(function (x) { x.classList.toggle('is-active', x === b); });
+          setLang(b.dataset.lang);
         });
-      })();
-    </script>
-    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-  </body>
+      });
+    })();
+  </script>
+  <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+</body>
+
 </html>

@@ -288,6 +288,33 @@ const syncHeroText = (i) => {
 if (heroSlides.length > 1) {
   let heroIdx = 0;
   let heroTimer = null;
+  const dwellOf = (i) => (heroSlides[i].dataset.kind === 'video' ? HERO_VIDEO_DWELL : HERO_IMAGE_DWELL);
+  // 세그먼트 인디케이터 생성 (슬라이드당 1개)
+  const progWrap = document.querySelector('[data-hero-prog]');
+  const segFills = [];
+  if (progWrap) {
+    heroSlides.forEach((_, i) => {
+      const b = document.createElement('button');
+      b.className = 'hpg-seg';
+      b.type = 'button';
+      b.setAttribute('aria-label', `${i + 1}번째 슬라이드 보기`);
+      const f = document.createElement('span');
+      f.className = 'hpg-fill';
+      b.appendChild(f);
+      b.addEventListener('click', () => showHero(i));
+      progWrap.appendChild(b);
+      segFills.push(f);
+    });
+  }
+  function paintSegs(i) {
+    const dur = dwellOf(i);
+    segFills.forEach((f, k) => {
+      f.style.transition = 'none';
+      if (k < i) { f.style.width = '100%'; }
+      else if (k > i) { f.style.width = '0%'; }
+      else { f.style.width = '0%'; void f.offsetWidth; f.style.transition = `width ${dur}ms linear`; f.style.width = '100%'; }
+    });
+  }
   const goNext = () => showHero((heroIdx + 1) % heroSlides.length);
   function scheduleHero() {
     clearTimeout(heroTimer);
@@ -306,9 +333,11 @@ if (heroSlides.length > 1) {
     heroSlides.forEach((s, k) => s.classList.toggle('is-active', k === i));
     heroIdx = i;
     syncHeroText(i);
+    paintSegs(i);
     scheduleHero();
   }
   syncHeroText(0);
+  paintSegs(0);
   scheduleHero(); // 초기 영상 슬라이드부터 시작
 }
 
@@ -551,24 +580,98 @@ document.querySelectorAll('.notice-tabs').forEach(tabs => {
   const panel = document.getElementById('dq-panel');
   if (!panel) return;
   const titleEl = panel.querySelector('.dq-panel-title');
+  const icoEl = panel.querySelector('.dq-panel-ico');
   const listEl = panel.querySelector('.dq-panel-list');
   const closeBtn = panel.querySelector('.dq-panel-close');
   const btns = [...document.querySelectorAll('.d-quick .dq-item[data-aud]')];
 
   // 대상별 관련 항목 (실제 링크/항목으로 교체하세요)
   const LINKS = {
-    '예비동아인': ['학과소개 포털', '입학안내', '수시모집', '정시모집', '편입학', '재외국민전형'],
-    '재학생': ['학습관리시스템(LMS)', '통합정보시스템', '학사일정', '수강신청', '증명서 발급', '장학·등록'],
-    '교직원': ['그룹웨어', '통합정보시스템', '전자결재', '웹메일', '중앙도서관', '증명서 발급'],
-    '학부모': ['입학안내', '장학 안내', '학사일정', '등록금 납부', '캠퍼스맵', '상담·문의'],
+    '예비동아인': [
+      { t: '대학 입학안내', u: 'https://ent.donga.ac.kr/admission/html/main/intro.asp' },
+      { t: '대학원 입학안내', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN057' },
+      { t: '대학소개', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN272' },
+      { t: '장학제도안내', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN153' },
+      { t: '캠퍼스맵', u: 'https://www.donga.ac.kr/kor/CMS/CampusMgr/list.do?mCode=MN032' },
+      { t: '오시는 길', u: 'http://donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN034' },
+    ],
+    '동아인': { groups: [
+      { g: '학사·장학', items: [
+        { t: '수강신청', u: 'https://dxsugang.donga.ac.kr/login' },
+        { t: '등록금', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN159' },
+        { t: '학사일정', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN173' },
+        { t: '장학공지', u: 'https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN172' },
+        { t: '공지사항', u: 'https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN170' },
+        { t: '증명서 발급', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN200' },
+        { t: '공결안내', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN100' },
+        { t: '교내장학규정', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN153' },
+      ] },
+      { g: '학습·취업', items: [
+        { t: 'LMS(학습관리시스템)', u: 'https://eclass.donga.ac.kr/' },
+        { t: 'GeLC<br>(부·울·경 이러닝지원센터)', u: 'https://gelc.or.kr/main/MainView.dunet#main' },
+        { t: 'DECO 시스템', u: 'https://deco.donga.ac.kr/' },
+        { t: '현장실습신청', u: 'https://dx.donga.ac.kr/' },
+        { t: '다잇다(취업선배 온라인 멘토링)', u: 'https://daitdaa.donga.ac.kr/' },
+      ] },
+      { g: '생활·캠퍼스', items: [
+        { t: '캠퍼스맵', u: 'https://www.donga.ac.kr/kor/CMS/CampusMgr/list.do?mCode=MN032' },
+        { t: '식단표', u: 'https://www.donga.ac.kr/kor/CMS/DietMenuMgr/list.do?mCode=MN199' },
+        { t: '셔틀버스', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN201' },
+        { t: '기숙사(한림생활관)', u: 'https://hanlim.donga.ac.kr/' },
+        { t: '도서관', u: 'https://library.donga.ac.kr/' },
+        { t: '네트워크 접근제어(NAC)', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN191' },
+      ] },
+    ] },
+    '교직원': [
+      { t: '식단표', u: 'https://www.donga.ac.kr/kor/CMS/DietMenuMgr/list.do?mCode=MN199' },
+      { t: '그룹웨어', u: 'https://portal.donga.ac.kr/' },
+      { t: '주차안내', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN204' },
+      { t: '교내 연락처', u: 'https://www.donga.ac.kr/kor/CMS/ContactMgr/list.do?mCode=MN014' },
+      { t: '통합정보시스템', u: 'https://dx.donga.ac.kr/' },
+      { t: '네트워크 접근제어(NAC)', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN191' },
+      { t: 'NAC 관련 FAQ', u: 'https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN254' },
+    ],
+    '일반인': [
+      { t: '채용공고', u: 'https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN175' },
+      { t: '교내 연락처', u: 'https://www.donga.ac.kr/kor/CMS/ContactMgr/list.do?mCode=MN014' },
+      { t: '대관 및 예약안내', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN286' },
+      { t: '주차시설안내', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN204' },
+      { t: '오시는 길', u: 'https://www.donga.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN034' },
+    ],
+  };
+
+  // 대상별 아이콘 (Lucide 인라인 SVG)
+  const ICONS = {
+    '예비동아인': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>',
+    '동아인': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>',
+    '교직원': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="7" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>',
+    '일반인': '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
   };
 
   let openAud = null;
+  const linkHTML = (item) => {
+    const label = typeof item === 'string' ? item : item.t;
+    const href = typeof item === 'string' ? '#' : item.u;
+    const ext = href && href !== '#';
+    return `<a href="${href}"${ext ? ' target="_blank" rel="noopener"' : ''}>${label}</a>`;
+  };
   const render = (aud) => {
     titleEl.textContent = aud;
-    listEl.innerHTML = (LINKS[aud] || [])
-      .map((label) => `<li><a href="#">${label}</a></li>`)
-      .join('');
+    if (icoEl) icoEl.innerHTML = ICONS[aud] || '';
+    const data = LINKS[aud] || [];
+    const grouped = !Array.isArray(data) && data.groups;
+    if (grouped) {
+      listEl.classList.add('is-grouped');
+      listEl.innerHTML = data.groups.map((grp) =>
+        `<li class="dq-group"><span class="dq-group-title">${grp.g}</span>` +
+        `<div class="dq-group-grid">${grp.items.map(linkHTML).join('')}</div></li>`
+      ).join('');
+      panel.classList.add('dq-wide');
+    } else {
+      listEl.classList.remove('is-grouped');
+      listEl.innerHTML = data.map((item) => `<li>${linkHTML(item)}</li>`).join('');
+      panel.classList.toggle('dq-wide', data.length >= 12);
+    }
   };
   const close = () => {
     panel.classList.remove('is-open');

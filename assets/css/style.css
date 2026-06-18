@@ -279,6 +279,11 @@ body { top: 0 !important; }
   transition: opacity 1.4s ease;
 }
 .hero-slide.is-active { opacity: 1; }
+/* 이미지 슬라이드 좌측 스크림 — 좌측 홍보문구 가독성 (메인 히어로와 동일) */
+.hero-slide[data-kind="image"]::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(90deg, rgba(4,10,26,.62) 0%, rgba(4,10,26,.32) 38%, rgba(4,10,26,.05) 62%, transparent 78%);
+}
 .hero-video {
   position: absolute;
   inset: 0;
@@ -351,36 +356,36 @@ body { top: 0 !important; }
   left: clamp(20px, 5vw, 72px);
   top: 50%;
   transform: translateY(calc(-50% + 16px));
-  max-width: min(560px, 50%);
+  max-width: min(640px, 54%);
   color: var(--white);
   text-shadow: 0 2px 18px rgba(0, 0, 0, 0.5);
 }
 .hero-promo.is-active { transform: translateY(-50%); }
 .hero-promo-eyebrow {
-  font-size: clamp(13px, 1vw, 15px);
+  font-size: clamp(15px, 1.25vw, 18px);
   font-weight: 700;
   letter-spacing: 0.14em;
-  margin-bottom: 16px;
+  margin-bottom: 18px;
   opacity: 0.92;
 }
 .hero-promo-title {
   font-family: 'Paperlogy', var(--font);
-  font-size: clamp(28px, 4vw, 54px);
+  font-size: clamp(34px, 4.8vw, 64px);
   font-weight: 900;
   line-height: 1.2;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 .hero-promo-desc {
-  font-size: clamp(14px, 1.1vw, 17px);
+  font-size: clamp(16px, 1.3vw, 20px);
   line-height: 1.7;
-  margin-bottom: 28px;
+  margin-bottom: 30px;
   max-width: 42ch;
   opacity: 0.92;
 }
 .hero-promo-more {
   display: inline-flex;
   align-items: center;
-  font-size: clamp(14px, 1vw, 15px);
+  font-size: clamp(15px, 1.1vw, 16px);
   font-weight: 700;
   color: #fff;
   text-decoration: none;
@@ -4352,6 +4357,39 @@ html {
 }
 
 /* ── 히어로 우측 하단 대상별 버튼 ── */
+/* 히어로 슬라이드 세그먼트 인디케이터 (우하단) */
+.hero-prog {
+  position: absolute;
+  right: clamp(20px, 5vw, 64px);
+  bottom: clamp(28px, 4vw, 52px);
+  z-index: 4;
+  display: flex;
+  align-items: center;
+  gap: clamp(8px, 0.8vw, 12px);
+}
+.hpg-seg {
+  position: relative;
+  width: clamp(30px, 3.5vw, 52px);
+  height: 3px;
+  border: 0;
+  padding: 0;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+.hpg-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 0;
+  background: #fff;
+  border-radius: 99px;
+}
+.hpg-seg:hover { background: rgba(255, 255, 255, 0.6); }
+
 .hero-quick {
   position: absolute;
   left: clamp(20px, 5vw, 64px);
@@ -4444,14 +4482,14 @@ html {
   z-index: 54;
   top: 50%;
   right: clamp(62px, 5vw, 78px);
-  width: min(360px, 80vw);
-  max-height: 80vh;
+  width: min(560px, 88vw);
+  max-height: 82vh;
   overflow-y: auto;
-  margin-right: 12px;
+  margin-right: 14px;
   background: #fff;
-  border-radius: 16px;
+  border-radius: 22px;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: -10px 0 34px rgba(0, 0, 0, 0.16);
+  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.18);
   opacity: 0;
   visibility: hidden;
   transform: translateY(-50%) translateX(20px);
@@ -4462,17 +4500,41 @@ html {
   visibility: visible;
   transform: translateY(-50%) translateX(0);
 }
+/* 항목 많은 카테고리(동아인): 넓게 + 3열 */
+.dq-panel.dq-wide { width: min(840px, 92vw); }
+.dq-panel.dq-wide .dq-panel-list { grid-template-columns: repeat(3, 1fr); }
+.dq-panel.dq-wide .dq-panel-list a { min-height: 56px; font-size: 16px; padding: 14px 18px; }
+/* 소그룹 묶음 */
+.dq-panel-list.is-grouped { display: block; }
+.dq-group { margin-bottom: 22px; }
+.dq-group:last-child { margin-bottom: 0; }
+.dq-group-title { display: block; font-family: 'Paperlogy', var(--font); font-weight: 800; font-size: 13px;
+  letter-spacing: .06em; color: #003265; margin-bottom: 12px; }
+.dq-group-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .dq-panel-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 14px 18px 12px;
+  padding: 24px 28px 18px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
 }
+.dq-panel-titlewrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.dq-panel-ico {
+  display: grid;
+  place-items: center;
+  flex: 0 0 auto;
+  color: var(--blue);
+}
+.dq-panel-ico svg { width: 28px; height: 28px; }
+.dq-panel-ico:empty { display: none; }
 .dq-panel-title {
   font-family: 'Paperlogy', var(--font);
   font-weight: 800;
-  font-size: 16px;
+  font-size: 26px;
   color: var(--text);
 }
 .dq-panel-close {
@@ -4492,33 +4554,36 @@ html {
 .dq-panel-list {
   list-style: none;
   margin: 0;
-  padding: 12px;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+  padding: 20px 28px 28px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
 }
 .dq-panel-list a {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 16px 18px;
-  border-radius: 12px;
-  background: #f4f7fc;
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  font-size: 15px;
+  justify-content: flex-start;
+  min-height: 64px;
+  padding: 16px 22px;
+  border-radius: 14px;
+  background: #fff;
+  border: 1px solid #b9c6dd;
+  font-size: 17px;
   font-weight: 700;
   color: var(--text);
   text-decoration: none;
-  transition: background 0.2s var(--ease, ease), color 0.2s var(--ease, ease), border-color 0.2s var(--ease, ease), transform 0.2s var(--ease, ease);
+  transition: background 0.2s var(--ease, ease), color 0.2s var(--ease, ease), border-color 0.2s var(--ease, ease), transform 0.2s var(--ease, ease), box-shadow 0.2s var(--ease, ease);
 }
-.dq-panel-list a::after { content: "›"; color: var(--gray); font-size: 18px; line-height: 1; }
 .dq-panel-list a:hover {
   background: var(--blue);
   color: #fff;
   border-color: var(--blue);
-  transform: translateX(-2px);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 110, 233, 0.22);
 }
-.dq-panel-list a:hover::after { color: #fff; }
+@media (max-width: 540px) {
+  .dq-panel-list { grid-template-columns: 1fr; }
+}
 @media (max-width: 1180px) {
   .d-quick, .dq-panel { display: none; }
 }
