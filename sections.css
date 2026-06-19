@@ -476,7 +476,7 @@
 /* ── 연혁 타임라인 (가로 스크롤, 1946 → 2026) ── */
 .anniv-history{--ah-iw:clamp(330px,30vw,470px);--ah-pad:clamp(8px,1.5vw,20px);
   width:calc(100vw - var(--sb-w));margin-top:clamp(32px,4vw,64px);align-self:center;position:relative;}
-.ah-head{position:absolute;left:clamp(130px,14vw,250px);top:clamp(40px,6vw,96px);z-index:3;margin:0;
+.ah-head{position:absolute;left:clamp(4px,1.5vw,32px);top:calc(50% + 14px);z-index:3;margin:0;
   display:block;text-align:left;font-family:var(--font-display);font-weight:800;
   font-size:clamp(13px,1.1vw,16px);letter-spacing:.18em;text-transform:uppercase;
   color:rgba(255,255,255,.8);padding-left:var(--ah-pad);}
