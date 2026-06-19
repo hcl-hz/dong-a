@@ -829,32 +829,28 @@ html.d-snap{scroll-snap-type:y proximity;}
 /* ---------- D variant offset (uses A's sidebar) ---------- */
 .site[data-variant="d"]{--sb-w:240px;}
 .site[data-variant="d"][data-shrunk="true"]{--sb-w:92px;}
-.site[data-variant="d"] .main{padding-left:var(--sb-w);transition:padding-left .5s var(--ease);}
+.site[data-variant="d"] .main{padding-left:var(--sb-w);transition:none;}
 /* 전 섹션(+푸터): 배경을 사이드바(유리) 뒤까지 확장 — 콘텐츠는 사이드바 폭만큼 다시 들여써서 위치 유지.
    기념 섹션은 별도 처리(그라디언트만 확장)라 제외. */
 .site[data-variant="d"] .main > .sec:not(.anniv),
 .site[data-variant="d"] .main > .d-foot{
   margin-left:calc(-1 * var(--sb-w));
   width:calc(100% + var(--sb-w));
-  padding-left:var(--sb-w);
-  transition:margin-left .5s var(--ease),width .5s var(--ease),padding-left .5s var(--ease);}
+  padding-left:var(--sb-w);}
 /* 히어로는 풀블리드로 빼서 사이드바(유리) 뒤까지 영상이 깔리게 한다.
    대신 히어로 콘텐츠는 사이드바 폭만큼 다시 들여써서 글자가 메뉴에 가리지 않게 한다. */
 .site[data-variant="d"] .main > .hero.hd{
   margin-left:calc(-1 * var(--sb-w));
-  width:calc(100% + var(--sb-w));
-  transition:margin-left .5s var(--ease),width .5s var(--ease);}
+  width:calc(100% + var(--sb-w));}
 .site[data-variant="d"] .hd-center{
   padding-left:calc(var(--sb-w) + clamp(32px,5vw,80px));
-  padding-right:clamp(32px,5vw,80px);
-  transition:padding-left .5s var(--ease);}
+  padding-right:clamp(32px,5vw,80px);}
 /* 기념(80주년) 섹션: 배경 그라디언트를 사이드바(흰색 유리) 뒤까지 확장.
    콘텐츠/장식은 그대로 두고 배경 레이어만 왼쪽으로 빼서 유리에 비치게 한다. */
 .site[data-variant="d"] .gpn.anniv{overflow:visible;}
 .site[data-variant="d"] .gpn.anniv .anniv-grainient{
   left:calc(-1 * var(--sb-w));right:auto;
-  width:calc(100% + var(--sb-w));
-  transition:left .5s var(--ease),width .5s var(--ease);}
+  width:calc(100% + var(--sb-w));}
 
 @media(max-width:1080px){
   .dn-grid{grid-template-columns:1fr;}
