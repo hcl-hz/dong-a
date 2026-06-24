@@ -1276,7 +1276,8 @@ html.d-snap{scroll-snap-type:y proximity;}
 .nl-box{position:relative;display:grid;grid-template-columns:1fr 1.3fr;
   border:1px solid var(--line,#e5e5e5);border-radius:16px;overflow:hidden;}
 /* ===== 뉴스 섹션 (라이트) ===== */
-.d-news{background:#F4F8FF;color:var(--ink);}
+/* 상단 패딩을 다른 섹션(notice·power와 동일한 clamp(64,8vw,110))에 맞춤 — 기본 .sec(10vw)는 더 커서 위 여백이 과했음 */
+.d-news{background:#F4F8FF;color:var(--ink);padding-top:clamp(64px,8vw,110px);}
 .dnews-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;
   margin-bottom:clamp(28px,3vw,48px);flex-wrap:wrap;}
 .dnews-title{font-family:var(--font-display);font-weight:900;font-size:clamp(30px,4vw,56px);
@@ -1293,14 +1294,18 @@ html.d-snap{scroll-snap-type:y proximity;}
 .dnews-tab:hover{color:var(--ink);}
 .dnews-tab.is-active{color:var(--ink);}
 .dnews-tab.is-active::after{transform:scaleX(1);}
-.dnews-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:clamp(24px,2.6vw,46px);align-items:stretch;}
-/* 좌측 피처드 — 하단 라인을 우측 리스트 끝선과 같은 높이로 맞춤 (양쪽 컬럼 stretch) */
+.dnews-grid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:0;align-items:stretch;}
+/* 좌측 피처드 — 상·하단 라인을 각 컬럼에 직접 줘서 세로선이 위/아래까지 이어지도록 */
 .dnews-feat{display:flex;flex-direction:column;gap:clamp(14px,1.4vw,20px);
-  padding-bottom:clamp(18px,1.8vw,28px);border-bottom:1px solid var(--line);}
+  padding-right:clamp(24px,2.6vw,46px);padding-top:clamp(22px,2.2vw,38px);
+  border-top:2px solid rgba(20,40,80,.32);
+  padding-bottom:clamp(18px,1.8vw,28px);border-bottom:2px solid rgba(20,40,80,.32);}
 .dnews-feat-img{position:relative;width:100%;aspect-ratio:16/10;border-radius:14px;overflow:hidden;background:rgba(0,0,0,.04);}
 .dnews-feat-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s var(--ease);}
 .dnews-feat:hover .dnews-feat-img img{transform:scale(1.04);}
-.dnews-feat-body{display:flex;flex-direction:column;gap:clamp(10px,1vw,14px);}
+.dnews-feat-body{display:flex;flex-direction:column;gap:clamp(10px,1vw,14px);flex:1;}
+/* 피처 날짜를 컬럼 하단으로 밀어 우측 리스트 마지막 날짜와 같은 높이에 맞춤 */
+.dnews-feat-body .dnews-date{margin-top:auto;}
 .dnews-cat{align-self:flex-start;font-family:var(--font-display);font-weight:700;font-size:13px;
   letter-spacing:.04em;color:var(--gold-strong);}
 .dnews-feat-tit{font-family:var(--font-display);font-weight:800;font-size:clamp(17px,1.5vw,23px);line-height:1.34;color:var(--ink);
@@ -1310,7 +1315,9 @@ html.d-snap{scroll-snap-type:y proximity;}
 .dnews-date{font-size:13px;color:var(--fg-3);}
 /* 우측 리스트 (2×2) */
 .dnews-list{display:flex;flex-direction:column;gap:clamp(18px,1.8vw,26px);
-  padding-bottom:clamp(18px,1.8vw,28px);border-bottom:1px solid var(--line);}
+  border-left:1px solid rgba(20,40,80,.16);padding-left:clamp(24px,2.6vw,46px);padding-top:clamp(22px,2.2vw,38px);
+  border-top:2px solid rgba(20,40,80,.32);
+  padding-bottom:clamp(18px,1.8vw,28px);border-bottom:2px solid rgba(20,40,80,.32);}
 .dnews-item{display:flex;gap:clamp(12px,1.2vw,18px);align-items:stretch;justify-content:space-between;
   padding-bottom:clamp(16px,1.6vw,24px);border-bottom:1px solid var(--line);}
 .dnews-item:last-child{border-bottom:none;padding-bottom:0;}
@@ -1319,7 +1326,7 @@ html.d-snap{scroll-snap-type:y proximity;}
   display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden;transition:color .2s var(--ease);}
 .dnews-item-desc{font-size:clamp(14px,1.1vw,17px);line-height:1.7;color:var(--fg-2);
   display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.dnews-item .dnews-date{order:-1;margin-bottom:clamp(8px,1vw,14px);}
+.dnews-item .dnews-date{margin-top:clamp(8px,1vw,14px);}
 .dnews-item-img{flex:0 0 auto;align-self:flex-start;width:clamp(132px,13vw,180px);aspect-ratio:3/2;height:auto;
   border-radius:10px;overflow:hidden;background:rgba(0,0,0,.04);}
 .dnews-item-img img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease);}
@@ -1327,6 +1334,8 @@ html.d-snap{scroll-snap-type:y proximity;}
 .dnews-item:hover .dnews-item-tit{color:#3f72ab;}
 @media(max-width:1024px){
   .dnews-grid{grid-template-columns:1fr;gap:clamp(28px,4vw,44px);}
+  .dnews-feat{padding-right:0;}
+  .dnews-list{border-left:none;padding-left:0;border-top:none;padding-top:0;}
 }
 @media(max-width:680px){
   .dnews-list{grid-template-columns:1fr;}
@@ -1566,3 +1575,48 @@ html.d-snap{scroll-snap-type:y proximity;}
   .pbn-side{width:auto;}
   .pbn-ctrl{margin-top:16px;}
 }
+
+/* =====================================================================
+   메가메뉴 (메인페이지 · 사이드바 오른쪽 풀높이 드로우)
+   ===================================================================== */
+#sb-mega-host{
+  position:fixed;top:0;left:var(--sb-w);height:100vh;
+  width:min(940px,calc(100vw - var(--sb-w)));
+  z-index:59;display:flex;overflow:hidden;
+  background:#fff;border-left:1px solid var(--line);
+  box-shadow:22px 0 50px rgba(0,0,0,.12);
+  opacity:0;visibility:hidden;pointer-events:none;transform:translateX(-18px);
+  transition:opacity .28s var(--ease),transform .28s var(--ease),visibility .28s;}
+#sb-mega-host.is-open{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(0);}
+.sb-mega{display:none;flex-direction:column;width:100%;height:100%;}
+.sb-mega.is-active{display:flex;}
+/* 상단 라인 (이미지 + 네이비 오버레이 + 타이틀) */
+.sb-mega-top{flex:0 0 auto;position:relative;overflow:hidden;color:#fff;
+  padding:clamp(22px,3.2vh,40px) clamp(28px,3vw,48px);
+  background:var(--navy) center/cover no-repeat;
+  background-image:url("assets/images/img2.jpg"); /* 공통 이미지 — 교체 시 이 한 줄만 */}
+.sb-mega-top::before{content:"";position:absolute;inset:0;
+  background:linear-gradient(160deg,rgba(0,50,101,.82) 0%,rgba(0,24,51,.94) 100%);}
+.sb-mega-top>*{position:relative;z-index:1;}
+.sb-mega-eyebrow{display:block;font-size:12px;font-weight:700;letter-spacing:.14em;opacity:.82;margin-bottom:8px;}
+.sb-mega-title{font-family:var(--font-display);font-weight:900;font-size:clamp(26px,2.4vw,38px);line-height:1.1;}
+.sb-mega-body{flex:1;overflow-y:auto;padding:clamp(24px,3vh,40px) clamp(28px,3vw,48px);}
+/* 박스 그리드 (메이슨리) */
+.sb-mega .mega-cols{columns:3;column-gap:clamp(16px,1.6vw,28px);}
+.sb-mega .mega-box{break-inside:avoid;margin:0 0 clamp(16px,1.6vw,22px);}
+.sb-mega .mega-box-head{display:block;border:1px solid var(--line);border-radius:10px;
+  padding:11px 14px;background:var(--bg-soft);
+  font-family:var(--font-display);font-weight:800;font-size:14.5px;color:var(--ink);
+  margin-bottom:10px;transition:border-color .18s,background .18s,color .18s;}
+.sb-mega .mega-box--link .mega-box-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:0;}
+.sb-mega .mega-box--link .mega-box-head::after{content:"\2197";font-size:13px;color:var(--fg-3);transition:color .18s;}
+.sb-mega .mega-box--link .mega-box-head:hover{border-color:var(--navy);background:var(--navy);color:#fff;}
+.sb-mega .mega-box--link .mega-box-head:hover::after{color:#fff;}
+.sb-mega .mega-bullets{list-style:none;padding-left:4px;}
+.sb-mega .mega-bullets a{display:flex;align-items:flex-start;gap:8px;padding:5px 2px;
+  font-size:13.5px;font-weight:500;color:var(--fg-2);line-height:1.45;transition:color .18s;}
+.sb-mega .mega-bullets a::before{content:"";flex:0 0 auto;width:4px;height:4px;margin-top:7px;
+  border-radius:50%;background:var(--fg-3);transition:background .18s;}
+.sb-mega .mega-bullets a:hover{color:var(--navy);}
+.sb-mega .mega-bullets a:hover::before{background:var(--navy);}
+@media(max-width:1180px){ #sb-mega-host{display:none;} }

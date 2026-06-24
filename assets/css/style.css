@@ -181,6 +181,131 @@ body {
 }
 .nav-sub a:hover { background: var(--sky-light); color: var(--blue); }
 
+/* ── 메가메뉴 (풀폭 드롭다운) ── */
+.nav-item.has-mega { position: static; }
+.mega {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  border-top: 1px solid var(--gray-border);
+  box-shadow: 0 26px 44px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  z-index: 1001;
+}
+/* 메뉴↔패널 사이 빈틈(헤더 패딩)을 덮어 호버 끊김 방지 */
+.mega::before {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; top: -30px;
+  height: 30px;
+}
+.nav-item.has-mega:hover .mega,
+.nav-item.has-mega:focus-within .mega {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+.mega-inner {
+  display: flex;
+  gap: 0;
+  padding: 0;
+  align-items: stretch;
+}
+/* 왼쪽 블록: 공통 이미지 풀배경 + 네이비 오버레이 + 텍스트 */
+.mega-left {
+  flex: 0 0 clamp(220px, 22vw, 300px);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  padding: clamp(28px, 2.2vw, 40px);
+  overflow: hidden;
+  color: #fff;
+  background: #003265 center / cover no-repeat;
+  background-image: url("../images/img2.jpg"); /* 전 메뉴 공통 이미지 — 교체 시 이 한 줄만 */
+}
+.mega-left::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, rgba(0, 50, 101, 0.82) 0%, rgba(0, 24, 51, 0.94) 100%);
+}
+.mega-left > * { position: relative; z-index: 1; }
+.mega-eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.14em; opacity: 0.85; margin-bottom: 12px; }
+.mega-title { font-family: 'Paperlogy', var(--font); font-size: clamp(24px, 2.2vw, 32px); font-weight: 900; margin-bottom: 12px; }
+.mega-tagline { font-size: 14px; line-height: 1.65; color: rgba(255, 255, 255, 0.85); }
+.mega-thumb { display: none; } /* 개별 썸네일 제거 — 좌측은 공통 배경이미지로 통일 */
+/* 오른쪽: 2단계 네모박스들을 다열로 흐르게 (masonry — CSS columns) */
+.mega-cols {
+  flex: 1;
+  columns: 4;
+  column-gap: clamp(14px, 1.5vw, 24px);
+  padding: clamp(28px, 3vw, 44px) clamp(24px, 4vw, 80px) clamp(36px, 4vw, 56px) clamp(30px, 3vw, 52px);
+}
+@media (max-width: 1280px) { .mega-cols { columns: 3; } }
+@media (max-width: 980px) { .mega-cols { columns: 2; } }
+/* 한 카테고리 = (2단계 네모박스) + (그 아래 3단계 불릿) */
+.mega-box {
+  break-inside: avoid;
+  margin: 0 0 clamp(16px, 1.6vw, 24px);
+}
+/* 2단계 = 네모박스 (제목만) */
+.mega-box-head {
+  display: block;
+  border: 1px solid var(--gray-border);
+  border-radius: 10px;
+  padding: 11px 14px;
+  background: #f4f7fc;
+  font-family: 'Paperlogy', var(--font);
+  font-weight: 800;
+  font-size: 14.5px;
+  color: var(--text);
+  margin-bottom: 10px;
+  transition: border-color 0.18s ease, background 0.18s ease, color 0.18s ease;
+}
+/* 단독 링크형 (하위 없음) — 박스 자체가 링크 */
+.mega-box--link .mega-box-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0;
+}
+.mega-box--link .mega-box-head::after { content: "↗"; font-size: 13px; color: var(--gray); transition: color 0.18s ease; }
+.mega-box--link .mega-box-head:hover { border-color: #003265; background: #003265; color: #fff; }
+.mega-box--link .mega-box-head:hover::after { color: #fff; }
+/* 3단계 = 박스 아래 불릿 항목 */
+.mega-bullets { list-style: none; padding-left: 4px; }
+.mega-bullets a {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 5px 2px;
+  font-size: 13.5px;
+  font-weight: 500;
+  color: var(--text-mid);
+  line-height: 1.45;
+  transition: color 0.18s ease;
+}
+.mega-bullets a::before {
+  content: "";
+  flex: 0 0 auto;
+  width: 4px;
+  height: 4px;
+  margin-top: 7px;
+  border-radius: 50%;
+  background: var(--gray);
+  transition: background 0.18s ease;
+}
+.mega-bullets a:hover { color: #003265; }
+.mega-bullets a:hover::before { background: #003265; }
+
 .nav-actions { margin-left: auto; flex-shrink: 0; }
 .lang-toggle { display: flex; align-items: center; gap: 10px; }
 .lang-btn {
