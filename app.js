@@ -340,8 +340,14 @@
         promoWrap.classList.toggle("hd-hide", !activeItem);
         promoWrap.setAttribute("aria-hidden", activeItem ? "false" : "true");
       }
-      // MORE VIEW는 data-hd-more가 붙은 항목에만 노출
-      if (moreBtn) moreBtn.classList.toggle("hd-hide", !(activeItem && activeItem.hasAttribute("data-hd-more")));
+      // MORE VIEW는 data-hd-more가 붙은 항목에만 노출 + 항목별 링크(data-hd-href)로 연결
+      if (moreBtn) {
+        var showMore = !!(activeItem && activeItem.hasAttribute("data-hd-more"));
+        moreBtn.classList.toggle("hd-hide", !showMore);
+        var href = showMore ? activeItem.getAttribute("data-hd-href") : null;
+        if (href) { moreBtn.href = href; moreBtn.target = "_blank"; moreBtn.rel = "noopener"; }
+        else { moreBtn.removeAttribute("target"); moreBtn.removeAttribute("rel"); moreBtn.setAttribute("href", "#"); }
+      }
       syncVideo();
     }
     function restart() { clearTimeout(timer); if (!paused) timer = setTimeout(function () { go(idx + 1); restart(); }, durFor(idx)); }
