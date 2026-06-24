@@ -170,10 +170,10 @@ body{top:0!important;}
 .sb-acc.icon{flex:0 0 auto;padding:11px;width:42px;height:42px;}
 
 /* ---- 사이드바 블루 테마 (포인트 컬러 배경 + 내부 요소 반전) ---- */
-/* 사이드바: 항상 네이비 유리 (각 섹션 배경이 뒤로 확장되어 비침) */
+/* 사이드바: 항상 솔리드 네이비 */
 .sb{--point:var(--navy);--point-strong:var(--navy-strong);
-  background:rgba(0,50,101,.55);
-  backdrop-filter:blur(12px) saturate(135%);-webkit-backdrop-filter:blur(12px) saturate(135%);
+  background:var(--navy);
+  backdrop-filter:none;-webkit-backdrop-filter:none;
   border-right-color:rgba(255,255,255,.18);}
 .sb-logo-img{filter:brightness(0) invert(1);}            /* 짙은 로고 → 흰색 */
 .sb-logo .kr{color:#fff;}
@@ -199,9 +199,9 @@ body{top:0!important;}
 .sb:not(.sb-light) .sb-lang-sep{color:rgba(255,255,255,.3);}
 
 /* ---- 기념(개교 80주년) 섹션 위: 사이드바 흰색 테마로 전환 (그라데이션 블루와 충돌 방지) ---- */
-.sb.sb-light{background:rgba(255,255,255,.55);
-  backdrop-filter:blur(12px) saturate(135%);-webkit-backdrop-filter:blur(12px) saturate(135%);
-  border-right-color:rgba(255,255,255,.5);}
+.sb.sb-light{background:#fff;
+  backdrop-filter:none;-webkit-backdrop-filter:none;
+  border-right-color:var(--line);}
 .sb.sb-light .sb-logo-img{filter:none;}
 .sb.sb-light .sb-logo .kr{color:var(--ink);}
 .sb.sb-light .sb-logo .en{color:var(--point);}

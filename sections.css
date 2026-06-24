@@ -424,12 +424,11 @@
   gap:clamp(20px,2.6vw,40px);max-width:1040px;margin:0 auto;}
 .anniv-logo{width:clamp(280px,34vw,500px);height:auto;margin-top:clamp(-72px,-5vw,-28px);}
 .anniv-head{font-family:var(--font-display);font-weight:900;
-  font-size:clamp(24px,3.6vw,52px);line-height:1.12;letter-spacing:-.02em;color:#fff;text-align:left;}
+  font-size:clamp(24px,3.6vw,52px);line-height:1.12;letter-spacing:-.02em;color:#fff;text-align:center;}
 .anniv-head .ah-l1,.anniv-head .ah-l2{display:block;}
-.anniv-head .ah-l2{padding-left:5.2em;}
 /* 헤딩 + 서브텍스트: 같은 왼쪽 축으로 좌측 정렬(블록은 가운데 배치) */
-.anniv-lead{display:flex;flex-direction:column;align-items:flex-start;gap:clamp(16px,2vw,28px);text-align:left;}
-.anniv-copy{display:flex;flex-direction:column;gap:clamp(12px,1.4vw,20px);max-width:800px;text-align:left;}
+.anniv-lead{display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2vw,28px);text-align:center;}
+.anniv-copy{display:flex;flex-direction:column;gap:clamp(12px,1.4vw,20px);max-width:800px;text-align:center;}
 .anniv-copy p{font-size:clamp(15px,1.3vw,20px);line-height:1.85;color:rgba(255,255,255,.92);}
 /* 섹션 최상단 얇은 로고 루프 띠 (페이드 없음) */
 .gpn.anniv .gpn-loop{position:relative;overflow:hidden;width:100%;
@@ -475,7 +474,7 @@
 @media(max-width:1024px){ .anniv-statement{position:static;margin-top:clamp(24px,4vw,40px);max-width:none;} }
 /* ── 연혁 타임라인 (가로 스크롤, 1946 → 2026) ── */
 .anniv-history{--ah-iw:clamp(330px,30vw,470px);--ah-pad:clamp(8px,1.5vw,20px);
-  width:calc(100vw - var(--sb-w));margin-top:clamp(32px,4vw,64px);align-self:center;position:relative;}
+  width:calc(100vw - var(--sb-w));margin-top:clamp(8px,1.5vw,24px);align-self:center;position:relative;}
 .ah-head{position:absolute;left:clamp(4px,1.5vw,32px);top:calc(50% + 14px);z-index:3;margin:0;
   display:block;text-align:left;font-family:var(--font-display);font-weight:800;
   font-size:clamp(13px,1.1vw,16px);letter-spacing:.18em;text-transform:uppercase;
@@ -517,7 +516,7 @@
 .ah-label{font-size:clamp(14px,1.25vw,18px);font-weight:700;color:#fff;line-height:1.35;
   word-break:keep-all;max-width:var(--ah-iw);}
 .ah-desc{font-size:clamp(12px,1.05vw,14.5px);line-height:1.6;color:rgba(255,255,255,.74);
-  word-break:keep-all;max-width:var(--ah-iw);margin:0;}
+  letter-spacing:-.02em;word-break:keep-all;max-width:var(--ah-iw);margin:0;}
 .ah-now .ah-dot{background:var(--gold);border-color:#fff;box-shadow:0 0 0 5px rgba(198,163,106,.32);}
 .ah-now .ah-year{color:var(--gold);}
 /* 2026 연도: 골드 위로 빛이 스치는 셔머 효과 */

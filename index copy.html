@@ -97,54 +97,74 @@
     <section id="hero" class="hero">
       <div class="hero-media">
         <div class="hero-slideshow" id="hero-slideshow">
-          <!-- ① 영상 슬라이드 (실제 영상으로 교체 예정) -->
+          <!-- 1. 드론영상 -->
           <div class="hero-slide is-active" data-kind="video">
-            <video class="hero-video" autoplay muted playsinline poster="assets/images/img2.jpg">
-              <source src="assets/hero-flow.mp4" type="video/mp4" />
+            <video class="hero-video" autoplay muted playsinline>
+              <source src="uploads/드론영상.mp4" type="video/mp4" />
             </video>
           </div>
-          <!-- ② 이미지 슬라이드 (실제 이미지로 교체 예정) -->
-          <div class="hero-slide" data-kind="image" style="background-image:url('assets/images/img3.jpg')"></div>
-          <!-- ③ 이미지 슬라이드 -->
-          <div class="hero-slide" data-kind="image" style="background-image:url('assets/images/img4.jpg')"></div>
+          <!-- 2. 축제영상 -->
+          <div class="hero-slide" data-kind="video">
+            <video class="hero-video" muted playsinline>
+              <source src="uploads/축제영상.mp4" type="video/mp4" />
+            </video>
+          </div>
+          <!-- 3. 80주년 엠블럼 -->
+          <div class="hero-slide" data-kind="image" style="background-image:url('uploads/80주년 엠블럼 이미지.jpg')"></div>
+          <!-- 4. 석당박물관 야경 -->
+          <div class="hero-slide" data-kind="image" style="background-image:url('uploads/석당박물관 야경.jpg')"></div>
+          <!-- 5. 구덕캠퍼스 전경 -->
+          <div class="hero-slide" data-kind="image" style="background-image:url('uploads/구덕캠퍼스 전경.jpg')"></div>
+          <!-- 6. 조감도 -->
+          <div class="hero-slide" data-kind="image" style="background-image:url('uploads/조감도.jpg')"></div>
         </div>
         <div class="hero-overlay"></div>
       </div>
       <!-- 텍스트 레이어 (오버레이 위) — 활성 슬라이드에 맞춰 노출 -->
       <div class="hero-texts">
-        <!-- 영상 슬라이드(0): 중앙 타이틀 -->
-        <div class="hero-content hero-text is-active" data-slide="0">
-          <p class="hero-eyebrow">DONG-A UNIVERSITY</p>
-          <h1 class="hero-title">
-            세상을 바꾸는 힘,<br />
-            <span class="hero-typewriter" id="typewriter"></span><span class="cursor">|</span>
-          </h1>
-          <p class="hero-sub">1946년 창학 이래, 동아대학교는 미래를 이끌 인재를 키워왔습니다.<br />당신의 가능성을 동아대와 함께 펼쳐보세요.</p>
+        <!-- 0. 드론영상 (브랜드) -->
+        <div class="hero-promo hero-text is-active" data-slide="0">
+          <p class="hero-promo-eyebrow">부산을 넘어 세계로, 도전과 혁신의 80년</p>
+          <h2 class="hero-promo-title">DONG-A<br />UNIVERSITY</h2>
+          <p class="hero-promo-desc">자유·정의·진리의 교시 아래,<br />함께 진리를 추구하는 정신으로 미래를 엽니다.</p>
         </div>
-        <!-- 이미지 슬라이드(1): 좌측중앙 홍보문구 -->
+        <!-- 1. 축제영상 -->
         <div class="hero-promo hero-text" data-slide="1">
-          <p class="hero-promo-eyebrow">DONG-A NEWS</p>
-          <h2 class="hero-promo-title">홍보문구 제목이<br />들어갈 자리입니다 ①</h2>
-          <p class="hero-promo-desc">이미지 슬라이드에 노출될 홍보 설명 문구입니다. 실제 카피로 교체하세요.</p>
-          <a class="hero-promo-more" href="#">자세히 보기 +</a>
+          <p class="hero-promo-eyebrow">부산을 넘어 세계로, 도전과 혁신의 80년</p>
+          <h2 class="hero-promo-title">DONG-A<br />UNIVERSITY</h2>
+          <p class="hero-promo-desc">자유·정의·진리의 교시 아래,<br />함께 진리를 추구하는 정신으로 미래를 엽니다.</p>
         </div>
-        <!-- 이미지 슬라이드(2): 좌측중앙 홍보문구 -->
+        <!-- 2. 80주년 엠블럼 -->
         <div class="hero-promo hero-text" data-slide="2">
           <p class="hero-promo-eyebrow">DONG-A NEWS</p>
-          <h2 class="hero-promo-title">홍보문구 제목이<br />들어갈 자리입니다 ②</h2>
-          <p class="hero-promo-desc">이미지 슬라이드에 노출될 홍보 설명 문구입니다. 실제 카피로 교체하세요.</p>
-          <a class="hero-promo-more" href="#">자세히 보기 +</a>
+          <h2 class="hero-promo-title">‘글로컬대학’<br />최종선정</h2>
+          <p class="hero-promo-desc">동서대와 연합 ‘통합산단 기반의 부산 개방형 연합대학’ 모델 구축</p>
+          <a class="hero-promo-more" href="https://www.donga-dongseo.ac.kr/" target="_blank" rel="noopener">MORE VIEW +</a>
+        </div>
+        <!-- 3. 석당박물관 야경 -->
+        <div class="hero-promo hero-text" data-slide="3">
+          <p class="hero-promo-eyebrow">DONG-A NEWS</p>
+          <h2 class="hero-promo-title">대학기초연구소지원<br />(G-LAMP)사업<br />최종선정</h2>
+          <a class="hero-promo-more" href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN044&mode=view&mgr_seq=54&board_seq=8404972" target="_blank" rel="noopener">MORE VIEW +</a>
+        </div>
+        <!-- 4. 구덕캠퍼스 전경 -->
+        <div class="hero-promo hero-text" data-slide="4">
+          <p class="hero-promo-eyebrow">DONG-A NEWS</p>
+          <h2 class="hero-promo-title">부산형 지역혁신중심<br />대학지원체계(RISE)<br />사업선정</h2>
+          <a class="hero-promo-more" href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mcode=&mCode=MN044&searchID=sch001&searchKeyword=RISE&searchCategory=&mgr_seq=54&mode=view&mgr_seq=54&board_seq=8395707" target="_blank" rel="noopener">MORE VIEW +</a>
+        </div>
+        <!-- 5. 조감도 -->
+        <div class="hero-promo hero-text" data-slide="5">
+          <p class="hero-promo-eyebrow">DONG-A NEWS</p>
+          <h2 class="hero-promo-title">동아대학교<br />기부서비스 오픈!</h2>
+          <p class="hero-promo-desc">부산은행 모바일뱅킹으로 우리 지역 인재들에게 날개를 달아주세요!</p>
+          <a class="hero-promo-more" href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mcode=&mCode=MN044&searchID=sch001&searchKeyword=%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89%EA%B3%BC%20%EC%86%90%EC%9E%A1%EA%B3%A0&searchCategory=&mgr_seq=54&mode=view&mgr_seq=54&board_seq=4076500" target="_blank" rel="noopener">MORE VIEW +</a>
         </div>
       </div>
-      <nav class="hero-quick">
-        <span class="hq-label" aria-hidden="true">QUICK</span>
-        <a href="#" class="hq-chip">입학안내</a>
-        <a href="#" class="hq-chip">장학</a>
-        <a href="#" class="hq-chip">캠퍼스맵</a>
-      </nav>
       <div class="hero-prog" data-hero-prog aria-label="슬라이드 진행"></div>
       <div class="hero-glare" aria-hidden="true"></div>
     </section>
+
 
     <!-- ── 카드형 안내 배너 (캐러셀 · 더미데이터) ── 임시 숨김(주석처리)
     <section class="cbn" aria-label="주요 안내">
@@ -220,36 +240,108 @@
               <h2 class="nt2-title">공지사항</h2>
               <div class="nt2-tabs">
                 <button class="nt2-tab is-active" type="button">전체</button>
+                <button class="nt2-tab" type="button">공지</button>
                 <button class="nt2-tab" type="button">학사</button>
                 <button class="nt2-tab" type="button">장학</button>
                 <button class="nt2-tab" type="button">모집</button>
-                <button class="nt2-tab" type="button">일반</button>
               </div>
               <a class="nt2-more" href="#">View More +</a>
             </div>
             <ul class="nt2-list">
               <li class="nt2-item">
                 <a href="#">
-                  <p class="nt2-item-title">2026-2학기 전문/특수대학원 신입생 등록안내</p>
-                  <div class="nt2-meta"><span class="nt2-date">2026-06-11</span><span class="nt2-sep"></span><span class="nt2-cat">일반</span><span class="nt2-new">NEW</span></div>
+                  <p class="nt2-item-title">[창업보육센터] 입주기업 모집 공고</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-23</span><span class="nt2-sep"></span><span class="nt2-cat">모집</span><span class="nt2-new">NEW</span></div>
                 </a>
               </li>
               <li class="nt2-item">
                 <a href="#">
-                  <p class="nt2-item-title">2026-2학기 일반대학원 신입생 등록안내</p>
-                  <div class="nt2-meta"><span class="nt2-date">2026-06-11</span><span class="nt2-sep"></span><span class="nt2-cat">일반</span><span class="nt2-new">NEW</span></div>
+                  <p class="nt2-item-title">[교양대학] 2026학년도 1차 글쓰기 특강 개최 안내</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-23</span><span class="nt2-sep"></span><span class="nt2-cat">모집</span><span class="nt2-new">NEW</span></div>
                 </a>
               </li>
               <li class="nt2-item">
                 <a href="#">
-                  <p class="nt2-item-title">2026년 신격호 롯데 취업준비생 장학사업 장학생 모집 안내</p>
-                  <div class="nt2-meta"><span class="nt2-date">2026-06-09</span><span class="nt2-sep"></span><span class="nt2-cat">장학</span><span class="nt2-new">NEW</span></div>
+                  <p class="nt2-item-title">[언어교육원] 2026학년도 방학 TOEIC 특강 수요 설문조사 실시 안내</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-23</span><span class="nt2-sep"></span><span class="nt2-cat">모집</span><span class="nt2-new">NEW</span></div>
                 </a>
               </li>
               <li class="nt2-item">
                 <a href="#">
-                  <p class="nt2-item-title">2027학년도 소아청소년 푸른빛 희망 장학금 지원사업 모집 안내</p>
-                  <div class="nt2-meta"><span class="nt2-date">2026-06-09</span><span class="nt2-sep"></span><span class="nt2-cat">장학</span><span class="nt2-new">NEW</span></div>
+                  <p class="nt2-item-title">[국제교류과] 2026학년도 제9-2기 데일리비(DAILY-B) 프로그램 참가자 모집</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-23</span><span class="nt2-sep"></span><span class="nt2-cat">모집</span><span class="nt2-new">NEW</span></div>
+                </a>
+              </li>
+              <li class="nt2-item">
+                <a href="#">
+                  <p class="nt2-item-title">2025학년도 후기(2026년 8월) 졸업예정자 학사학위취득 유예 신청 안내</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-23</span><span class="nt2-sep"></span><span class="nt2-cat">학사</span><span class="nt2-new">NEW</span></div>
+                </a>
+              </li>
+              <li class="nt2-item">
+                <a href="#">
+                  <p class="nt2-item-title">『2026 산학공동기술개발과제』 수요조사 실시 안내</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-23</span><span class="nt2-sep"></span><span class="nt2-cat">공지</span><span class="nt2-new">NEW</span></div>
+                </a>
+              </li>
+              <li class="nt2-item">
+                <a href="#">
+                  <p class="nt2-item-title">2026학년도 제2학기 휴학·복학 기간 안내</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-22</span><span class="nt2-sep"></span><span class="nt2-cat">학사</span><span class="nt2-new">NEW</span></div>
+                </a>
+              </li>
+              <li class="nt2-item">
+                <a href="#">
+                  <p class="nt2-item-title">2026 롯데장학재단 신격호 롯데 취업준비생 장학사업 장학생 모집</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-22</span><span class="nt2-sep"></span><span class="nt2-cat">장학</span><span class="nt2-new">NEW</span></div>
+                </a>
+              </li>
+              <li class="nt2-item">
+                <a href="#">
+                  <p class="nt2-item-title">2026학년도 하계계절학기 개강 안내</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-18</span><span class="nt2-sep"></span><span class="nt2-cat">학사</span><span class="nt2-new">NEW</span></div>
+                </a>
+              </li>
+              <li class="nt2-item">
+                <a href="#">
+                  <p class="nt2-item-title">2026학년도 1학기 교직 적성 및 인성 검사 실시 안내</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-18</span><span class="nt2-sep"></span><span class="nt2-cat">학사</span><span class="nt2-new">NEW</span></div>
+                </a>
+              </li>
+              <li class="nt2-item">
+                <a href="#">
+                  <p class="nt2-item-title">2026학년도 하계방학 교외 집중 국가근로장학생 선발자 오리엔테이션 장소변경(승학캠퍼스) 안내</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-18</span><span class="nt2-sep"></span><span class="nt2-cat">장학</span><span class="nt2-new">NEW</span></div>
+                </a>
+              </li>
+              <li class="nt2-item">
+                <a href="#">
+                  <p class="nt2-item-title">2026학년도 2학기 동아대학교 사무직원(일반직, 기능직) 채용 공고</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-18</span><span class="nt2-sep"></span><span class="nt2-cat">공지</span><span class="nt2-new">NEW</span></div>
+                </a>
+              </li>
+              <li class="nt2-item">
+                <a href="#">
+                  <p class="nt2-item-title">2026년도 2분기 개인정보보호 홍보자료(포스터) 안내</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-16</span><span class="nt2-sep"></span><span class="nt2-cat">공지</span></div>
+                </a>
+              </li>
+              <li class="nt2-item">
+                <a href="#">
+                  <p class="nt2-item-title">[26년 6월] 건물 내·외부 방역 시행 안내</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-06-08</span><span class="nt2-sep"></span><span class="nt2-cat">공지</span></div>
+                </a>
+              </li>
+              <li class="nt2-item">
+                <a href="#">
+                  <p class="nt2-item-title">국가장학금 등 학자금 지원을 위한 지원 구간 체계 개편 안내(2027학년도부터 적용)</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-04-15</span><span class="nt2-sep"></span><span class="nt2-cat">장학</span></div>
+                </a>
+              </li>
+              <li class="nt2-item">
+                <a href="#">
+                  <p class="nt2-item-title">교외 기관(재단) 장학생 추천서 직인 날인 방법 안내</p>
+                  <div class="nt2-meta"><span class="nt2-date">2026-03-03</span><span class="nt2-sep"></span><span class="nt2-cat">장학</span></div>
                 </a>
               </li>
             </ul>
@@ -277,6 +369,27 @@
               <div class="nt2-cal-grid" data-cal-grid></div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ── 홍보배너 (이미지 슬라이드) ── -->
+    <section class="cbn cbn--img" aria-label="홍보 배너">
+      <div class="container">
+        <div class="cbn-stage" data-cbn-stage>
+          <a class="cbn-card cbn-card--img is-active" href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN171&mode=view&mgr_seq=63&board_seq=8508333" target="_blank" rel="noopener" data-cbn-card>
+            <img src="uploads/팝업 B-1.png" alt="홍보 배너 1" />
+          </a>
+          <a class="cbn-card cbn-card--img" href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN171&mode=view&mgr_seq=63&board_seq=8508126" target="_blank" rel="noopener" data-cbn-card>
+            <img src="uploads/팝업 B-2.png" alt="홍보 배너 2" />
+          </a>
+          <a class="cbn-card cbn-card--img" href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN171&mode=view&mgr_seq=63&board_seq=8495456" target="_blank" rel="noopener" data-cbn-card>
+            <img src="uploads/팝업 B-3.png" alt="홍보 배너 3" />
+          </a>
+        </div>
+        <div class="cbn-ctrl">
+          <div class="cbn-dots" data-cbn-dots></div>
+          <button class="cbn-toggle" type="button" data-cbn-toggle aria-label="배너 일시정지"></button>
         </div>
       </div>
     </section>

@@ -266,7 +266,16 @@
     var slides = $$(".hd-slide", box);
     var n = slides.length;
     if (n < 2) return;                 // 슬라이드 1개면 굳이 돌리지 않음
-    var DUR = 7000;                    // 각 슬라이드 노출 시간
+    var DUR_VIDEO_MAX = 5666, DUR_IMAGE = 4000;   // 노출 시간: 영상=축제영상 길이(5.67초)에 맞춤 / 이미지 4초
+    function durFor(i) {
+      var v = slides[i].querySelector("video");
+      if (v) {
+        var d = v.duration;
+        // 메타데이터 로드 전이면 최대값으로 폴백, 로드되면 실제 길이(최대 6초)만큼만 노출
+        return (isFinite(d) && d > 0) ? Math.min(Math.round(d * 1000), DUR_VIDEO_MAX) : DUR_VIDEO_MAX;
+      }
+      return DUR_IMAGE;
+    }
     var idx = 0, timer = null, paused = false;
     // 인디케이터: 세그먼트 바(슬라이드당 1개) + 재생/일시정지 토글
     var segWrap = $("[data-hd-dots]"), segs = [], segFills = [];
@@ -295,7 +304,7 @@
           f.style.width = "0%";
           void f.offsetWidth; // reflow로 리셋 확정
           if (!paused) {
-            f.style.transition = "width " + DUR + "ms linear";
+            f.style.transition = "width " + durFor(idx) + "ms linear";
             f.style.width = "100%";
           }
         }
@@ -313,24 +322,29 @@
     var center = $(".hd-center");
     var promoWrap = $("[data-hd-promo]");
     var promoItems = promoWrap ? $$(".hd-promo-item", promoWrap) : [];
+    var moreBtn = promoWrap ? promoWrap.querySelector(".hd-more") : null;
     function go(i) {
       idx = (i % n + n) % n;
       slides.forEach(function (s, k) { s.classList.toggle("is-active", k === idx); });
       segs.forEach(function (s, k) { s.classList.toggle("is-active", k === idx); });
       setFill();
-      var isVideo = slides[idx].getAttribute("data-hd-type") === "video";
-      // 영상 슬라이드: 중앙 타이틀 노출 / 이미지 슬라이드: 우측 홍보문구 + MORE VIEW 노출
-      if (center) center.classList.toggle("hd-hide", !isVideo);
-      if (promoWrap) {
-        promoWrap.classList.toggle("hd-hide", isVideo);
-        promoWrap.setAttribute("aria-hidden", isVideo ? "true" : "false");
-      }
+      // 중앙 타이틀은 항상 숨김. 홍보문구는 해당 슬라이드에 항목이 있을 때만 노출(나머지는 배경만)
+      if (center) center.classList.add("hd-hide");
+      var activeItem = null;
       promoItems.forEach(function (p) {
-        p.classList.toggle("is-active", String(idx) === p.getAttribute("data-hd-slide"));
+        var on = String(idx) === p.getAttribute("data-hd-slide");
+        p.classList.toggle("is-active", on);
+        if (on) activeItem = p;
       });
+      if (promoWrap) {
+        promoWrap.classList.toggle("hd-hide", !activeItem);
+        promoWrap.setAttribute("aria-hidden", activeItem ? "false" : "true");
+      }
+      // MORE VIEW는 data-hd-more가 붙은 항목에만 노출
+      if (moreBtn) moreBtn.classList.toggle("hd-hide", !(activeItem && activeItem.hasAttribute("data-hd-more")));
       syncVideo();
     }
-    function restart() { clearInterval(timer); if (!paused) timer = setInterval(function () { go(idx + 1); }, DUR); }
+    function restart() { clearTimeout(timer); if (!paused) timer = setTimeout(function () { go(idx + 1); restart(); }, durFor(idx)); }
 
     // 재생 / 일시정지 토글
     var PAUSE = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>';
@@ -342,7 +356,7 @@
         paused = !paused;
         toggleBtn.innerHTML = paused ? PLAY : PAUSE;
         if (paused) {
-          clearInterval(timer);
+          clearTimeout(timer);
           var af = segFills[idx]; // 현재 세그먼트를 현재 너비에서 정지
           if (af) { var w = getComputedStyle(af).width; af.style.transition = "none"; af.style.width = w; }
         } else {
@@ -351,11 +365,23 @@
         }
       });
     }
+    // 이전 / 다음 화면 버튼 — 수동 전환 후 타이머 리셋 (재생 중이면 다시 자동 진행)
+    var prevBtn = $("[data-hd-prev]"), nextBtn = $("[data-hd-next]");
+    if (prevBtn) prevBtn.addEventListener("click", function () { go(idx - 1); restart(); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { go(idx + 1); restart(); });
     // 탭 전환/포커스 아웃이면 자동 전환 일시 정지 (배터리·리소스 절약)
     document.addEventListener("visibilitychange", function () {
-      if (document.hidden) clearInterval(timer); else if (!paused) restart();
+      if (document.hidden) clearTimeout(timer); else if (!paused) restart();
     });
-    setFill();   // 첫 슬라이드(영상) 진행 라인 채움 시작
+    // 영상 메타데이터(길이) 로드 시점이 현재 슬라이드면 진행바·타이머를 실제 길이로 재설정
+    slides.forEach(function (s) {
+      var v = s.querySelector("video");
+      if (!v) return;
+      v.addEventListener("loadedmetadata", function () {
+        if (slides[idx] === s && !paused) { setFill(); restart(); }
+      });
+    });
+    go(0);       // 첫 슬라이드(영상) 상태 동기화 — 홍보문구 폼 즉시 노출
     restart();
   }
 
@@ -1211,11 +1237,11 @@
     var sec = document.getElementById("news");
     if (!sec) return;
     var NEWS = [
-      { title: "동아대 부동산학교육과정, ‘2026 통합 원우회장배 골프대회’ 성료", desc: "지난 11일 부산 기장군 베이사이드 컨트리클럽에서 열린 ‘2026 동아대학교 부동산학교육과정 통합 원우회장배 골프대회’가 성황리에 마무리됐다.", date: "2026.05.21", img: "uploads/image.png" },
-      { title: "동아대 경찰학과, 김수환 前 부산경찰청장 초청 특강 성료", desc: "지난 11일 동아대 부민캠퍼스에서 김수환 전 부산경찰청장을 초청해 현장 경험을 나누는 특강이 열렸다.", date: "2026.05.20", img: "uploads/image copy.png" },
-      { title: "동아대 한국어문학과, ‘제5회 살내(矢川) 최낙복 장학금 수여식’ 개최", desc: "최낙복 명예교수의 뜻을 이어 후학을 지원하는 장학금 수여식이 열렸다.", date: "2026.05.20", img: "uploads/image copy 2.png" },
-      { title: "동아대·동명대 교수 연합팀, 전국교수축구대회 ‘준우승’", desc: "‘제20회 전국교수축구대회’에서 동아대·동명대 연합팀이 준우승을 차지했다.", date: "2026.05.19", img: "uploads/스크린샷 2026-06-12 10.05.06.png" },
-      { title: "의과대학, 지역 어린이 건강 돌봄 봉사", desc: "지역 아동을 대상으로 건강 검진과 돌봄 활동을 진행했다.", date: "2026.05.22", img: "uploads/스크린샷 2026-06-12 10.06.12.png" }
+      { title: "동아대, ‘2026 HR 혁신 포럼’ 성황리 개최… 전국 HR 전문가 100여 명 교류", desc: "동아대학교(총장 이해우)는 학생·인재개발처(처장 신용택) 인재개발과 주관으로 국내 최대 규모의 ‘2026 HR 혁신 포럼’이 성황리에 마무리됐다고 12일 밝혔다.", date: "2026.06.12", img: "uploads/1bf1ad6d56164ee8acbebcb9cd1d67b9.jpeg" },
+      { title: "동아대, 중국 선전대·싱가포르 공과대와 ‘글로벌 AI 협력’ 추진", desc: "동아대학교(총장 이해우)는 소프트웨어혁신센터(센터장 이석환)가 중국 선전대학교(SZU), 싱가포르 공과대학교(SIT)와 인공지능(AI)·소프트웨어(SW) 분야 글로벌 협력 강화를 위한 3개 대학 간 협력 체계 구축을 본격적으로 추진한다고 24일 밝혔다.", date: "2026.06.24", img: "uploads/908a3b2468234f6abe50f324b6539a47.jpeg" },
+      { title: "동아대, 2026학년도 직원 연수회 ‘이어온 80년, 함께 채워갈 내일’ 개최", desc: "동아대학교(총장 이해우)는 부산 중구 코모도호텔에서 ‘2026학년도 직원 연수회’를 지난 23일 성황리에 개최했다고 24일 밝혔다.", date: "2026.06.24", img: "uploads/8f34a15267164402af5774ccd60018ba.jpeg" },
+      { title: "동아대, 외국인 유학생 ‘K-Culture School: 자기주도 정주 설계 캠프’ 성료", desc: "동아대학교(총장 이해우)는 외국인 유학생들의 성공적인 한국 사회 안착과 지역 정주를 지원하기 위한 ‘K-Culture School: 자기주도 정주 설계 캠프 제주 프로그램’을 성황리에 마쳤다고 22일 밝혔다.", date: "2026.06.22", img: "uploads/d95935cddd7f4d37a8e2cf27bd471399.jpeg" },
+      { title: "동아대 의과대학 혁신사업센터, ‘좋은 의사 프로젝트: 지역을 잇다’ 성황리 개최", desc: "동아대학교(총장 이해우) 의과대학 혁신사업센터(센터장 김종국)는 ‘좋은 의사 프로젝트: 지역을 잇다-진료실을 넘어 사회로’ 행사를 성황리에 마쳤다고 16일 밝혔다.", date: "2026.06.16", img: "uploads/fb841d0ad36d4f0e87e6c59d3f2ae90b.jpeg" }
     ];
     var PEOPLE = [
       { title: "세계를 무대로 — 글로벌 기업 진출 동문", desc: "동아대를 졸업하고 해외 유수 기업에서 활약 중인 동문의 이야기를 전합니다.", date: "2026.05.18", img: "assets/images/people.jpg" },
@@ -1311,6 +1337,134 @@
     }, { passive: false });
   }
 
+  /* ---------- 카드형 안내 배너 캐러셀 (서브페이지에서 포팅) ---------- */
+  function initCbn() {
+    var stage = $("[data-cbn-stage]");
+    if (!stage) return;
+    var cards = $$(".cbn-card", stage);
+    if (!cards.length) return;
+    var dotsWrap = $("[data-cbn-dots]");
+    var toggleBtn = $("[data-cbn-toggle]");
+    var DWELL = 5000;
+    var PAUSE = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>';
+    var PLAY = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>';
+    var idx = 0, timer = null, paused = false;
+    var dots = [], fills = [];
+    if (dotsWrap) {
+      cards.forEach(function (_, i) {
+        var d = document.createElement("button");
+        d.className = "cbn-dot"; d.type = "button";
+        d.setAttribute("aria-label", (i + 1) + "번째 배너");
+        d.setAttribute("data-cursor", "true");
+        var f = document.createElement("span"); f.className = "cbn-dot-fill";
+        d.appendChild(f);
+        d.addEventListener("click", function () { go(i); restart(); });
+        dotsWrap.appendChild(d); dots.push(d); fills.push(f);
+      });
+    }
+    function paintFill() {
+      fills.forEach(function (f, k) {
+        f.style.transition = "none"; f.style.width = "0%";
+        if (k === idx && !paused) { void f.offsetWidth; f.style.transition = "width " + DWELL + "ms linear"; f.style.width = "100%"; }
+      });
+    }
+    function go(i) {
+      idx = (i % cards.length + cards.length) % cards.length;
+      cards.forEach(function (c, k) { c.classList.toggle("is-active", k === idx); });
+      dots.forEach(function (d, k) { d.classList.toggle("is-active", k === idx); });
+      paintFill();
+    }
+    function restart() { clearInterval(timer); if (!paused && cards.length > 1) timer = setInterval(function () { go(idx + 1); }, DWELL); }
+    if (toggleBtn) {
+      toggleBtn.innerHTML = PAUSE;
+      toggleBtn.addEventListener("click", function () {
+        paused = !paused;
+        toggleBtn.innerHTML = paused ? PLAY : PAUSE;
+        toggleBtn.setAttribute("aria-label", paused ? "배너 재생" : "배너 일시정지");
+        if (paused) {
+          clearInterval(timer);
+          var af = fills[idx];
+          if (af) { var w = getComputedStyle(af).width; af.style.transition = "none"; af.style.width = w; }
+        } else { paintFill(); restart(); }
+      });
+    }
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) clearInterval(timer); else if (!paused) restart();
+    });
+    go(0); restart();
+  }
+
+  /* ---------- DAU POP-UP 배너 (카드 덱 캐러셀) ---------- */
+  function initPbn() {
+    var root = $("[data-pbn]");
+    if (!root) return;
+    var deck = root.querySelector("[data-pbn-deck]");
+    var cards = deck ? [].slice.call(deck.querySelectorAll(".pbn-card")) : [];
+    var n = cards.length;
+    if (!n) return;
+    var curEl = root.querySelector("[data-pbn-cur]");
+    var totalEl = root.querySelector("[data-pbn-total]");
+    var prevBtn = root.querySelector("[data-pbn-prev]");
+    var nextBtn = root.querySelector("[data-pbn-next]");
+    var toggleBtn = root.querySelector("[data-pbn-toggle]");
+    var DWELL = 5000;
+    var PAUSE = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="3" width="5" height="18" rx="1"/><rect x="14" y="3" width="5" height="18" rx="1"/></svg>';
+    var PLAY = '<svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4l14 8-14 8z"/></svg>';
+    var idx = 0, timer = null, paused = false;
+    function pad(x) { return (x < 10 ? "0" : "") + x; }
+    if (totalEl) totalEl.textContent = pad(n);
+    var HALF = 300;   // 퇴장 0.3s + 재진입 0.3s = 0.6s → 다른 카드(0.6s)와 동시 안착
+    var TR = "transform " + HALF + "ms var(--ease), opacity " + HALF + "ms var(--ease)";
+    function slotName(s) { return s <= 2 ? String(s) : "hidden"; }
+    function place() {                       // 초기 즉시 배치 (애니메이션 없음)
+      cards.forEach(function (c, k) { c.setAttribute("data-slot", slotName((k - idx + n) % n)); });
+      if (curEl) curEl.textContent = pad(idx + 1);
+    }
+    // 한쪽으로 빠르게 슬라이드 아웃 → 순간이동 → 같은 속도로 슬라이드 인 (시간차 없이 동시 안착)
+    function teleport(c, exitSlot, enterSlot, target) {
+      clearTimeout(c.__pbnT); clearTimeout(c.__pbnT2);
+      c.style.transition = TR;
+      c.setAttribute("data-slot", exitSlot);
+      c.__pbnT = setTimeout(function () {
+        c.style.transition = "none";
+        c.setAttribute("data-slot", enterSlot);
+        void c.offsetWidth;                  // reflow로 순간이동 확정
+        c.style.transition = TR;
+        c.setAttribute("data-slot", target);
+        c.__pbnT2 = setTimeout(function () { c.style.transition = ""; }, HALF + 40);  // 기본 0.6s 전환으로 복귀
+      }, HALF);
+    }
+    function advance(dir) {
+      var prevIdx = idx;
+      idx = (idx + (dir === "prev" ? -1 : 1) + n) % n;
+      cards.forEach(function (c, k) {
+        var oldSlot = (k - prevIdx + n) % n;
+        var newSlot = (k - idx + n) % n;
+        var target = slotName(newSlot);
+        if (dir !== "prev" && oldSlot === 0 && newSlot === n - 1) teleport(c, "exitL", "enterR", target);      // 앞→뒤: 왼쪽 퇴장→오른쪽 재진입
+        else if (dir === "prev" && oldSlot === n - 1 && newSlot === 0) teleport(c, "exitR", "enterL", target);  // 뒤→앞(역방향)
+        else c.setAttribute("data-slot", target);
+      });
+      if (curEl) curEl.textContent = pad(idx + 1);
+    }
+    function restart() { clearInterval(timer); if (!paused && n > 1) timer = setInterval(function () { advance("next"); }, DWELL); }
+    if (prevBtn) prevBtn.addEventListener("click", function () { advance("prev"); restart(); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { advance("next"); restart(); });
+    if (toggleBtn) {
+      toggleBtn.innerHTML = PAUSE;
+      toggleBtn.addEventListener("click", function () {
+        paused = !paused;
+        toggleBtn.innerHTML = paused ? PLAY : PAUSE;
+        toggleBtn.setAttribute("aria-label", paused ? "슬라이드 재생" : "슬라이드 일시정지");
+        restart();
+      });
+    }
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) clearInterval(timer); else if (!paused) restart();
+    });
+    place(); restart();
+  }
+
   function boot() {
     // 캡처/디버그 모드(?cap): 등장 효과·스냅·스티키 비활성화하여 정적 캡처
     if (/[?&]cap\b/.test(location.search)) {
@@ -1353,6 +1507,8 @@
     initAnchors();
     initVideoPause();
     initDNews();
+    initCbn();
+    initPbn();
     initAnnivHistory();
     initSidebarTheme();
     initPowerScroll();

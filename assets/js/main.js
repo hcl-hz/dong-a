@@ -87,7 +87,7 @@ function typewrite() {
   }
   setTimeout(typewrite, deleting ? 55 : 120);
 }
-setTimeout(typewrite, 1400);
+if (typewriterEl) setTimeout(typewrite, 1400);
 
 // ── REVEAL (Intersection Observer) ──
 const reveals = document.querySelectorAll('.reveal');
@@ -278,9 +278,10 @@ updateBackToTop();
 // ── 히어로 이미지 슬라이드쇼 (img2부터 5장 반복) ──
 const heroSlides = document.querySelectorAll('#hero-slideshow .hero-slide');
 const heroTexts = document.querySelectorAll('.hero-texts .hero-text');
-const heroVideo = document.querySelector('#hero-slideshow .hero-slide[data-kind="video"] .hero-video');
+const heroVideos = [...document.querySelectorAll('#hero-slideshow .hero-slide[data-kind="video"] .hero-video')];
+const pauseAllVideos = () => heroVideos.forEach((v) => { try { v.pause(); } catch (e) {} });
 const HERO_IMAGE_DWELL = 5000;  // 이미지 슬라이드 노출 시간
-const HERO_VIDEO_DWELL = 12000; // 영상 노출 시간 (긴 영상이라도 이 시간만 재생 후 다음, 10~15초 사이로 조정)
+const HERO_VIDEO_DWELL = 6000;  // 영상 노출 시간 (영상 길이에 맞춰 조정)
 // 활성 슬라이드에 맞는 텍스트만 노출 (영상=중앙 타이틀 / 이미지=홍보문구)
 const syncHeroText = (i) => {
   heroTexts.forEach((t) => t.classList.toggle('is-active', Number(t.dataset.slide) === i));
@@ -308,19 +309,39 @@ if (heroSlides.length > 1) {
       progWrap.appendChild(b);
       segFills.push(f);
     });
+    // 컨트롤 묶음 (< 정지 >) — 메인처럼 버튼 사이 간격을 좁게
+    const ctrl = document.createElement('div');
+    ctrl.className = 'hpg-ctrl';
+    // 이전 슬라이드 버튼 (정지 토글 왼쪽)
+    const prevBtn = document.createElement('button');
+    prevBtn.className = 'hpg-nav hpg-prev';
+    prevBtn.type = 'button';
+    prevBtn.setAttribute('aria-label', '이전 슬라이드');
+    prevBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>';
+    prevBtn.addEventListener('click', () => showHero((heroIdx - 1 + heroSlides.length) % heroSlides.length));
+    ctrl.appendChild(prevBtn);
     const toggle = document.createElement('button');
     toggle.className = 'hpg-toggle';
     toggle.type = 'button';
     toggle.innerHTML = HPG_PAUSE;
     toggle.setAttribute('aria-label', '슬라이드 일시정지');
-    progWrap.appendChild(toggle);
+    ctrl.appendChild(toggle);
+    // 다음 슬라이드 버튼 (정지 토글 오른쪽)
+    const nextBtn = document.createElement('button');
+    nextBtn.className = 'hpg-nav hpg-next';
+    nextBtn.type = 'button';
+    nextBtn.setAttribute('aria-label', '다음 슬라이드');
+    nextBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+    nextBtn.addEventListener('click', () => showHero((heroIdx + 1) % heroSlides.length));
+    ctrl.appendChild(nextBtn);
+    progWrap.appendChild(ctrl);
     toggle.addEventListener('click', () => {
       heroPaused = !heroPaused;
       toggle.innerHTML = heroPaused ? HPG_PLAY : HPG_PAUSE;
       toggle.setAttribute('aria-label', heroPaused ? '슬라이드 재생' : '슬라이드 일시정지');
       if (heroPaused) {
         clearTimeout(heroTimer);
-        if (heroVideo) heroVideo.pause();
+        pauseAllVideos();
         const af = segFills[heroIdx]; // 현재 막대를 현재 너비에서 정지
         if (af) { const w = getComputedStyle(af).width; af.style.transition = 'none'; af.style.width = w; }
       } else {
@@ -342,14 +363,16 @@ if (heroSlides.length > 1) {
   function scheduleHero() {
     clearTimeout(heroTimer);
     if (heroPaused) return;
-    if (heroVideo) heroVideo.onended = null;
     const cur = heroSlides[heroIdx];
-    if (cur.dataset.kind === 'video' && heroVideo) {
+    const curVideo = cur.querySelector('.hero-video');
+    // 활성 슬라이드 외 영상은 정지(되감기)
+    heroVideos.forEach((v) => { if (v !== curVideo) { try { v.pause(); v.currentTime = 0; } catch (e) {} } });
+    if (cur.dataset.kind === 'video' && curVideo) {
       // 영상: 처음부터 재생하되 긴 영상이어도 HERO_VIDEO_DWELL만큼만 보여주고 다음
-      try { heroVideo.currentTime = 0; const p = heroVideo.play(); if (p) p.catch(() => {}); } catch (e) {}
+      try { curVideo.currentTime = 0; const p = curVideo.play(); if (p) p.catch(() => {}); } catch (e) {}
       heroTimer = setTimeout(goNext, HERO_VIDEO_DWELL);
     } else {
-      if (heroVideo) heroVideo.pause();
+      pauseAllVideos();
       heroTimer = setTimeout(goNext, HERO_IMAGE_DWELL);
     }
   }
@@ -808,11 +831,11 @@ document.querySelectorAll('a[href="#"]').forEach((a) => {
   const slider = document.querySelector('.nf-slider');
   if (!slider) return;
   const NEWS = [
-    { title: '동아대 부동산학교육과정, ‘2026 통합 원우회장배 골프대회’ 성료', desc: '지난 11일 부산 기장군 베이사이드 컨트리클럽에서 열린 ‘2026 동아대학교 부동산학교육과정 통합 원우회장배 골프대회’ 참가자들이...', date: '2026.05.21', img: 'uploads/image.png' },
-    { title: '동아대 경찰학과, 김수환 前 부산경찰청장 초청 특강 성료', desc: '지난 11일 동아대 부민캠퍼스에서 열린 초청 특강에서 김수환 전 부산경찰청장이 ...', date: '2025.05.20', img: 'uploads/image copy.png' },
-    { title: '동아대 한국어문학과, ‘제5회 살내(矢川) 최낙복 장학금 수여식’ 개최', desc: '‘제5회 살내(矢川) 최낙복 장학금 수여식’에 참석한 최낙복 명예교수와 ...', date: '2025.05.20', img: 'uploads/image copy 2.png' },
-    { title: '동아대·동명대 교수 연합팀, 전국교수축구대회 ‘준우승’', desc: '‘제20회 전국교수축구대회’에서 준우승을 차지한 동아대·동명대 연합팀 소속 교수들...', date: '2025.05.19', img: 'uploads/스크린샷 2026-06-12 10.05.06.png' },
-    { title: '의과대학, 지역 어린이 건강 돌봄 봉사', desc: '지역 아동을 대상으로 건강 검진과 돌봄 활동을 진행했다.', date: '2026.05.22', img: 'uploads/스크린샷 2026-06-12 10.06.12.png' }
+    { title: '동아대, ‘2026 HR 혁신 포럼’ 성황리 개최… 전국 HR 전문가 100여 명 교류', desc: '동아대학교(총장 이해우)는 학생·인재개발처(처장 신용택) 인재개발과 주관으로 국내 최대 규모의 ‘2026 HR 혁신 포럼’이 성황리에 마무리됐다고 12일 밝혔다.', date: '2026.06.12', img: 'uploads/1bf1ad6d56164ee8acbebcb9cd1d67b9.jpeg' },
+    { title: '동아대, 중국 선전대·싱가포르 공과대와 ‘글로벌 AI 협력’ 추진', desc: '동아대학교(총장 이해우)는 소프트웨어혁신센터(센터장 이석환)가 중국 선전대학교(SZU), 싱가포르 공과대학교(SIT)와 인공지능(AI)·소프트웨어(SW) 분야 글로벌 협력 강화를 위한 3개 대학 간 협력 체계 구축을 본격적으로 추진한다고 24일 밝혔다.', date: '2026.06.24', img: 'uploads/908a3b2468234f6abe50f324b6539a47.jpeg' },
+    { title: '동아대, 2026학년도 직원 연수회 ‘이어온 80년, 함께 채워갈 내일’ 개최', desc: '동아대학교(총장 이해우)는 부산 중구 코모도호텔에서 ‘2026학년도 직원 연수회’를 지난 23일 성황리에 개최했다고 24일 밝혔다.', date: '2026.06.24', img: 'uploads/8f34a15267164402af5774ccd60018ba.jpeg' },
+    { title: '동아대, 외국인 유학생 ‘K-Culture School: 자기주도 정주 설계 캠프’ 성료', desc: '동아대학교(총장 이해우)는 외국인 유학생들의 성공적인 한국 사회 안착과 지역 정주를 지원하기 위한 ‘K-Culture School: 자기주도 정주 설계 캠프 제주 프로그램’을 성황리에 마쳤다고 22일 밝혔다.', date: '2026.06.22', img: 'uploads/d95935cddd7f4d37a8e2cf27bd471399.jpeg' },
+    { title: '동아대 의과대학 혁신사업센터, ‘좋은 의사 프로젝트: 지역을 잇다’ 성황리 개최', desc: '동아대학교(총장 이해우) 의과대학 혁신사업센터(센터장 김종국)는 ‘좋은 의사 프로젝트: 지역을 잇다-진료실을 넘어 사회로’ 행사를 성황리에 마쳤다고 16일 밝혔다.', date: '2026.06.16', img: 'uploads/fb841d0ad36d4f0e87e6c59d3f2ae90b.jpeg' }
   ];
   const PEOPLE = [
     { title: '세계를 무대로 — 글로벌 기업 진출 동문', desc: '동아대를 졸업하고 해외 유수 기업에서 활약 중인 동문의 이야기를 전합니다.', date: '2026.05.18', img: 'assets/images/people.jpg' },
@@ -864,7 +887,7 @@ document.querySelectorAll('a[href="#"]').forEach((a) => {
       applyDataset(DATA[tab.textContent.trim()] || NEWS);
     });
   });
-  setActive(0);
+  applyDataset(NEWS);   // 초기 로드 시 텍스트 + 이미지를 데이터에서 채움
 })();
 
 // ── 동아 캘린더 (월 달력 그리드) ──
@@ -923,17 +946,31 @@ document.querySelectorAll('a[href="#"]').forEach((a) => {
 
 // ── 대학공지/캘린더 탭 선택 전환 ──
 (function () {
-  const groups = [
-    document.querySelectorAll('.nt2-tab'),
-    document.querySelectorAll('.nt2-cal-tab')
-  ];
-  groups.forEach((tabs) => {
-    tabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        tabs.forEach((t) => t.classList.toggle('is-active', t === tab));
-      });
+  // 캘린더 탭: 활성 표시만 전환
+  const calTabs = document.querySelectorAll('.nt2-cal-tab');
+  calTabs.forEach((tab) => {
+    tab.addEventListener('click', () => calTabs.forEach((t) => t.classList.toggle('is-active', t === tab)));
+  });
+  // 공지 카테고리 탭: 클릭 시 해당 카테고리 항목만 노출 (전체=모두)
+  const noticeTabs = document.querySelectorAll('.nt2-tab');
+  const noticeItems = [...document.querySelectorAll('.nt2-list .nt2-item')];
+  const NOTICE_LIMIT = 4;   // 탭별 최대 노출 개수 (레이아웃 고정)
+  const filterNotice = (cat) => {
+    let shown = 0;
+    noticeItems.forEach((li) => {
+      const itemCat = (li.querySelector('.nt2-cat')?.textContent || '').trim();
+      const match = (cat === '전체' || itemCat === cat) && shown < NOTICE_LIMIT;
+      li.style.display = match ? '' : 'none';
+      if (match) shown++;
+    });
+  };
+  noticeTabs.forEach((tab) => {
+    tab.addEventListener('click', () => {
+      noticeTabs.forEach((t) => t.classList.toggle('is-active', t === tab));
+      filterNotice(tab.textContent.trim());
     });
   });
+  filterNotice('전체');   // 초기 로드: 전체 탭 최신 4건만 노출
 })();
 
 // ── 주요서비스 (탭 전환 + 화살표 스크롤) ──
