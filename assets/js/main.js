@@ -640,11 +640,10 @@ document.querySelectorAll('.notice-tabs').forEach(tabs => {
     return s;
   };
 
-  let done = false;
+  let rafId = null;
   const run = () => {
-    if (done) return;
-    done = true;
     if (reduced) { items.forEach((it) => { it.el.textContent = it.raw; }); return; }
+    if (rafId) cancelAnimationFrame(rafId); // 진행 중이던 카운트 취소 후 새로 시작
     const dur = 1400;
     const ease = (t) => 1 - Math.pow(1 - t, 3);
     const t0 = performance.now();
@@ -653,15 +652,18 @@ document.querySelectorAll('.notice-tabs').forEach(tabs => {
       const t = Math.min(1, (now - t0) / dur);
       const e = ease(t);
       items.forEach((it) => { it.el.textContent = fmt(it.num * e, it); });
-      if (t < 1) requestAnimationFrame(frame);
-      else items.forEach((it) => { it.el.textContent = it.raw; }); // 원본 포맷 복원
+      if (t < 1) rafId = requestAnimationFrame(frame);
+      else { rafId = null; items.forEach((it) => { it.el.textContent = it.raw; }); } // 원본 포맷 복원
     };
-    requestAnimationFrame(frame);
+    rafId = requestAnimationFrame(frame);
   };
 
   if ('IntersectionObserver' in window) {
+    let visible = false;
     const io = new IntersectionObserver((entries) => {
-      if (entries.some((e) => e.isIntersecting)) { run(); io.disconnect(); }
+      const isIn = entries.some((e) => e.isIntersecting);
+      if (isIn && !visible) { visible = true; run(); }      // 들어올 때마다 재실행
+      else if (!isIn && visible) { visible = false; }       // 나가면 리셋해 다음 진입 때 다시 카운트
     }, { threshold: 0.25 });
     io.observe(marquee);
   } else {
@@ -855,14 +857,19 @@ document.querySelectorAll('a[href="#"]').forEach((a) => {
   let current = NEWS;
   let idx = 0;
   const setActive = (i) => {
-    idx = Math.max(0, Math.min(current.length - 1, i)); // 순환 없음
-    const nextIdx = idx + 1;
+    const len = current.length;
+    idx = ((i % len) + len) % len; // 무한 순환 (화살표 클릭 시에만)
+    const nextIdx = (idx + 1) % len; // 다음 미리보기 (마지막 → 첫 기사)
+    const prevIdx = (idx - 1 + len) % len; // 직전(나가는) 사진
     panels.forEach((p, k) => {
       p.classList.toggle('is-active', k === idx);
       p.classList.toggle('is-next', k === nextIdx);
+      // 시각 순서를 항상 [이전 | 활성 | 다음]으로 고정 → 나가는 사진이 항상 왼쪽으로 밀려 사라지고,
+      // 순환(마지막↔첫)에서도 가운데로 빠지지 않음
+      p.style.order = k === idx ? 1 : k === nextIdx ? 2 : k === prevIdx ? 0 : 3;
     });
-    if (prevBtn) prevBtn.disabled = idx === 0;
-    if (nextBtn) nextBtn.disabled = idx === current.length - 1;
+    if (prevBtn) prevBtn.disabled = false;
+    if (nextBtn) nextBtn.disabled = false;
     const cur = current[idx];
     titleEl.textContent = cur.title;
     descEl.textContent = cur.desc;
