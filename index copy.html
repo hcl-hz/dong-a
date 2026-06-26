@@ -420,12 +420,35 @@
           <button type="button" class="lang-btn" data-lang="en">ENG</button>
         </div>
         <div id="google_translate_element" aria-hidden="true"></div>
+        <button type="button" class="search-btn" id="search-btn" aria-label="검색 열기" aria-expanded="false" aria-controls="search-overlay" data-cursor="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7" />
+            <path d="m21 21-4.3-4.3" />
+          </svg>
+        </button>
       </div>
       <button class="nav-hamburger" id="nav-hamburger" aria-label="메뉴 열기">
         <span></span><span></span><span></span>
       </button>
     </div>
   </header>
+
+  <!-- 통합검색 팝오버 -->
+  <div class="search-pop" id="search-overlay" aria-hidden="true">
+    <form class="search-form" id="search-form" role="search">
+      <div class="search-field">
+        <svg class="search-field-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7" /><path d="m21 21-4.3-4.3" />
+        </svg>
+        <input type="search" class="search-input" id="search-input" name="q" placeholder="검색어 입력" autocomplete="off" />
+        <button type="submit" class="search-submit" aria-label="검색">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M5 12h14" /><path d="m12 5 7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+    </form>
+  </div>
 
   <main>
 
@@ -461,38 +484,38 @@
         <!-- 0. 드론영상 (브랜드) -->
         <div class="hero-promo hero-text is-active" data-slide="0">
           <p class="hero-promo-eyebrow">부산을 넘어 세계로, 도전과 혁신의 80년</p>
-          <h2 class="hero-promo-title">DONG-A<br />UNIVERSITY</h2>
+          <h2 class="hero-promo-title">DONG-A <br class="t-br" />UNIVERSITY</h2>
           <p class="hero-promo-desc">자유·정의·진리의 교시 아래,<br />함께 진리를 추구하는 정신으로 미래를 엽니다.</p>
         </div>
         <!-- 1. 축제영상 -->
         <div class="hero-promo hero-text" data-slide="1">
           <p class="hero-promo-eyebrow">부산을 넘어 세계로, 도전과 혁신의 80년</p>
-          <h2 class="hero-promo-title">DONG-A<br />UNIVERSITY</h2>
+          <h2 class="hero-promo-title">DONG-A <br class="t-br" />UNIVERSITY</h2>
           <p class="hero-promo-desc">자유·정의·진리의 교시 아래,<br />함께 진리를 추구하는 정신으로 미래를 엽니다.</p>
         </div>
         <!-- 2. 80주년 엠블럼 -->
         <div class="hero-promo hero-text" data-slide="2">
           <p class="hero-promo-eyebrow">DONG-A NEWS</p>
-          <h2 class="hero-promo-title">‘글로컬대학’<br />최종선정</h2>
+          <h2 class="hero-promo-title">‘글로컬대학’ <br class="t-br" />최종선정</h2>
           <p class="hero-promo-desc">동서대와 연합 ‘통합산단 기반의 부산 개방형 연합대학’ 모델 구축</p>
           <a class="hero-promo-more" href="https://www.donga-dongseo.ac.kr/" target="_blank" rel="noopener">MORE VIEW +</a>
         </div>
         <!-- 3. 석당박물관 야경 -->
         <div class="hero-promo hero-text" data-slide="3">
           <p class="hero-promo-eyebrow">DONG-A NEWS</p>
-          <h2 class="hero-promo-title">대학기초연구소지원<br />(G-LAMP)사업<br />최종선정</h2>
+          <h2 class="hero-promo-title">대학기초연구소지원 (G-LAMP)<br />사업 최종선정</h2>
           <a class="hero-promo-more" href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN044&mode=view&mgr_seq=54&board_seq=8404972" target="_blank" rel="noopener">MORE VIEW +</a>
         </div>
         <!-- 4. 구덕캠퍼스 전경 -->
         <div class="hero-promo hero-text" data-slide="4">
           <p class="hero-promo-eyebrow">DONG-A NEWS</p>
-          <h2 class="hero-promo-title">부산형 지역혁신중심<br />대학지원체계(RISE)<br />사업선정</h2>
+          <h2 class="hero-promo-title">부산형 지역혁신중심 <br class="t-br" />대학지원체계(RISE) <br class="t-br" />사업선정</h2>
           <a class="hero-promo-more" href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mcode=&mCode=MN044&searchID=sch001&searchKeyword=RISE&searchCategory=&mgr_seq=54&mode=view&mgr_seq=54&board_seq=8395707" target="_blank" rel="noopener">MORE VIEW +</a>
         </div>
         <!-- 5. 조감도 -->
         <div class="hero-promo hero-text" data-slide="5">
           <p class="hero-promo-eyebrow">DONG-A NEWS</p>
-          <h2 class="hero-promo-title">동아대학교<br />기부서비스 오픈!</h2>
+          <h2 class="hero-promo-title">동아대학교 <br class="t-br" />기부서비스 오픈!</h2>
           <p class="hero-promo-desc">부산은행 모바일뱅킹으로 우리 지역 인재들에게 날개를 달아주세요!</p>
           <a class="hero-promo-more" href="https://www.donga.ac.kr/kor/CMS/Board/Board.do?mcode=&mCode=MN044&searchID=sch001&searchKeyword=%EB%B6%80%EC%82%B0%EC%9D%80%ED%96%89%EA%B3%BC%20%EC%86%90%EC%9E%A1%EA%B3%A0&searchCategory=&mgr_seq=54&mode=view&mgr_seq=54&board_seq=4076500" target="_blank" rel="noopener">MORE VIEW +</a>
         </div>
@@ -1239,6 +1262,43 @@
         btns.forEach((x) => x.classList.toggle('is-active', x === b));
         setLang(b.dataset.lang);
       }));
+    })();
+
+    /* 통합검색 오버레이 */
+    (function () {
+      const overlay = document.getElementById('search-overlay');
+      const btn = document.getElementById('search-btn');
+      const form = document.getElementById('search-form');
+      const input = document.getElementById('search-input');
+      if (!overlay || !btn || !form || !input) return;
+
+      const isOpen = () => overlay.classList.contains('is-open');
+      const open = () => {
+        overlay.classList.add('is-open');
+        overlay.setAttribute('aria-hidden', 'false');
+        btn.setAttribute('aria-expanded', 'true');
+        setTimeout(() => input.focus(), 60);
+      };
+      const close = () => {
+        overlay.classList.remove('is-open');
+        overlay.setAttribute('aria-hidden', 'true');
+        btn.setAttribute('aria-expanded', 'false');
+      };
+
+      btn.addEventListener('click', (e) => { e.stopPropagation(); isOpen() ? close() : open(); });
+      overlay.addEventListener('click', (e) => e.stopPropagation());
+      document.addEventListener('click', () => { if (isOpen()) close(); });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && isOpen()) { close(); btn.focus(); }
+      });
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const q = input.value.trim();
+        if (!q) { input.focus(); return; }
+        // 동아대 사이트 대상 검색 (백엔드 연동 시 이 URL만 교체)
+        const url = 'https://www.google.com/search?q=' + encodeURIComponent('site:donga.ac.kr ' + q);
+        window.open(url, '_blank', 'noopener');
+      });
     })();
   </script>
   <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
