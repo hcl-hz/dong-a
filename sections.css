@@ -421,15 +421,22 @@
 .gpn.anniv > .wrap{z-index:1;}
 /* 80주년 — 중앙 집중 대형 타이포 레이아웃 */
 .gpn.anniv .anniv-inner{display:flex;flex-direction:column;align-items:center;text-align:center;
-  gap:clamp(20px,2.6vw,40px);max-width:1040px;margin:0 auto;}
-.anniv-logo{width:clamp(280px,34vw,500px);height:auto;margin-top:clamp(-72px,-5vw,-28px);}
+  gap:clamp(8px,1.2vw,18px);max-width:1440px;margin:0 auto;}
+.anniv-logo{width:clamp(195px,24vw,340px);height:auto;margin-top:clamp(-72px,-5vw,-28px);}
 .anniv-head{font-family:var(--font-display);font-weight:900;
-  font-size:clamp(24px,3.6vw,52px);line-height:1.12;letter-spacing:-.02em;color:#fff;text-align:center;}
+  font-size:clamp(20px,2.8vw,40px);line-height:1.12;letter-spacing:-.02em;color:#fff;text-align:left;flex:0 0 auto;}
 .anniv-head .ah-l1,.anniv-head .ah-l2{display:block;}
-/* 헤딩 + 서브텍스트: 같은 왼쪽 축으로 좌측 정렬(블록은 가운데 배치) */
-.anniv-lead{display:flex;flex-direction:column;align-items:center;gap:clamp(16px,2vw,28px);text-align:center;}
-.anniv-copy{display:flex;flex-direction:column;gap:clamp(12px,1.4vw,20px);max-width:800px;text-align:center;}
-.anniv-copy p{font-size:clamp(15px,1.3vw,20px);line-height:1.85;color:rgba(255,255,255,.92);}
+/* 영어 제목(왼쪽) + 한글 본문(오른쪽) 좌우 배열 */
+.anniv-lead{display:flex;flex-direction:row;align-items:center;justify-content:center;
+  gap:clamp(28px,4vw,64px);text-align:left;}
+.anniv-copy{display:flex;flex-direction:column;gap:clamp(12px,1.4vw,20px);max-width:900px;text-align:left;}
+.anniv-copy p{font-size:clamp(15px,1.4vw,21px);line-height:1.75;color:rgba(255,255,255,.92);}
+/* 좁은 화면: 다시 위아래로 쌓기 */
+@media(max-width:860px){
+  .anniv-lead{flex-direction:column;align-items:center;text-align:center;gap:clamp(16px,2vw,28px);}
+  .anniv-head{text-align:center;}
+  .anniv-copy{text-align:center;}
+}
 /* 섹션 최상단 얇은 로고 루프 띠 (페이드 없음) */
 .gpn.anniv .gpn-loop{position:relative;overflow:hidden;width:100%;
   --ll-gap:96px;--ll-h:38px;padding:14px 0;}
@@ -439,16 +446,16 @@
 .gpn.anniv .logoloop__item img{height:var(--ll-h);width:auto;display:block;
   pointer-events:none;-webkit-user-drag:none;}
 /* 루프 띠가 상/하단을 차지하므로 본문 상·하 여백 복원 */
-.gpn.anniv > .wrap{position:relative;padding-top:clamp(52px,6.5vw,92px);padding-bottom:clamp(36px,4.5vw,64px);}
+.gpn.anniv > .wrap{position:relative;padding-top:calc(clamp(24px,3.2vw,46px) + 16px);padding-bottom:clamp(0px,0.3vw,4px);}
 /* 좌우 여백 장식 타이포 (아웃라인 + 솔리드) */
 .anniv-deco{position:absolute;z-index:1;display:flex;flex-direction:column;line-height:.9;
   font-family:var(--font-display);font-weight:900;letter-spacing:-.01em;pointer-events:none;}
-.anniv-deco-left{left:clamp(4px,1.5vw,32px);top:clamp(28px,5vw,68px);bottom:clamp(40px,6vw,90px);}
-.anniv-deco-right{right:clamp(4px,1.5vw,32px);top:clamp(28px,5vw,68px);bottom:clamp(40px,6vw,90px);align-items:flex-end;text-align:right;}
+.anniv-deco-left{left:clamp(4px,1.5vw,32px);top:calc(clamp(24px,3.2vw,46px) + 16px + clamp(-72px,-5vw,-28px) + 34px);bottom:clamp(40px,6vw,90px);}
+.anniv-deco-right{right:clamp(4px,1.5vw,32px);top:calc(clamp(24px,3.2vw,46px) + 16px + clamp(-72px,-5vw,-28px) + 34px);bottom:clamp(40px,6vw,90px);align-items:flex-end;text-align:right;}
 /* FROM/TO · 숫자 모두 테두리(아웃라인)만 — fill 없이 stroke 만, 전체적으로 크게 */
-.ad-out{font-size:clamp(34px,4.4vw,64px);color:transparent;
+.ad-out{font-size:clamp(28px,3.6vw,52px);color:transparent;
   -webkit-text-stroke:1.5px rgba(255,255,255,.42);letter-spacing:.04em;}
-.ad-sol{font-size:clamp(60px,8.4vw,120px);color:transparent;
+.ad-sol{font-size:clamp(48px,6.8vw,98px);color:transparent;
   -webkit-text-stroke:2px rgba(255,255,255,.42);}
 .ad-sol .kern{margin-left:.06em;}  /* 특정 글자(예: 4·6 사이)만 간격 */
 /* FROM 1946 아래 원형 이미지 카드 (세로 2개) */
@@ -474,7 +481,7 @@
 @media(max-width:1024px){ .anniv-statement{position:static;margin-top:clamp(24px,4vw,40px);max-width:none;} }
 /* ── 연혁 타임라인 (가로 스크롤, 1946 → 2026) ── */
 .anniv-history{--ah-iw:clamp(330px,30vw,470px);--ah-pad:clamp(8px,1.5vw,20px);
-  width:calc(100vw - var(--sb-w));margin-top:clamp(8px,1.5vw,24px);align-self:center;position:relative;}
+  width:calc(100vw - var(--sb-w));margin-top:clamp(2px,0.9vw,14px);align-self:center;position:relative;}
 .ah-head{position:absolute;left:clamp(4px,1.5vw,32px);top:calc(50% + 14px);z-index:3;margin:0;
   display:block;text-align:left;font-family:var(--font-display);font-weight:800;
   font-size:clamp(13px,1.1vw,16px);letter-spacing:.18em;text-transform:uppercase;
@@ -504,14 +511,14 @@
 .ah-item:nth-child(even) .ah-text{grid-row:3;align-self:start;padding-top:14px;}
 /* 알약형 썸네일 (항목당 2개 가로 정렬) */
 .ah-thumbs{display:flex;align-items:center;justify-content:center;gap:clamp(5px,0.5vw,8px);margin-top:4px;}
-.ah-thumb{width:clamp(165px,14.5vw,226px);height:clamp(98px,9.2vw,128px);border-radius:99px;overflow:hidden;
+.ah-thumb{width:clamp(140px,12.2vw,190px);height:clamp(82px,7.6vw,108px);border-radius:99px;overflow:hidden;
   border:1.5px solid rgba(255,255,255,.55);flex:0 0 auto;}
 .ah-thumb img{width:100%;height:100%;object-fit:cover;display:block;}
 /* 배경 여백이 있는 일부 이미지는 확대해 가장자리 배경을 잘라냄 */
 .ah-thumb img.ah-zoom{transform:scale(1.4);transform-origin:center;}
 /* 이미지 아래쪽이 보이도록 위치 조정 */
 .ah-thumb img.ah-bottom{object-position:center 62%;transform-origin:center 62%;}
-.ah-year{font-family:var(--font-display);font-weight:900;font-size:clamp(22px,2vw,30px);line-height:1;letter-spacing:-.01em;}
+.ah-year{font-family:var(--font-display);font-weight:900;font-size:clamp(19px,1.7vw,26px);line-height:1;letter-spacing:-.01em;}
 .ah-mon{font-size:.6em;font-weight:800;margin-left:1px;opacity:.85;}
 .ah-label{font-size:clamp(14px,1.25vw,18px);font-weight:700;color:#fff;line-height:1.35;
   word-break:keep-all;max-width:var(--ah-iw);}
@@ -670,11 +677,14 @@
 .power-sub b{font-weight:800;color:#fff;letter-spacing:.02em;}
 
 /* 동아 파워 — 글래스모피즘 카드 (가로 스크롤 1줄) */
-.power-cards{display:flex;flex-wrap:nowrap;gap:clamp(16px,1.6vw,24px);
-  margin-top:clamp(40px,4.5vw,72px);
-  margin-inline:calc(-1 * clamp(24px,5vw,80px));
+.power-deck{position:relative;display:flex;align-items:center;
+  gap:clamp(6px,1.2vw,18px);margin-top:clamp(40px,4.5vw,72px);
+  margin-inline:calc(-1 * clamp(8px,2vw,28px));}
+.power-cards{flex:1 1 auto;min-width:0;
+  display:flex;flex-wrap:nowrap;gap:clamp(16px,1.6vw,24px);
+  margin-top:0;
   overflow-x:auto;overflow-y:hidden;
-  padding:clamp(30px,3vw,44px) clamp(24px,5vw,80px) 26px;}
+  padding:clamp(30px,3vw,44px) clamp(6px,1vw,14px) 26px;}
 .power-card{flex:0 0 clamp(280px,26vw,360px);
   background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.38);
   border-radius:18px;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
@@ -694,16 +704,15 @@
 /* 스크롤바 숨김 — 대신 'scroll' 힌트로 안내 */
 .power-cards{scrollbar-width:none;-ms-overflow-style:none;}
 .power-cards::-webkit-scrollbar{display:none;}
-/* 가로 스크롤 힌트 */
-.power-hint{display:flex;align-items:center;justify-content:flex-start;gap:10px;
-  margin-top:16px;color:rgba(255,255,255,.55);
-  font-family:var(--font-display);font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;
-  pointer-events:none;}
-.power-hint .ph-line{position:relative;display:block;width:54px;height:1px;background:currentColor;
-  animation:phNudge 1.6s var(--ease) infinite;}
-.power-hint .ph-line::after{content:"";position:absolute;right:0;top:50%;width:7px;height:7px;
-  border-top:1px solid currentColor;border-right:1px solid currentColor;transform:translateY(-50%) rotate(45deg);}
-@keyframes phNudge{0%,100%{transform:translateX(0);}50%{transform:translateX(6px);}}
+/* 좌·우 네비게이션 화살표 (얇은 선형 chevron) — 카드 양옆 고유 칸 */
+.power-nav{flex:0 0 auto;
+  display:grid;place-items:center;cursor:pointer;
+  width:clamp(70px,7vw,120px);height:clamp(120px,13vw,210px);
+  background:none;border:0;color:rgba(255,255,255,.85);
+  transition:color .25s var(--ease),opacity .25s var(--ease),transform .25s var(--ease);}
+.power-nav:hover{color:#fff;transform:scale(1.1);}
+.power-nav[disabled]{opacity:.3;pointer-events:none;}
+.power-nav svg{width:clamp(66px,6.8vw,116px);height:auto;display:block;}
 @media(max-width:760px){ .power-card{flex:0 0 78vw;} }
 
 /* =====================================================================

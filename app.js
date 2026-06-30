@@ -1250,11 +1250,11 @@
       { title: "동아대 의과대학 혁신사업센터, ‘좋은 의사 프로젝트: 지역을 잇다’ 성황리 개최", desc: "동아대학교(총장 이해우) 의과대학 혁신사업센터(센터장 김종국)는 ‘좋은 의사 프로젝트: 지역을 잇다-진료실을 넘어 사회로’ 행사를 성황리에 마쳤다고 16일 밝혔다.", date: "2026.06.16", img: "uploads/fb841d0ad36d4f0e87e6c59d3f2ae90b.jpeg" }
     ];
     var PEOPLE = [
-      { title: "세계를 무대로 — 글로벌 기업 진출 동문", desc: "동아대를 졸업하고 해외 유수 기업에서 활약 중인 동문의 이야기를 전합니다.", date: "2026.05.18", img: "assets/images/people.jpg" },
-      { title: "연구로 미래를 여는 사람들 — 우수 연구자", desc: "국제 학술지에 잇따라 성과를 낸 동아대 연구진을 만나봅니다.", date: "2026.05.12", img: "assets/images/people2.jpg" },
-      { title: "캠퍼스를 빛내는 학생들 — 동아 서포터즈", desc: "학교를 알리고 지역과 소통하는 학생 홍보대사들의 활동기.", date: "2026.05.06", img: "assets/images/people3.jpg" },
-      { title: "지역과 함께 — 동아 봉사단", desc: "이웃과 함께하는 동아인의 따뜻한 나눔 활동을 소개합니다.", date: "2026.04.28", img: "assets/images/people4.jpg" },
-      { title: "도전하는 청년 — 창업 동아리 스토리", desc: "아이디어를 사업으로 키워가는 동아대 청년 창업가들.", date: "2026.04.20", img: "assets/images/people5.jpg" }
+      { title: "동아대, ‘개교 79주년 기념식’ 개최", desc: "동아대학교(총장 이해우)는 ‘개교 제79주년 기념식’을 31일 오전 부민캠퍼스 다우홀에서 교직원과 학교법인 관계자, 동문, 표창 수상자 등이 참석한 가운데 개최했다고 밝혔다.", date: "2025.10.31", img: "uploads/GCx6EuAgqfm7P4r5.jpeg", link: "https://www.donga.ac.kr/kor/CMS/Board/Board.do?mcode=&mCode=MN044&searchID=sch001&searchKeyword=%EA%B0%9C%EA%B5%90&searchCategory=&mgr_seq=54&mode=view&mgr_seq=54&board_seq=8410994" },
+      { title: "교육·연구업적 최우수 교수상 수상자 인터뷰 시리즈1 - 신성호 교수", desc: "‘교육업적 최우수 교수상’을 받은 소감 한 말씀 부탁드립니다. 이런 큰 상을 받게 돼 한편으로는 부끄럽고, 또 한편으로는 송구한 마음이 듭니다. 교육에 깊은 열정을 갖고 학생들을 진심으로 아끼는 훌륭한 교수님이 많이 계시며, 보이지 않는 곳에서 교육과 연구를 든든히 지원해 주시는 행정 선생님들의 헌신도 잘 알고 있기에 더욱 그렇습니다.", date: "2025.10.24", img: "uploads/Cg3M8HZd5mtEA2o6.png", link: "https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN044&mode=view&mgr_seq=54&board_seq=8410384" },
+      { title: "동아대, 개교 79주년 기념 ‘자랑스러운 동아인’ 선정", desc: "동아대학교(총장 이해우)는 개교 79주년 기념 ‘자랑스러운 동아인상’ 수상자로 박세철 ㈜오리엔탈정공 회장과 박희덕 ㈜팜젠사이언스 부회장을 선정했다고 밝혔다. 시상식은 오는 31일 오전 11시 동아대 부민캠퍼스 다우홀에서 열리는 개교기념식에서 진행된다.", date: "2025.10.29", img: "uploads/VgVHYmPnYrdcPp9S.jpeg", link: "https://www.donga.ac.kr/kor/CMS/Board/Board.do?mcode=&mCode=MN044&searchID=sch001&searchKeyword=%EC%9E%90%EB%9E%91&searchCategory=&mgr_seq=54&mode=view&mgr_seq=54&board_seq=8410698" },
+      { title: "동아대 금융학과 2학년 이임현 학생, 단독 저자로 세계 최상위 학술지에 논문 게재 ‘화제’", desc: "동아대학교 금융학과 2학년에 재학 중인 이임현 학생이 단독 저자로 사회과학(SSCI) ‘비즈니스, 금융’ 분야 학술지 241개 중 8위로 25%(Q1) 중에서도 최상위(3.1%)에 해당하는 학술지에 논문을 게재해 전국적으로 화제를 모으고 있다.", date: "2025.10.15", img: "uploads/A8UwXb2Utu8yN4Ys.jpeg", link: "https://www.donga.ac.kr/kor/CMS/Board/Board.do?mcode=&mCode=MN044&searchID=sch001&searchKeyword=%EC%9D%B4%EC%9E%84%ED%98%84&searchCategory=&mgr_seq=54&mode=view&mgr_seq=54&board_seq=8409441" },
+      { title: "동아대 컴퓨터공학과 전동산 교수팀, 한국장학재단 우수장학생 3명 배출", desc: "동아대학교(총장 이해우)는 일반대학원 컴퓨터공학과 영상신호처리연구실 전동산 교수 연구팀 소속 대학원생 3명이 ‘2026년 한국장학재단 석·박사 우수장학생(이공계)’으로 최종 선정됐다고 19일 밝혔다. 이번에 선정된 장학생은 박병주 박사과정생과 정호진·박현빈 석사과정생이다.", date: "2026.06.19", img: "uploads/182b09c2bcda422bbfbcec6dbb5a772f.jpeg", link: "https://www.donga.ac.kr/kor/CMS/Board/Board.do?mCode=MN044&page=2&mode=view&mgr_seq=54&board_seq=8496259" }
     ];
     var DATA = { "동아뉴스": NEWS, "동아피플": PEOPLE };
     var CAT = { "동아뉴스": "대학소식", "동아피플": "동아인" };
@@ -1266,6 +1266,12 @@
       if (!el) return;
       if (isImg) el.src = val; else el.textContent = val;
     };
+    // 카드 자체(<a>)에 링크 적용 — 링크 없으면 "#"으로 복원(탭 전환 시 이전 링크 잔류 방지)
+    var applyLink = function (a, link) {
+      if (!a) return;
+      if (link) { a.href = link; a.target = "_blank"; a.rel = "noopener"; }
+      else { a.href = "#"; a.removeAttribute("target"); a.removeAttribute("rel"); }
+    };
     function render(name) {
       var data = DATA[name] || NEWS;
       var f = data[0];
@@ -1274,6 +1280,7 @@
       set(feat, ".dnews-feat-tit", f.title);
       set(feat, ".dnews-feat-desc", f.desc);
       set(feat, ".dnews-date", f.date);
+      applyLink(feat, f.link);
       items.forEach(function (it, k) {
         var d = data[k + 1];
         if (!d) return;
@@ -1281,6 +1288,7 @@
         set(it, ".dnews-item-tit", d.title);
         set(it, ".dnews-item-desc", d.desc);
         set(it, ".dnews-date", d.date);
+        applyLink(it, d.link);
       });
     }
     var tabs = [].slice.call(sec.querySelectorAll("[data-dnews-tab]"));
@@ -1324,8 +1332,26 @@
       raf = requestAnimationFrame(tick);
     }
     // 트랙패드 가로 스와이프 등 네이티브 스크롤은 target을 동기화만
+    // 좌·우 화살표 네비게이션
+    var prevBtn = $("[data-power-prev]");
+    var nextBtn = $("[data-power-next]");
+    function updateNav() {
+      var max = maxX();
+      if (prevBtn) prevBtn.disabled = track.scrollLeft <= 1;
+      if (nextBtn) nextBtn.disabled = max <= 0 || track.scrollLeft >= max - 1;
+    }
+    function step(dir) {
+      var max = maxX();
+      if (max <= 0) return;
+      target = Math.max(0, Math.min(max, target + dir * track.clientWidth * 0.85));
+      if (reduce) { track.scrollLeft = target; updateNav(); return; }
+      if (raf === null) raf = requestAnimationFrame(tick);
+    }
+    if (prevBtn) prevBtn.addEventListener("click", function () { step(-1); });
+    if (nextBtn) nextBtn.addEventListener("click", function () { step(1); });
     track.addEventListener("scroll", function () {
       if (raf === null) target = track.scrollLeft;
+      updateNav();
     }, { passive: true });
     track.addEventListener("wheel", function (e) {
       // 이미 가로 입력(트랙패드)이면 브라우저 기본 동작에 맡김
@@ -1341,6 +1367,8 @@
       if (reduce) { track.scrollLeft = target; return; }
       if (raf === null) raf = requestAnimationFrame(tick);
     }, { passive: false });
+    updateNav();
+    window.addEventListener("resize", updateNav);
   }
 
   /* ---------- 카드형 안내 배너 캐러셀 (서브페이지에서 포팅) ---------- */

@@ -420,10 +420,18 @@
           <button type="button" class="lang-btn" data-lang="en">ENG</button>
         </div>
         <div id="google_translate_element" aria-hidden="true"></div>
+        <a class="login-btn" href="#" data-cursor="true"><span>로그인</span></a>
         <button type="button" class="search-btn" id="search-btn" aria-label="검색 열기" aria-expanded="false" aria-controls="search-overlay" data-cursor="true">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <circle cx="11" cy="11" r="7" />
             <path d="m21 21-4.3-4.3" />
+          </svg>
+        </button>
+        <button type="button" class="menu-btn" id="menu-btn" aria-label="전체메뉴 열기" aria-expanded="false" data-cursor="true">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
           </svg>
         </button>
       </div>
@@ -450,6 +458,127 @@
     </form>
   </div>
 
+  <!-- 전체메뉴 오버레이 (우측 상단 ≡ 클릭 시) -->
+  <div class="allmenu" id="allmenu" aria-hidden="true">
+    <div class="allmenu-backdrop" data-allmenu-close></div>
+    <div class="allmenu-panel" role="dialog" aria-modal="true" aria-label="전체메뉴">
+      <button type="button" class="allmenu-close" data-allmenu-close aria-label="전체메뉴 닫기">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /><path d="m6 6 12 12" /></svg>
+      </button>
+      <div class="allmenu-cols">
+        <aside class="am-side" data-am-side></aside>
+        <div class="am-mega" data-am-mega>
+      <section class="sb-mega" data-mega="m-about">
+        <div class="sb-mega-top"><span class="sb-mega-eyebrow">DONG-A UNIVERSITY</span><h3 class="sb-mega-title">학교소개</h3></div>
+        <div class="sb-mega-body"><div class="mega-cols">
+          <div class="mega-box"><span class="mega-box-head">대학소개</span><ul class="mega-bullets"><li><a href="#">총장메시지</a></li><li><a href="#">교육목표 및 인재상</a></li><li><a href="#">연혁</a></li><li><a href="#">발전계획</a></li><li><a href="#">요람</a></li><li><a href="#">동아인 윤리강령</a></li><li><a href="#">규정집</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">학교상징물</span><ul class="mega-bullets"><li><a href="#">UI</a></li><li><a href="#">교가</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">대학기구</span><ul class="mega-bullets"><li><a href="#">대학기구</a></li><li><a href="#">교내 연락처</a></li><li><a href="#">연구기관</a></li><li><a href="#">산학협력단</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">학교법인</span><ul class="mega-bullets"><li><a href="#">법인이사회</a></li><li><a href="#">예결산공고 등</a></li><li><a href="#">법인 공지사항</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">글로컬대학</span><ul class="mega-bullets"><li><a href="#">동아·동서 글로컬연합대학</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">캠퍼스 소개</span><ul class="mega-bullets"><li><a href="#">캠퍼스맵</a></li><li><a href="#">찾아오시는길</a></li><li><a href="#">홍보동영상</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">자매결연학교 및 협력체결기관</span><ul class="mega-bullets"><li><a href="#">국외협정체결 대학 및 기관</a></li><li><a href="#">국내자매결연학교</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">홍보센터</span><ul class="mega-bullets"><li><a href="#">동아뉴스</a></li><li><a href="#">동아피플</a></li><li><a href="#">언론이 본 동아</a></li><li><a href="#">동아 갤러리</a></li><li><a href="#">홍보 책자</a></li><li><a href="#">동아는 지금</a></li><li><a href="#">온라인 뉴스레터</a></li><li><a href="#">공식 SNS</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">대학자체평가</span><ul class="mega-bullets"><li><a href="#">대학 자체평가</a></li><li><a href="#">대학원 자체평가</a></li></ul></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">등록금심의위원회</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">대학평의원회</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">청탁금지법 공시사항</a></div>
+        </div></div>
+      </section>
+      <section class="sb-mega" data-mega="m-admission">
+        <div class="sb-mega-top"><span class="sb-mega-eyebrow">DONG-A UNIVERSITY</span><h3 class="sb-mega-title">입학안내</h3></div>
+        <div class="sb-mega-body"><div class="mega-cols">
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">대학입학</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">대학원 입학</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">학·석사 연계과정</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">외국인입학</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">학과소개포털</a></div>
+        </div></div>
+      </section>
+      <section class="sb-mega" data-mega="m-grad">
+        <div class="sb-mega-top"><span class="sb-mega-eyebrow">DONG-A UNIVERSITY</span><h3 class="sb-mega-title">대학원</h3></div>
+        <div class="sb-mega-body"><div class="mega-cols">
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">대학원</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">국제전문대학원</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">법학전문대학원</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">경영대학원</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">교육대학원</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">사회복지대학원</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">법무대학원</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">부동산대학원</a></div>
+        </div></div>
+      </section>
+      <section class="sb-mega" data-mega="m-academic">
+        <div class="sb-mega-top"><span class="sb-mega-eyebrow">DONG-A UNIVERSITY</span><h3 class="sb-mega-title">학사안내</h3></div>
+        <div class="sb-mega-body"><div class="mega-cols">
+          <div class="mega-box"><span class="mega-box-head">수업</span><ul class="mega-bullets"><li><a href="#">수강신청 및 수강정정</a></li><li><a href="#">개인 강의시간표</a></li><li><a href="#">수강신청확인서</a></li><li><a href="#">강의실별 강의시간표 조회</a></li><li><a href="#">재수강 안내</a></li><li><a href="#">계절학기 등록금 고지서</a></li><li><a href="#">계절학기 등록금 납부확인서</a></li><li><a href="#">계절학기 수강취소 신청</a></li><li><a href="#">시험안내</a></li><li><a href="#">공결 안내 및 신청</a></li><li><a href="#">학교현장실습 신청</a></li><li><a href="#">학습관리시스템(LMS)</a></li><li><a href="#">GeLC</a></li><li><a href="#">영호남4개대학(조선대)</a></li><li><a href="#">영호남4개대학(원광대)</a></li><li><a href="#">영호남4개대학(영남대)</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">교과과정</span><ul class="mega-bullets"><li><a href="#">전공 마이크로모듈제 안내</a></li><li><a href="#">교과과정 안내</a></li><li><a href="#">글로컬연합대학 Field 연합전공 안내</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">학적</span><ul class="mega-bullets"><li><a href="#">휴학</a></li><li><a href="#">복학</a></li><li><a href="#">제적</a></li><li><a href="#">자퇴</a></li><li><a href="#">재입학</a></li><li><a href="#">전과</a></li><li><a href="#">학적조회/정정</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">성적</span><ul class="mega-bullets"><li><a href="#">성적관리 기준</a></li><li><a href="#">성적조회</a></li><li><a href="#">강의평가</a></li><li><a href="#">학사경고</a></li><li><a href="#">유급</a></li><li><a href="#">이수구분변경</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">졸업</span><ul class="mega-bullets"><li><a href="#">졸업기준 안내</a></li><li><a href="#">졸업논문</a></li><li><a href="#">학사학위취득 유예</a></li><li><a href="#">조기졸업</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">비교과 과정</span><ul class="mega-bullets"><li><a href="#">비교과 홈페이지 바로가기</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">다전공안내</span><ul class="mega-bullets"><li><a href="#">다전공 이수방법 요약</a></li><li><a href="#">다전공 개요</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">학점인정 신청</span><ul class="mega-bullets"><li><a href="#">특별학점 인정</a></li><li><a href="#">사회봉사학점</a></li><li><a href="#">군복무 중 취득학점 인정</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">등록</span><ul class="mega-bullets"><li><a href="#">등록금 납부 안내</a></li><li><a href="#">등록·장학 내역 조회</a></li><li><a href="#">등록금 납입확인서</a></li><li><a href="#">교육비 납입증명서</a></li><li><a href="#">등록금 분할납부 신청</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">장학</span><ul class="mega-bullets"><li><a href="#">장학 공지사항</a></li><li><a href="#">장학 규정 및 지침</a></li><li><a href="#">국가장학금 안내</a></li><li><a href="#">학자금 대출 안내</a></li><li><a href="#">장학금 인터넷 신청</a></li><li><a href="#">장학내역 조회</a></li><li><a href="#">장학금수혜확인서</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">예비군</span><ul class="mega-bullets"><li><a href="#">예비군 훈련 안내</a></li><li><a href="#">예비군 신고 안내</a></li><li><a href="#">공지사항</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">서비스 바로가기</span><ul class="mega-bullets"><li><a href="#">2026학년도 1학기 수강신청안내</a></li><li><a href="#">대학일자리플러스센터(인재개발과)</a></li><li><a href="#">학생군사교육단</a></li><li><a href="#">학사안내 FAQ</a></li></ul></div>
+        </div></div>
+      </section>
+      <section class="sb-mega" data-mega="m-life">
+        <div class="sb-mega-top"><span class="sb-mega-eyebrow">DONG-A UNIVERSITY</span><h3 class="sb-mega-title">대학생활</h3></div>
+        <div class="sb-mega-body"><div class="mega-cols">
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">통합정보시스템</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">학습관리시스템(LMS)</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">DECO 시스템</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">라포시스템</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">스펙업시스템</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">성과환류시스템</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">도서관</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#"><span>대학일자리플러스센터<br />(인재개발과)</span></a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">교직운영팀</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">국제교류과</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">언어교육원</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">진로개발센터</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">한림생활관</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">다잇다(취업선배 온라인 멘토링)</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">티칭포트폴리오 시스템</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">학생상담센터</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">교수학습개발센터</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">소프트웨어중심대학</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">산학협력단</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">학생과</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">학생군사교육단</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">원격교육지원센터</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">인권센터</a></div>
+        </div></div>
+      </section>
+      <section class="sb-mega" data-mega="m-square">
+        <div class="sb-mega-top"><span class="sb-mega-eyebrow">DONG-A UNIVERSITY</span><h3 class="sb-mega-title">동아광장</h3></div>
+        <div class="sb-mega-body"><div class="mega-cols">
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">공지사항</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">학사공지</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">장학공지</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">학사일정</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">행사/모집</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">채용</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">교외 공모전/모집안내</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">교육환경 개선 제안</a></div>
+          <div class="mega-box"><span class="mega-box-head">E-캠퍼스</span><ul class="mega-bullets"><li><a href="#">무선랜 이용안내</a></li><li><a href="#">네트워크 접근 제어(NAC)</a></li><li><a href="#">DongA_Wifi 불편 접수</a></li><li><a href="#">학습관리시스템(LMS)</a></li><li><a href="#">그룹웨어</a></li><li><a href="#">통합정보시스템</a></li><li><a href="#">학생메일&amp;오피스 365</a></li><li><a href="#">E러닝 교과목 안내</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">생활정보</span><ul class="mega-bullets"><li><a href="#">금주의 식단표</a></li><li><a href="#">증명서발급</a></li><li><a href="#">학생차량 운행시간표</a></li><li><a href="#">학생증 발급안내</a></li><li><a href="#">국제학생증 발급</a></li><li><a href="#">주차시설 안내</a></li><li><a href="#">유용한 정보</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">학생자치활동</span><ul class="mega-bullets"><li><a href="#">학술분과</a></li><li><a href="#">문예분과</a></li><li><a href="#">봉사분과</a></li><li><a href="#">종교분과</a></li><li><a href="#">체육분과</a></li><li><a href="#">동문분과</a></li><li><a href="#">학생자치기구</a></li></ul></div>
+          <div class="mega-box"><span class="mega-box-head">FAQ</span><ul class="mega-bullets"><li><a href="#">학사안내 FAQ</a></li><li><a href="#">Field 연합전공 관련 FAQ</a></li><li><a href="#">NAC 관련 FAQ</a></li><li><a href="#">기타 FAQ</a></li></ul></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">Q&amp;A</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">입찰정보</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#">온라인 행사장소 신청</a></div>
+          <div class="mega-box mega-box--link"><a class="mega-box-head" href="#"><span>다문화가족 및 북한이탈주민<br />학생 지원</span></a></div>
+        </div></div>
+      </section>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <main>
 
     <!-- HERO -->
@@ -469,13 +598,13 @@
             </video>
           </div>
           <!-- 3. 80주년 엠블럼 -->
-          <div class="hero-slide" data-kind="image" style="background-image:url('uploads/80주년 엠블럼 이미지.jpg')"></div>
+          <div class="hero-slide" data-kind="image" style="background-image:url('uploads/h.3.jpg')"></div>
           <!-- 4. 석당박물관 야경 -->
-          <div class="hero-slide" data-kind="image" style="background-image:url('uploads/석당박물관 야경.jpg')"></div>
+          <div class="hero-slide" data-kind="image" style="background-image:url('uploads/h.4.jpg')"></div>
           <!-- 5. 구덕캠퍼스 전경 -->
-          <div class="hero-slide" data-kind="image" style="background-image:url('uploads/구덕캠퍼스 전경.jpg')"></div>
+          <div class="hero-slide" data-kind="image" style="background-image:url('uploads/h.5.jpg')"></div>
           <!-- 6. 조감도 -->
-          <div class="hero-slide" data-kind="image" style="background-image:url('uploads/조감도.jpg')"></div>
+          <div class="hero-slide" data-kind="image" style="background-image:url('uploads/h.6.jpg')"></div>
         </div>
         <div class="hero-overlay"></div>
       </div>

@@ -1036,3 +1036,64 @@ document.querySelectorAll('a[href="#"]').forEach((a) => {
   if (prev) prev.addEventListener('click', () => { const t = activeTrack(); if (t) t.scrollBy({ left: -step(t), behavior: 'smooth' }); });
   if (next) next.addEventListener('click', () => { const t = activeTrack(); if (t) t.scrollBy({ left: step(t), behavior: 'smooth' }); });
 })();
+
+/* ── 전체메뉴 오버레이 (우측 상단 ≡ 버튼) ── */
+(function () {
+  const overlay = document.getElementById('allmenu');
+  const btn = document.getElementById('menu-btn');
+  const cols = overlay && overlay.querySelector('.allmenu-cols');
+  if (!overlay || !btn || !cols) return;
+
+  // 좌측 카테고리 사이드 구성 + 우측 sb-mega 패널(메인페이지 이식) 전환 — 1회만
+  function build() {
+    const side = cols.querySelector('[data-am-side]');
+    const mega = cols.querySelector('[data-am-mega]');
+    if (!side || !mega || side.childElementCount) return;
+    const CATS = [
+      { t: '학교소개', m: 'm-about' },
+      { t: '입학안내', m: 'm-admission' },
+      { t: '대학', m: null },
+      { t: '대학원', m: 'm-grad' },
+      { t: '학사안내', m: 'm-academic' },
+      { t: '대학생활', m: 'm-life' },
+      { t: '동아광장', m: 'm-square' },
+    ];
+    const panels = [...mega.querySelectorAll('.sb-mega')];
+    const tabs = [];
+    CATS.forEach((c, i) => {
+      const tab = document.createElement('button');
+      tab.type = 'button';
+      tab.className = 'am-cat';
+      tab.textContent = c.t;
+      tab._panel = c.m ? mega.querySelector('.sb-mega[data-mega="' + c.m + '"]') : null;
+      const activate = () => {
+        tabs.forEach((t, k) => t.classList.toggle('is-active', k === i));
+        panels.forEach(p => p.classList.remove('is-active'));
+        if (tab._panel) tab._panel.classList.add('is-active');
+      };
+      tab.addEventListener('mouseenter', activate);
+      tab.addEventListener('click', activate);
+      side.appendChild(tab);
+      tabs.push(tab);
+    });
+    if (tabs[0]) tabs[0].click();
+  }
+
+  const isOpen = () => overlay.classList.contains('is-open');
+  function open() {
+    build();
+    overlay.classList.add('is-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('allmenu-open');
+  }
+  function close() {
+    overlay.classList.remove('is-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('allmenu-open');
+  }
+  btn.addEventListener('click', () => { isOpen() ? close() : open(); });
+  overlay.querySelectorAll('[data-allmenu-close]').forEach(el => el.addEventListener('click', close));
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && isOpen()) close(); });
+})();
