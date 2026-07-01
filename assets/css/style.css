@@ -96,7 +96,7 @@ body {
 
 .nav-header.scrolled .nav-logo img { filter: brightness(0); }
 
-.nav-menu { flex: 1; }
+.nav-menu { display: none; }   /* 가로 대메뉴 제거 — 우측 MENU 버튼(전체메뉴 오버레이)로 대체 */
 
 .nav-menu > ul {
   display: flex;
@@ -360,16 +360,21 @@ body {
 .menu-btn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 38px;
+  gap: 8px;
   height: 38px;
+  padding: 0 12px;
   border: none;
   background: none;
-  border-radius: 50%;
+  border-radius: 999px;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.85);
+  color: rgba(255, 255, 255, 0.9);
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   transition: color 0.2s, background 0.2s;
 }
+.menu-btn svg { width: 20px; height: 20px; }
 .menu-btn:hover { color: #fff; background: rgba(255, 255, 255, 0.14); }
 .nav-header.scrolled .menu-btn { color: var(--text-mid); }
 .nav-header.scrolled .menu-btn:hover { color: var(--blue); background: rgba(0, 0, 0, 0.05); }
@@ -412,7 +417,7 @@ body {
 .allmenu-close {
   position: absolute;
   top: clamp(20px, 3vh, 34px);
-  right: calc(clamp(26px, 6vw, 84px) + 5px);
+  right: calc(clamp(26px, 6vw, 84px) + 38px);
   display: inline-flex;
   border: none;
   background: none;
