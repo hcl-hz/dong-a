@@ -440,6 +440,7 @@ body {
   overflow-y: auto;
   border-right: 1px solid rgba(255, 255, 255, 0.18);
   padding-right: clamp(12px, 1.6vw, 24px);
+  padding-top: 37px;   /* 우측 첫 카테고리 박스 시작 높이에 맞춤 */
 }
 .am-cat {
   display: block;
@@ -462,13 +463,14 @@ body {
 .am-cat.is-active { color: #fff; background: rgba(255, 255, 255, 0.16); }
 /* 열릴 때 카테고리 순차 등장 */
 .allmenu.is-open .am-cat { opacity: 1; transform: none; }
-.allmenu.is-open .am-cat:nth-child(1) { transition-delay: 0.22s; }
-.allmenu.is-open .am-cat:nth-child(2) { transition-delay: 0.27s; }
-.allmenu.is-open .am-cat:nth-child(3) { transition-delay: 0.32s; }
-.allmenu.is-open .am-cat:nth-child(4) { transition-delay: 0.37s; }
-.allmenu.is-open .am-cat:nth-child(5) { transition-delay: 0.42s; }
-.allmenu.is-open .am-cat:nth-child(6) { transition-delay: 0.47s; }
-.allmenu.is-open .am-cat:nth-child(7) { transition-delay: 0.52s; }
+/* 지연은 등장(opacity·transform)에만 — 호버(color·background)는 즉시 반응 */
+.allmenu.is-open .am-cat:nth-child(1) { transition-delay: 0s, 0s, 0.22s, 0.22s; }
+.allmenu.is-open .am-cat:nth-child(2) { transition-delay: 0s, 0s, 0.27s, 0.27s; }
+.allmenu.is-open .am-cat:nth-child(3) { transition-delay: 0s, 0s, 0.32s, 0.32s; }
+.allmenu.is-open .am-cat:nth-child(4) { transition-delay: 0s, 0s, 0.37s, 0.37s; }
+.allmenu.is-open .am-cat:nth-child(5) { transition-delay: 0s, 0s, 0.42s, 0.42s; }
+.allmenu.is-open .am-cat:nth-child(6) { transition-delay: 0s, 0s, 0.47s, 0.47s; }
+.allmenu.is-open .am-cat:nth-child(7) { transition-delay: 0s, 0s, 0.52s, 0.52s; }
 .am-mega { flex: 1; min-width: 0; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding-right: 6px; }
 /* 스크롤바 (다크 배경에 맞춰 옅게) */
 .am-mega::-webkit-scrollbar { width: 8px; }
@@ -495,7 +497,7 @@ body {
 .am-mega .sb-mega-top > * { position: relative; z-index: 1; }
 .am-mega .sb-mega-eyebrow { display: block; font-size: 13.5px; font-weight: 700; letter-spacing: .14em; opacity: .82; margin-bottom: 8px; }
 .am-mega .sb-mega-title { font-family: 'Paperlogy', var(--font); font-weight: 900; font-size: clamp(24px, 2.2vw, 36px); line-height: 1.1; }
-.am-mega .sb-mega-body { padding: clamp(20px, 2.4vh, 34px) clamp(4px, 1vw, 16px) 0; }
+.am-mega .sb-mega-body { padding: 0 clamp(4px, 1vw, 16px) 0; }
 .am-mega .mega-cols { columns: 4; column-gap: clamp(16px, 1.6vw, 28px); }
 .am-mega .mega-box { break-inside: avoid; margin: 0 0 clamp(16px, 1.6vw, 22px); }
 .am-mega .mega-box-head {
