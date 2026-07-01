@@ -840,13 +840,27 @@ document.querySelectorAll('a[href="#"]').forEach((a) => {
     { title: '동아대 의과대학 혁신사업센터, ‘좋은 의사 프로젝트: 지역을 잇다’ 성황리 개최', desc: '동아대학교(총장 이해우) 의과대학 혁신사업센터(센터장 김종국)는 ‘좋은 의사 프로젝트: 지역을 잇다-진료실을 넘어 사회로’ 행사를 성황리에 마쳤다고 16일 밝혔다.', date: '2026.06.16', img: 'uploads/fb841d0ad36d4f0e87e6c59d3f2ae90b.jpeg' }
   ];
   const PEOPLE = [
-    { title: '세계를 무대로 — 글로벌 기업 진출 동문', desc: '동아대를 졸업하고 해외 유수 기업에서 활약 중인 동문의 이야기를 전합니다.', date: '2026.05.18', img: 'assets/images/people.jpg' },
-    { title: '연구로 미래를 여는 사람들 — 우수 연구자', desc: '국제 학술지에 잇따라 성과를 낸 동아대 연구진을 만나봅니다.', date: '2026.05.12', img: 'assets/images/people2.jpg' },
-    { title: '캠퍼스를 빛내는 학생들 — 동아 서포터즈', desc: '학교를 알리고 지역과 소통하는 학생 홍보대사들의 활동기.', date: '2026.05.06', img: 'assets/images/people3.jpg' },
-    { title: '지역과 함께 — 동아 봉사단', desc: '이웃과 함께하는 동아인의 따뜻한 나눔 활동을 소개합니다.', date: '2026.04.28', img: 'assets/images/people4.jpg' },
-    { title: '도전하는 청년 — 창업 동아리 스토리', desc: '아이디어를 사업으로 키워가는 동아대 청년 창업가들.', date: '2026.04.20', img: 'assets/images/people5.jpg' }
+    { title: '동아대 동문 강부봉 장군, 육군 ‘소장’ 진급', desc: '동아대학교(총장 이해우)는 체육학과 91학번이자 학군단(ROTC) 33기 출신 동문 강부봉 장군이 육군 소장으로 진급했다고 15일 밝혔다. 강 장군은 최근 국방부가 발표한 ‘26년 전반기 장성급 장교 인사’에서 소장 진급자 명단에 당당히 이름을 올렸다. 지난 12일 취임식을 갖고 제14대 육군 과학화전투훈련단장으로 본격적인 임기를 시작했다.', date: '2026.06.15', img: 'uploads/07ecf008158d49229f59b0abbff5cfa9.jpeg' },
+    { title: '동아대 동문 강부봉 장군, 육군 ‘소장’ 진급', desc: '동아대학교(총장 이해우)는 체육학과 91학번이자 학군단(ROTC) 33기 출신 동문 강부봉 장군이 육군 소장으로 진급했다고 15일 밝혔다. 강 장군은 최근 국방부가 발표한 ‘26년 전반기 장성급 장교 인사’에서 소장 진급자 명단에 당당히 이름을 올렸다. 지난 12일 취임식을 갖고 제14대 육군 과학화전투훈련단장으로 본격적인 임기를 시작했다.', date: '2026.06.15', img: 'uploads/07ecf008158d49229f59b0abbff5cfa9.jpeg' },
+    { title: '동아대 동문 강부봉 장군, 육군 ‘소장’ 진급', desc: '동아대학교(총장 이해우)는 체육학과 91학번이자 학군단(ROTC) 33기 출신 동문 강부봉 장군이 육군 소장으로 진급했다고 15일 밝혔다. 강 장군은 최근 국방부가 발표한 ‘26년 전반기 장성급 장교 인사’에서 소장 진급자 명단에 당당히 이름을 올렸다. 지난 12일 취임식을 갖고 제14대 육군 과학화전투훈련단장으로 본격적인 임기를 시작했다.', date: '2026.06.15', img: 'uploads/07ecf008158d49229f59b0abbff5cfa9.jpeg' }
   ];
-  const DATA = { '동아뉴스': NEWS, '동아피플': PEOPLE };
+  // 카테고리별 데이터 (탭 라벨과 키 일치). 아직 안 채운 카테고리는 빈 배열 → "준비 중" 표시
+  const RESEARCH = [
+    { title: '동아대 한세억 교수, 국내외 최초 ‘공정성 증강 인공지능 모델’ 개발', desc: '동아대학교(총장 이해우)는 행정학과 한세억 교수(인공지능정부연구소장)가 사회 전반에서 발생하는 불공정 문제를 탐지·진단하고 해결 방안까지 제안하는 ‘인공지능 기반 공정성 증강 솔루션(탐지-진단-메타-추천)’을 국내외 처음으로 개발했다고 27일 밝혔다. 이번 솔루션은 정치·경제·사회복지·보건·환경·행정·사법·교육·채용·금융 등 모두 32개 사회 영역에서 발생할 수 있는 다양한 불공정 문제를 통합적으로 분석하고 개선할 수 있도록 설계됐다. 이는 단순한 현상 분석을 넘어 실제 정책 및 행정 개선까지 연결되는 ‘전주기 공정성 관리 시스템’이라는 점에서 독보적인 차별성을 갖는다.', date: '2026.05.27', img: 'uploads/6a1f8df525314266a3bc3581ce604ab9.png' },
+    { title: '동아대 한세억 교수, 국내외 최초 ‘공정성 증강 인공지능 모델’ 개발', desc: '동아대학교(총장 이해우)는 행정학과 한세억 교수(인공지능정부연구소장)가 사회 전반에서 발생하는 불공정 문제를 탐지·진단하고 해결 방안까지 제안하는 ‘인공지능 기반 공정성 증강 솔루션(탐지-진단-메타-추천)’을 국내외 처음으로 개발했다고 27일 밝혔다. 이번 솔루션은 정치·경제·사회복지·보건·환경·행정·사법·교육·채용·금융 등 모두 32개 사회 영역에서 발생할 수 있는 다양한 불공정 문제를 통합적으로 분석하고 개선할 수 있도록 설계됐다. 이는 단순한 현상 분석을 넘어 실제 정책 및 행정 개선까지 연결되는 ‘전주기 공정성 관리 시스템’이라는 점에서 독보적인 차별성을 갖는다.', date: '2026.05.27', img: 'uploads/6a1f8df525314266a3bc3581ce604ab9.png' },
+    { title: '동아대 한세억 교수, 국내외 최초 ‘공정성 증강 인공지능 모델’ 개발', desc: '동아대학교(총장 이해우)는 행정학과 한세억 교수(인공지능정부연구소장)가 사회 전반에서 발생하는 불공정 문제를 탐지·진단하고 해결 방안까지 제안하는 ‘인공지능 기반 공정성 증강 솔루션(탐지-진단-메타-추천)’을 국내외 처음으로 개발했다고 27일 밝혔다. 이번 솔루션은 정치·경제·사회복지·보건·환경·행정·사법·교육·채용·금융 등 모두 32개 사회 영역에서 발생할 수 있는 다양한 불공정 문제를 통합적으로 분석하고 개선할 수 있도록 설계됐다. 이는 단순한 현상 분석을 넘어 실제 정책 및 행정 개선까지 연결되는 ‘전주기 공정성 관리 시스템’이라는 점에서 독보적인 차별성을 갖는다.', date: '2026.05.27', img: 'uploads/6a1f8df525314266a3bc3581ce604ab9.png' }
+  ];
+  const STUDENT = [
+    { title: '동아대 작업치료학과, 전국 최초 ‘3D프린팅펜 활용 해부학 실습’ 진행', desc: '동아대학교(총장 이해우)는 작업치료학과(학과장 박다솔)가 대학혁신지원사업단 지원을 받아 전국 작업치료학과 최초로 ‘3D프린팅펜을 활용한 해부학 모형 제작 실습’을 성공적으로 운영했다고 16일 밝혔다. 디지털 헬스케어 교육 확대의 하나로 진행된 이번 실습은 500만 원 규모 예산으로 3D프린팅펜 50대를 구축해 이뤄졌다. 학생들은 3D프린팅펜을 이용해 두개골, 척추뼈, 어깨뼈 등 다양한 해부학 구조물을 직접 제작하며 인체 구조를 입체적으로 이해하는 기회를 가졌다.', date: '2026.06.16', img: 'uploads/8bbfec219af644fc940020ed891e9c16.jpeg' },
+    { title: '동아대 작업치료학과, 전국 최초 ‘3D프린팅펜 활용 해부학 실습’ 진행', desc: '동아대학교(총장 이해우)는 작업치료학과(학과장 박다솔)가 대학혁신지원사업단 지원을 받아 전국 작업치료학과 최초로 ‘3D프린팅펜을 활용한 해부학 모형 제작 실습’을 성공적으로 운영했다고 16일 밝혔다. 디지털 헬스케어 교육 확대의 하나로 진행된 이번 실습은 500만 원 규모 예산으로 3D프린팅펜 50대를 구축해 이뤄졌다. 학생들은 3D프린팅펜을 이용해 두개골, 척추뼈, 어깨뼈 등 다양한 해부학 구조물을 직접 제작하며 인체 구조를 입체적으로 이해하는 기회를 가졌다.', date: '2026.06.16', img: 'uploads/8bbfec219af644fc940020ed891e9c16.jpeg' },
+    { title: '동아대 작업치료학과, 전국 최초 ‘3D프린팅펜 활용 해부학 실습’ 진행', desc: '동아대학교(총장 이해우)는 작업치료학과(학과장 박다솔)가 대학혁신지원사업단 지원을 받아 전국 작업치료학과 최초로 ‘3D프린팅펜을 활용한 해부학 모형 제작 실습’을 성공적으로 운영했다고 16일 밝혔다. 디지털 헬스케어 교육 확대의 하나로 진행된 이번 실습은 500만 원 규모 예산으로 3D프린팅펜 50대를 구축해 이뤄졌다. 학생들은 3D프린팅펜을 이용해 두개골, 척추뼈, 어깨뼈 등 다양한 해부학 구조물을 직접 제작하며 인체 구조를 입체적으로 이해하는 기회를 가졌다.', date: '2026.06.16', img: 'uploads/8bbfec219af644fc940020ed891e9c16.jpeg' }
+  ];
+  const GLOBAL = [
+    { title: '동아대, 외국인 유학생 ‘K-Culture School: 자기주도 정주 설계 캠프’ 성료', desc: '동아대학교(총장 이해우)는 외국인 유학생들의 성공적인 한국 사회 안착과 지역 정주를 지원하기 위한 ‘K-Culture School: 자기주도 정주 설계 캠프 제주 프로그램’을 성황리에 마쳤다고 22일 밝혔다. 이번 프로그램은 지난달 19일부터 지난 17일까지 모두 4차례에 걸쳐 진행됐다. 특히 이번 캠프에는 동아대에 재학 중인 외국인 유학생 480여 명이 대거 참가, 제주 자연과 문화를 체험하며 한국 생활에 대한 이해를 넓히는 시간을 가졌다.', date: '2026.06.22', img: 'uploads/d95935cddd7f4d37a8e2cf27bd471399 (1).jpeg' },
+    { title: '동아대, 외국인 유학생 ‘K-Culture School: 자기주도 정주 설계 캠프’ 성료', desc: '동아대학교(총장 이해우)는 외국인 유학생들의 성공적인 한국 사회 안착과 지역 정주를 지원하기 위한 ‘K-Culture School: 자기주도 정주 설계 캠프 제주 프로그램’을 성황리에 마쳤다고 22일 밝혔다. 이번 프로그램은 지난달 19일부터 지난 17일까지 모두 4차례에 걸쳐 진행됐다. 특히 이번 캠프에는 동아대에 재학 중인 외국인 유학생 480여 명이 대거 참가, 제주 자연과 문화를 체험하며 한국 생활에 대한 이해를 넓히는 시간을 가졌다.', date: '2026.06.22', img: 'uploads/d95935cddd7f4d37a8e2cf27bd471399 (1).jpeg' },
+    { title: '동아대, 외국인 유학생 ‘K-Culture School: 자기주도 정주 설계 캠프’ 성료', desc: '동아대학교(총장 이해우)는 외국인 유학생들의 성공적인 한국 사회 안착과 지역 정주를 지원하기 위한 ‘K-Culture School: 자기주도 정주 설계 캠프 제주 프로그램’을 성황리에 마쳤다고 22일 밝혔다. 이번 프로그램은 지난달 19일부터 지난 17일까지 모두 4차례에 걸쳐 진행됐다. 특히 이번 캠프에는 동아대에 재학 중인 외국인 유학생 480여 명이 대거 참가, 제주 자연과 문화를 체험하며 한국 생활에 대한 이해를 넓히는 시간을 가졌다.', date: '2026.06.22', img: 'uploads/d95935cddd7f4d37a8e2cf27bd471399 (1).jpeg' }
+  ];
+  const DATA = { news: NEWS, people: PEOPLE, research: RESEARCH, student: STUDENT, global: GLOBAL };
 
   const titleEl = slider.querySelector('[data-nf-title]');
   const descEl = slider.querySelector('[data-nf-desc]');
@@ -877,21 +891,41 @@ document.querySelectorAll('a[href="#"]').forEach((a) => {
   };
   const applyDataset = (data) => {
     current = data;
+    // 빈 카테고리: 패널 전부 숨기고 "준비 중" 안내
+    if (!data.length) {
+      panels.forEach((p) => { p.style.display = 'none'; });
+      if (prevBtn) prevBtn.style.display = 'none';
+      if (nextBtn) nextBtn.style.display = 'none';
+      titleEl.textContent = '준비 중입니다.';
+      descEl.textContent = '';
+      dateEl.textContent = '';
+      return;
+    }
+    // 데이터 개수만큼만 패널 노출 (부족분 숨김 → 이미지 복제 안 함)
     panels.forEach((p, k) => {
-      const img = p.querySelector('img');
-      if (img && data[k]) img.src = data[k].img;
+      if (data[k]) {
+        p.style.display = '';
+        const img = p.querySelector('img');
+        if (img) img.src = data[k].img;
+      } else {
+        p.style.display = 'none';
+      }
     });
+    // 항목이 1개면 화살표(이전/다음) 숨김
+    const hasNav = data.length > 1;
+    if (prevBtn) prevBtn.style.display = hasNav ? '' : 'none';
+    if (nextBtn) nextBtn.style.display = hasNav ? '' : 'none';
     setActive(0);
   };
-  panels.forEach((p, k) => p.addEventListener('click', () => setActive(k)));
+  panels.forEach((p, k) => p.addEventListener('click', () => { if (current[k]) setActive(k); }));
   slider.querySelectorAll('[data-nf-dir]').forEach((el) => {
     el.addEventListener('click', () => setActive(idx + (el.dataset.nfDir === 'prev' ? -1 : 1)));
   });
-  // 제목 라인 탭(동아뉴스/동아피플) → 데이터셋 전환
+  // 제목 라인 탭(news/people/research/student/global) → 데이터셋 전환
   document.querySelectorAll('.nf-tab').forEach((tab) => {
     tab.addEventListener('click', () => {
       document.querySelectorAll('.nf-tab').forEach((t) => t.classList.toggle('is-active', t === tab));
-      applyDataset(DATA[tab.textContent.trim()] || NEWS);
+      applyDataset(DATA[tab.textContent.trim().toLowerCase()] || NEWS);
     });
   });
   applyDataset(NEWS);   // 초기 로드 시 텍스트 + 이미지를 데이터에서 채움
